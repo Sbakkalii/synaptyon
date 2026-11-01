@@ -14,11 +14,10 @@ hero:
   kicker: "SynaptYon // Document Intelligence"
   title: "Document AI that remembers."
   lead: >-
-    From the first scan to the last answer: SynaptYon captures, reads,
-    classifies, extracts, answers and summarises business, financial and
-    historical documents, on a memory that keeps what it reads, cites where
-    it came from and forgets on request.
-  reassure: "17 products · one chain · built on published research"
+    From the first scan to the last answer. SynaptYon reads, extracts and
+    answers questions on business, financial and historical documents, and
+    remembers what it learned, with a source for every fact.
+  reassure: "Four products · one chain · backed by published research"
 
 # Fig. 3 of the paper: six lifecycle operations over the state, with the
 # provenance ledger as an invariant underneath all of them.
@@ -128,7 +127,7 @@ commitments:
 cockpit:
   kicker: "The harness // simulated"
   title: "What the harness reports."
-  sub: "This is how Anamnesis reports a memory system: the same model on the same future documents, warm, retrieval-only and cold, with the five metrics side by side."
+  sub: "This is how every pilot is reported: the same model on the same future documents, warm, retrieval-only and cold, with the five metrics side by side."
   note: "Simulation from the paper's Eq. (11)–(12), (17) and (18). Every parameter is illustrative; these are not measurements of any system."
   families:
     - id: contracts
@@ -252,23 +251,10 @@ name:
   gloss: "Greek: a joining together, a conjunction. Also the root of “synapse”, where one neuron hands a signal to the next."
   body: "The paper's target is a conjunction too: <span class=\"math\">C*</span> asks for multimodal evidence, document structure, persistence, temporal validity, provenance and governance at once, and no existing paradigm has all six."
   products:
-    - { id: agora, root: "ἀγορά", gloss: "the gathering place" }
-    - { id: grammata, root: "γράμματα", gloss: "letters" }
-    - { id: morphe, root: "μορφή", gloss: "form, shape" }
-    - { id: taxis, root: "τάξις", gloss: "order, arrangement" }
-    - { id: kleis, root: "κλείς", gloss: "key" }
-    - { id: onoma, root: "ὄνομα", gloss: "name" }
-    - { id: pistis, root: "πίστις", gloss: "trust" }
-    - { id: sibyl, root: "Σίβυλλα", gloss: "the oracle who answered" }
-    - { id: heuresis, root: "εὕρεσις", gloss: "finding, discovery" }
-    - { id: epitome, root: "ἐπιτομή", gloss: "abridgment" }
-    - { id: hermeneus, root: "ἑρμηνεύς", gloss: "interpreter" }
-    - { id: mnemos, root: "μνήμη", gloss: "memory" }
-    - { id: argus, root: "Ἄργος", gloss: "the hundred-eyed watchman" }
-    - { id: chronos, root: "χρόνος", gloss: "time" }
-    - { id: ariadne, root: "Ἀριάδνη", gloss: "her thread led out of the labyrinth" }
-    - { id: lethe, root: "Λήθη", gloss: "the river of forgetting" }
-    - { id: anamnesis, root: "ἀνάμνησις", gloss: "recollection" }
+    - { id: grammata, name: "Grammata", root: "γράμματα", gloss: "letters" }
+    - { id: kleis, name: "Kleis", root: "κλείς", gloss: "key" }
+    - { id: sibyl, name: "Sibyl", root: "Σίβυλλα", gloss: "the oracle who answered" }
+    - { id: mnemos, name: "Mnemos", root: "μνήμη", gloss: "memory" }
 
 people:
   kicker: "The people // behind the state"

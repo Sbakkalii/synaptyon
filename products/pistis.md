@@ -1,7 +1,6 @@
 ---
-layout: product
-product: pistis
-title: "Pistis · Document trust & consistency"
-description: "Pistis by SynaptYon: document trust & consistency for Document AI. Is this document what it claims to be?"
+layout: redirect
+title: "Kleis"
+target: /products/kleis/#pistis
 permalink: /products/pistis/
 ---

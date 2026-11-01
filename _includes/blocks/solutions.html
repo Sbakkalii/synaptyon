@@ -8,7 +8,7 @@
     <h3 class="sol__title">{{ so.name }}</h3>
     <p class="sol__ex">{{ so.examples }}</p>
     <ul class="sol__list">{% for pt in so.points %}<li>{{ pt }}</li>{% endfor %}</ul>
-    <p class="sol__uses"><span>Uses</span>{% for pid in so.products %}{% assign sp = pd.products | where: "id", pid | first %}<a href="{{ '/products/' | append: pid | append: '/' | relative_url }}">{{ sp.name }}</a>{% endfor %}</p>
+    <p class="sol__uses"><span>Uses</span>{% for c in pd.chain %}{% assign hit = false %}{% for pid in so.products %}{% if c.products contains pid %}{% assign hit = true %}{% endif %}{% endfor %}{% if hit %}<a href="{{ '/products/' | append: c.slug | append: '/' | relative_url }}">{{ c.name }} · {{ c.label }}</a>{% endif %}{% endfor %}</p>
   </article>
   {%- endfor %}
 </div>

@@ -1,7 +1,6 @@
 ---
-layout: product
-product: taxis
-title: "Taxis · Classification & routing"
-description: "Taxis by SynaptYon: classification & routing for Document AI. Know what it is before you read it."
+layout: redirect
+title: "Kleis"
+target: /products/kleis/#taxis
 permalink: /products/taxis/
 ---

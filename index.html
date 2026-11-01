@@ -64,13 +64,13 @@ body_class: "home"
   <div class="container">
     <header class="sec__head sec__head--split" data-reveal>
       <div>
-        <p class="kicker">The chain // ingestion to application</p>
-        <h2 class="sec__title" id="chain-h">Every step of Document Intelligence.</h2>
+        <p class="kicker">Products // read · extract · ask · remember</p>
+        <h2 class="sec__title" id="chain-h">Four products. The whole chain.</h2>
       </div>
-      <p class="sec__sub">Seventeen products in five stages, from the scan that arrives in a mailbox to the answer an analyst acts on. Adopt one, or the whole chain: they share one state.</p>
+      <p class="sec__sub">Read every page, extract the data you need, ask questions with sources, and keep what was learned for the next document. Start with one, or run all four together.</p>
     </header>
     {% include blocks/chain.html %}
-    <p class="chain__more" data-reveal><a class="btn btn--line btn--sm" href="{{ '/products/' | relative_url }}">All products, inputs and outputs →</a></p>
+    <p class="chain__more" data-reveal><a class="btn btn--line btn--sm" href="{{ '/products/' | relative_url }}">Compare the four products →</a></p>
   </div>
 </section>
 
@@ -82,7 +82,7 @@ body_class: "home"
         <p class="kicker">Live demo // one document, every stage</p>
         <h2 class="sec__title" id="pipeline-h">Watch a document go through.</h2>
       </div>
-      <p class="sec__sub">An invoice, a bank statement, a 19th-century register and a handwritten prescription, all fictional. Step through what each product returns, or run the whole chain.</p>
+      <p class="sec__sub">An invoice, a bank statement, a 19th-century register and a handwritten prescription, all fictional. Step through what each product returns, or run it end to end.</p>
     </header>
     <div data-reveal>{% include components/pipeline.html uid="home" %}</div>
   </div>
@@ -135,14 +135,14 @@ body_class: "home"
         <span class="brick__name">{{ st.name }}</span>
         <span class="brick__verbs">{{ st.verbs }}</span>
         <span class="brick__promise">{{ st.promise }}</span>
-        <span class="brick__prod">{% include emblem.html id=prod.id uid=st.id class="brick__emblem" %}{{ prod.name }}</span>
+        <span class="brick__prod">{% include emblem.html id=prod.id uid=st.id class="brick__emblem" %}{{ prod.role }}</span>
       </button>
       {%- endfor %}
     </div>
 
     <div class="bricks__rail" data-reveal>
       <span class="bricks__rail-line" aria-hidden="true"></span>
-      <p><span class="math">{% include math.html text=sy.lifecycle.rail.symbol %}</span> <b>{{ sy.lifecycle.rail.name }}</b> · {{ sy.lifecycle.rail.body }} <a href="{{ '/products/ariadne/' | relative_url }}">Ariadne →</a></p>
+      <p><span class="math">{% include math.html text=sy.lifecycle.rail.symbol %}</span> <b>{{ sy.lifecycle.rail.name }}</b> · {{ sy.lifecycle.rail.body }} <a href="{% include feature-url.html id="ariadne" %}">Source tracing →</a></p>
     </div>
 
     {%- for st in sy.lifecycle.steps %}{% assign prod = pd.products | where: "id", st.product | first %}
@@ -158,7 +158,7 @@ body_class: "home"
       </ul>
       <div class="bpanel__out">
         <p><span class="bpanel__out-k">You get</span> {{ st.outcome }}</p>
-        <a class="btn btn--line btn--sm" href="{{ '/products/' | append: prod.id | append: '/' | relative_url }}">{{ prod.name }} · {{ prod.role }} →</a>
+        <a class="btn btn--line btn--sm" href="{% include feature-url.html id=prod.id %}">{% include feature-name.html id=prod.id %} →</a>
       </div>
     </div>
     {%- endfor %}
@@ -209,7 +209,7 @@ body_class: "home"
           <p>{{ e.body }}</p>
           <ol>{% for s in e.steps %}<li>{{ s }}</li>{% endfor %}</ol>
           <p class="svc__out"><span>You leave with</span> {{ e.outcome }}</p>
-          <p class="svc__uses">Uses <a href="{{ '/products/' | append: ep.id | append: '/' | relative_url }}">{{ ep.name }}</a> · <a href="#contact">Ask about it</a></p>
+          <p class="svc__uses"><a href="#contact">Ask about it →</a></p>
         </div>
       </details>
       {%- endfor %}
@@ -232,8 +232,8 @@ body_class: "home"
     </div>
     <p class="name__body" data-reveal>{{ sy.name.body }}</p>
     <ul class="name__products">
-      {%- for np in sy.name.products %}{% assign p = pd.products | where: "id", np.id | first %}
-      <li data-reveal style="--i: {{ forloop.index0 }}"><a href="{{ '/products/' | append: p.id | append: '/' | relative_url }}"><b>{{ p.name }}</b><span lang="grc">{{ np.root }}</span><small>{{ np.gloss }}</small></a></li>
+      {%- for np in sy.name.products %}
+      <li data-reveal style="--i: {{ forloop.index0 }}"><a href="{{ '/products/' | append: np.id | append: '/' | relative_url }}"><b>{{ np.name }}</b><span lang="grc">{{ np.root }}</span><small>{{ np.gloss }}</small></a></li>
       {%- endfor %}
     </ul>
   </div>
@@ -295,7 +295,7 @@ body_class: "home"
         <label for="cf-topic">Interested in</label>
         <select id="cf-topic" name="topic">
           {%- for e in sy.engagements.items %}<option>{{ e.kicker }}</option>{% endfor %}
-          {%- for p in pd.products %}<option>{{ p.name }} · {{ p.role }}</option>{% endfor %}
+          {%- for c in pd.chain %}<option>{{ c.name }} · {{ c.label }}</option>{% endfor %}
         </select>
       </div>
       <div class="field"><label for="cf-msg">Your documents, your question</label><textarea id="cf-msg" name="message" rows="4" required></textarea></div>

@@ -6,7 +6,7 @@
     {% include emblem.html id=cp.id uid="commit" class="commit__emblem" %}
     <h3>{{ c.title }}</h3>
     <p>{{ c.body }}</p>
-    <a href="{{ '/products/' | append: cp.id | append: '/' | relative_url }}">{{ cp.name }} · {{ cp.role }} →</a>
+    <a href="{% include feature-url.html id=cp.id %}">{% include feature-name.html id=cp.id %} →</a>
   </li>
   {%- endfor %}
 </ul>

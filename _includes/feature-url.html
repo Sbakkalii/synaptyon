@@ -1,0 +1,3 @@
+{%- comment -%}URL of a feature: its product page with the feature's anchor. {% include feature-url.html id="argus" %}{%- endcomment -%}
+{%- assign fu_c = nil -%}{%- for c in site.data.products.chain -%}{%- if c.products contains include.id -%}{%- assign fu_c = c -%}{%- endif -%}{%- endfor -%}
+{{ '/products/' | append: fu_c.slug | append: '/' | relative_url }}#{{ include.id }}

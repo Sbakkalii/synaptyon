@@ -1,8 +1,8 @@
 {%- comment -%}
   Pipeline explorer: one fictional document (site.data.pipeline) through the
   whole chain, stage by stage, with the output each product would produce.
-  Each stage's product name, role and chain stage come from
-  site.data.products, so nothing in the script names a product.
+  Each stage's product, feature and step come from site.data.products
+  (chain and products), so nothing in the script names a product.
 
   Parameters (all optional):
     stage  initial stage id, one of the products' demo_stage values (default: ingest)
@@ -26,7 +26,7 @@
   {%- assign p = pd.products | where: "id", st.product | first -%}
   {%- assign grp = nil -%}
   {%- for c in pd.chain -%}{%- if c.products contains st.product -%}{%- assign grp = c -%}{%- endif -%}{%- endfor -%}
-  {%- capture item -%}{"id": {{ st.id | jsonify }}, "name": {{ st.name | jsonify }}, "group": {{ grp.id | jsonify }}, "groupName": {{ grp.name | jsonify }}, "product": {"id": {{ p.id | jsonify }}, "name": {{ p.name | jsonify }}, "role": {{ p.role | jsonify }}, "url": {{ products_url | append: p.id | append: "/" | jsonify }}}}{%- endcapture -%}
+  {%- capture item -%}{"id": {{ st.id | jsonify }}, "name": {{ st.name | jsonify }}, "group": {{ grp.id | jsonify }}, "groupName": {{ grp.label | append: " · " | append: grp.name | jsonify }}, "product": {"id": {{ p.id | jsonify }}, "name": {{ grp.name | jsonify }}, "role": {{ p.role | jsonify }}, "url": {{ products_url | append: grp.slug | append: "/#" | append: p.id | jsonify }}}}{%- endcapture -%}
   {%- assign pl_stages = pl_stages | push: item -%}
 {%- endfor -%}
 <figure class="c-pipeline" data-component="pipeline" id="pipeline-{{ pl_uid }}" aria-labelledby="pipeline-{{ pl_uid }}-label">
@@ -44,7 +44,7 @@
       <tbody>
         {%- for st in pl.stages %}
         {%- assign p = pd.products | where: "id", st.product | first %}
-        <tr><th scope="row"><span class="c-pipeline__s-n">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span> {{ st.name | escape }}</th><td><a href="{{ products_url }}{{ p.id }}/">{{ p.name | escape }}</a> <span class="c-pipeline__s-role">{{ p.role | escape }}</span></td><td>{{ pl_doc.out[st.id].brief | escape }}</td></tr>
+        <tr><th scope="row"><span class="c-pipeline__s-n">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span> {{ st.name | escape }}</th><td><a href="{% include feature-url.html id=p.id %}">{% include feature-name.html id=p.id %}</a></td><td>{{ pl_doc.out[st.id].brief | escape }}</td></tr>
         {%- endfor %}
       </tbody>
     </table>

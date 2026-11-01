@@ -1,7 +1,6 @@
 ---
-layout: product
-product: agora
-title: "Agora · Ingestion & capture"
-description: "Agora by SynaptYon: ingestion & capture for Document AI. Every document, one front door."
+layout: redirect
+title: "Grammata"
+target: /products/grammata/#agora
 permalink: /products/agora/
 ---

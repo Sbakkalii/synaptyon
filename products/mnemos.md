@@ -1,7 +1,7 @@
 ---
 layout: product
 product: mnemos
-title: "Mnemos · Document memory"
-description: "Mnemos by SynaptYon: document memory for Document AI. Documents, remembered."
+title: "Mnemos · Remember"
+description: "Mnemos by SynaptYon. Document AI that gets better with every document. A memory of your documents you can trust, audit and erase."
 permalink: /products/mnemos/
 ---

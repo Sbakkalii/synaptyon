@@ -1,7 +1,7 @@
 ---
 layout: product
 product: kleis
-title: "Kleis · Key information extraction"
-description: "Kleis by SynaptYon: key information extraction for Document AI. The fields you need, with the box they came from."
+title: "Kleis · Extract"
+description: "Kleis by SynaptYon. The data you need, from any document. Typed, checked fields your systems can use, each with its source."
 permalink: /products/kleis/
 ---

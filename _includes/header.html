@@ -20,27 +20,27 @@
               <li><a class="mega__row" href="{{ '/' | relative_url }}#op-{{ st.id }}">
                 <span class="mega__num">{{ st.num }}</span>
                 <span class="mega__txt"><b>{{ st.name }}</b><span>{{ st.promise }}</span></span>
-                <span class="mega__tag">{{ prod.name }}</span>
+                <span class="mega__tag">{{ prod.role }}</span>
               </a></li>
               {%- endfor %}
             </ol>
-            <p class="mega__foot"><span class="math">{% include math.html text=sy.lifecycle.rail.symbol %}</span> {{ sy.lifecycle.rail.name }}: invariant under every operation · <a href="{{ '/products/ariadne/' | relative_url }}">Ariadne</a></p>
+            <p class="mega__foot"><span class="math">{% include math.html text=sy.lifecycle.rail.symbol %}</span> {{ sy.lifecycle.rail.name }}: invariant under every operation · <a href="{% include feature-url.html id="ariadne" %}">Mnemos · Source tracing</a></p>
           </div>
           {%- elsif item.mega == "products" %}
-          <div class="mega mega--wide" role="group" aria-label="Products, by stage of the chain">
-            <div class="mega__cols">
+          <div class="mega mega--wide" role="group" aria-label="The four products">
+            <div class="mega__cols mega__cols--4">
               {%- for c in pd.chain %}
               <div class="mega__col">
-                <a class="mega__colhead" href="{{ '/products/' | relative_url }}#{{ c.id }}"><span class="mega__num">{{ forloop.index | prepend: "0" }}</span> {{ c.name }}</a>
+                <a class="mega__colhead" href="{{ '/products/' | append: c.slug | append: '/' | relative_url }}">{% include emblem.html id=c.slug uid="mh" class="mega__emblem" %}<span><span class="mega__num">{{ c.label }}</span><b>{{ c.name }}</b></span></a>
                 <ul>
-                  {%- for pid in c.products %}{% assign p = pd.products | where: "id", pid | first %}
-                  <li><a class="mega__prod" href="{{ '/products/' | append: p.id | append: '/' | relative_url }}"><b>{{ p.name }}</b><span>{{ p.role }}</span></a></li>
+                  {%- for fid in c.products %}{% assign f = pd.products | where: "id", fid | first %}
+                  <li><a class="mega__prod" href="{% include feature-url.html id=fid %}">{{ f.role }}</a></li>
                   {%- endfor %}
                 </ul>
               </div>
               {%- endfor %}
             </div>
-            <p class="mega__foot"><a href="{{ '/products/' | relative_url }}">All {{ pd.products | size }} products</a> · <a href="{{ '/products/' | relative_url }}#solutions">Solutions by document type</a> · none is generally available yet</p>
+            <p class="mega__foot"><a href="{{ '/products/' | relative_url }}">Compare the four products</a> · <a href="{{ '/products/' | relative_url }}#solutions">Solutions by document type</a></p>
           </div>
           {%- endif %}
         </li>

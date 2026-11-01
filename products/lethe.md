@@ -1,7 +1,6 @@
 ---
-layout: product
-product: lethe
-title: "Lethe · Verifiable deletion"
-description: "Lethe by SynaptYon: verifiable deletion for Document AI. Forget on request, and prove it."
+layout: redirect
+title: "Mnemos"
+target: /products/mnemos/#lethe
 permalink: /products/lethe/
 ---

@@ -1,7 +1,6 @@
 ---
-layout: product
-product: onoma
-title: "Onoma · Named entities & linking"
-description: "Onoma by SynaptYon: named entities & linking for Document AI. Who, what, where and when, across documents."
+layout: redirect
+title: "Kleis"
+target: /products/kleis/#onoma
 permalink: /products/onoma/
 ---

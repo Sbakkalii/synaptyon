@@ -1,5 +1,5 @@
 {%- comment -%}
-  Heuresis and Sibyl demo (SynaptYon copy of the founder site's MTRACE
+  Sibyl search demo (SynaptYon copy of the founder site's MTRACE
   prototype): grounded, time-aware search and question answering over the
   fictional passages of _data/demo.yml. An illustration, not the product. Without JavaScript it lists
   the suggested questions and the collection, grouped by document, with the
@@ -14,7 +14,7 @@
 {%- for d in docs -%}{%- assign dps = demo.passages | where: "doc", d.id -%}{%- if dps.size > 0 -%}{%- assign n_docs = n_docs | plus: 1 -%}{%- endif -%}{%- endfor -%}
 <figure class="figure c-search-demo" data-component="search-demo" id="{{ uid }}" aria-labelledby="{{ uid }}-label">
   <div class="figure__head">
-    <p class="figure__label" id="{{ uid }}-label"><b>Heuresis + Sibyl</b> · grounded search · cite, or abstain</p>
+    <p class="figure__label" id="{{ uid }}-label"><b>Sibyl</b> · search and answers · cite, or abstain</p>
     <div class="cluster c-search-demo__badges">
       <span class="badge badge--accent js-only">Interactive</span>
       <span class="badge">Illustrative</span>

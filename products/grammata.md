@@ -1,7 +1,7 @@
 ---
 layout: product
 product: grammata
-title: "Grammata · OCR & handwriting recognition"
-description: "Grammata by SynaptYon: ocr & handwriting recognition for Document AI. Print, handwriting, and the scripts others skip."
+title: "Grammata · Read"
+description: "Grammata by SynaptYon. Every page, read: printed or handwritten, new or centuries old. Clean text and structure for every page, with a confidence for every word."
 permalink: /products/grammata/
 ---

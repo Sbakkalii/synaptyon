@@ -13,7 +13,7 @@
       <h2 class="site-footer__h">Products</h2>
       <ul>
         {%- for c in pd.chain %}
-        <li><a href="{{ '/products/' | relative_url }}#{{ c.id }}">{{ c.name }}</a> <span class="site-footer__sub">{% for pid in c.products %}{% assign p = pd.products | where: "id", pid | first %}{{ p.name }}{% unless forloop.last %} · {% endunless %}{% endfor %}</span></li>
+        <li><a href="{{ '/products/' | append: c.slug | append: '/' | relative_url }}">{{ c.name }}</a> <span class="site-footer__sub">{{ c.label }}</span></li>
         {%- endfor %}
       </ul>
     </div>

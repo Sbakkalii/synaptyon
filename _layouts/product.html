@@ -2,100 +2,119 @@
 layout: default
 body_class: product-page
 ---
+{%- comment -%}
+  A product page: one of the four products in site.data.products.chain
+  (front matter `product: <slug>`), with its features (entries of
+  site.data.products.products) as anchored blocks.
+{%- endcomment -%}
 {%- assign pd = site.data.products -%}
 {%- assign paper = site.data.paper -%}
-{%- assign p = pd.products | where: "id", page.product | first -%}
-{%- assign st = pd.statuses[p.status] -%}
-{%- assign stage = pd.chain | where: "id", p.layer | first -%}
-{%- assign count = pd.products | size -%}
-{%- for q in pd.products %}{% if q.id == p.id %}{% assign idx = forloop.index0 %}{% endif %}{% endfor -%}
+{%- assign c = pd.chain | where: "slug", page.product | first -%}
+{%- assign st = pd.statuses[c.status] -%}
+{%- assign count = pd.chain | size -%}
+{%- for q in pd.chain %}{% if q.slug == c.slug %}{% assign idx = forloop.index0 %}{% endif %}{% endfor -%}
 {%- assign prev_i = idx | minus: 1 | plus: count | modulo: count -%}
 {%- assign next_i = idx | plus: 1 | modulo: count -%}
-{%- assign prev = pd.products[prev_i] -%}
-{%- assign next = pd.products[next_i] -%}
-{%- capture ask_href -%}mailto:{{ site.contact_email }}?subject={{ 'SynaptYon · early access · ' | append: p.name | url_encode }}{%- endcapture -%}
+{%- assign prev = pd.chain[prev_i] -%}
+{%- assign next = pd.chain[next_i] -%}
+{%- capture ask_href -%}mailto:{{ site.contact_email }}?subject={{ 'SynaptYon · ' | append: c.name | url_encode }}{%- endcapture -%}
 
 <section class="p-hero" aria-labelledby="p-h">
   <div class="hero__bg" aria-hidden="true"></div>
   <div class="container p-hero__inner">
     <div class="p-hero__copy">
-      <p class="kicker"><a href="{{ '/products/' | relative_url }}">Products</a> // <a href="{{ '/products/' | relative_url }}#{{ stage.id }}">{{ stage.name }}</a> · {{ idx | plus: 1 }} of {{ count }}</p>
+      <p class="kicker"><a href="{{ '/products/' | relative_url }}">Products</a> // {{ idx | plus: 1 }} of {{ count }} · {{ c.label }}</p>
       <div class="p-hero__name">
-        <h1 id="p-h">{{ p.name }}</h1>
+        <h1 id="p-h">{{ c.name }}</h1>
         <span class="status status--{{ st.tone }}">{{ st.label }}</span>
       </div>
-      <p class="p-hero__role">{{ p.role }}</p>
-      <p class="p-hero__tagline">{{ p.tagline }}</p>
-      <p class="p-hero__pitch">{{ p.pitch }}</p>
+      <p class="p-hero__tagline">{{ c.tagline }}</p>
+      <p class="p-hero__pitch">{{ c.pitch }}</p>
       <div class="hero__ctas">
         <a class="btn btn--grad" href="#demo">See it work</a>
-        <a class="btn btn--line" href="{{ ask_href }}">Request early access</a>
+        <a class="btn btn--line" href="{{ ask_href }}">Talk to us about {{ c.name }}</a>
       </div>
     </div>
     <div class="p-hero__vis" aria-hidden="true">
       <span class="p-hero__halo"></span>
-      {% include emblem.html id=p.id uid="hero" class="p-hero__emblem is-live" %}
+      {% include emblem.html id=c.slug uid="hero" class="p-hero__emblem is-live" %}
     </div>
   </div>
 </section>
 
 <section class="sec sec--tight" aria-labelledby="io-h">
   <div class="container">
-    <h2 class="visually-hidden" id="io-h">Inputs and outputs</h2>
+    <h2 class="visually-hidden" id="io-h">What goes in and what comes out</h2>
     <div class="io" data-reveal>
       <div class="io__col">
-        <p class="kicker kicker--sm">In</p>
-        <ul>{% for x in p.inputs %}<li>{{ x }}</li>{% endfor %}</ul>
+        <p class="kicker kicker--sm">You send</p>
+        <ul>{% for x in c.inputs %}<li>{{ x }}</li>{% endfor %}</ul>
       </div>
       <div class="io__core" aria-hidden="true">
         <span class="io__flow"></span>
-        {% include emblem.html id=p.id uid="io" class="io__emblem" %}
-        <b>{{ p.name }}</b>
+        {% include emblem.html id=c.slug uid="io" class="io__emblem" %}
+        <b>{{ c.name }}</b>
         <span class="io__flow"></span>
       </div>
       <div class="io__col">
-        <p class="kicker kicker--sm">Out</p>
-        <ul>{% for x in p.outputs %}<li>{{ x }}</li>{% endfor %}</ul>
+        <p class="kicker kicker--sm">You get</p>
+        <ul>{% for x in c.outputs %}<li>{{ x }}</li>{% endfor %}</ul>
       </div>
     </div>
-
     <div class="p-meta" data-reveal>
       <div class="p-meta__chain">
-        <p class="kicker kicker--sm">Where it sits in the chain</p>
-        <ol class="minichain">
-          {%- for c in pd.chain %}
-          <li class="{% if c.id == p.layer %}is-on{% endif %}"><a href="{{ '/products/' | relative_url }}#{{ c.id }}"><b>{{ c.name }}</b><span>{% for cid in c.products %}{% assign cp = pd.products | where: "id", cid | first %}{% if cid == p.id %}<strong>{{ cp.name }}</strong>{% else %}{{ cp.name }}{% endif %}{% unless forloop.last %} · {% endunless %}{% endfor %}</span></a></li>
+        <p class="kicker kicker--sm">Where it fits</p>
+        <ol class="minichain minichain--4">
+          {%- for q in pd.chain %}
+          <li class="{% if q.slug == c.slug %}is-on{% endif %}"><a href="{{ '/products/' | append: q.slug | append: '/' | relative_url }}"><b>{{ q.label }}</b><span>{{ q.name }}</span></a></li>
           {%- endfor %}
         </ol>
       </div>
       <div class="p-meta__fam">
         <p class="kicker kicker--sm">Built for</p>
         <ul class="fam-chips">
-          {%- for t in p.doc_types %}{% assign sol = pd.solutions | where: "id", t | first %}
+          {%- for t in c.doc_types %}{% assign sol = pd.solutions | where: "id", t | first %}
           <li><a href="{{ '/products/' | relative_url }}#sol-{{ sol.id }}">{{ sol.name }}</a></li>
           {%- endfor %}
         </ul>
-        <p class="p-meta__for">{{ p.audience }}</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sec sec--alt" aria-labelledby="caps-h">
+<section class="sec sec--alt" aria-labelledby="feat-h">
   <div class="container">
     <header class="sec__head" data-reveal>
-      <p class="kicker">Capabilities</p>
-      <h2 class="sec__title sec__title--md" id="caps-h">What {{ p.name }} does.</h2>
+      <p class="kicker">Inside {{ c.name }} // {{ c.products | size }} features</p>
+      <h2 class="sec__title sec__title--md" id="feat-h">What it does.</h2>
     </header>
-    <ul class="caps-grid">
-      {%- for cap in p.capabilities %}
-      <li class="cap" data-reveal style="--i: {{ forloop.index0 }}">
-        <h3>{{ cap.title }}</h3>
-        <p>{{ cap.body }}</p>
-        <p class="cap__refs"><span class="cap__refs-k">Built on</span>{% for slug in cap.research %}<a href="{{ site.founder_site }}publication/{{ slug }}/">{% include pubname.html slug=slug %}</a>{% endfor %}</p>
-      </li>
+    <div class="feats">
+      {%- for fid in c.products %}{% assign f = pd.products | where: "id", fid | first %}
+      <article class="feat" id="{{ f.id }}" data-reveal style="--i: {{ forloop.index0 }}">
+        <div class="feat__head">
+          {% include emblem.html id=f.id uid="feat" class="feat__emblem" %}
+          <div>
+            <h3>{{ f.role }}</h3>
+            <p class="feat__tagline">{{ f.tagline }}</p>
+          </div>
+        </div>
+        <p class="feat__pitch">{{ f.pitch }}</p>
+        <ul class="feat__caps">
+          {%- for cap in f.capabilities %}
+          <li><b>{{ cap.title }}.</b> {{ cap.body }} <span class="feat__refs">{% for slug in cap.research %}<a href="{{ site.founder_site }}publication/{{ slug }}/">{% include pubname.html slug=slug %}</a>{% endfor %}</span></li>
+          {%- endfor %}
+        </ul>
+        {%- if f.spec %}
+        <details class="feat__tech">
+          <summary>Technical note</summary>
+          <p>{{ f.problem }}</p>
+          <p class="feat__eq"><span class="math">{% include math.html text=f.equation %}</span></p>
+          <ul>{% for s in f.spec %}<li>{{ s.ref }} · {% include math.html text=s.what %}</li>{% endfor %}</ul>
+        </details>
+        {%- endif %}
+      </article>
       {%- endfor %}
-    </ul>
+    </div>
   </div>
 </section>
 
@@ -103,102 +122,27 @@ body_class: product-page
   <div class="container">
     <header class="sec__head sec__head--split" data-reveal>
       <div>
-        <p class="kicker">Try it // illustrative</p>
-        <h2 class="sec__title sec__title--md" id="demo-h">{{ p.name }}, on fictional documents.</h2>
+        <p class="kicker">See it work // illustrative</p>
+        <h2 class="sec__title sec__title--md" id="demo-h">{{ c.name }}, on fictional documents.</h2>
       </div>
-      <p class="sec__sub">The demo runs in your browser on fictional documents or example inputs. It shows what {{ p.name }} does; it is not production software and it measures nothing.</p>
+      <p class="sec__sub">The demo runs in your browser on fictional documents. It shows what {{ c.name }} returns; it is not production software and it measures nothing.</p>
     </header>
-    <div data-reveal>
-      {%- if p.demo == "pipeline" %}
-      {% include components/pipeline.html stage=p.demo_stage uid=p.id %}
-      {%- else %}
-      {% include components/{{ p.demo }}.html %}
-      {%- endif %}
-    </div>
-    {%- if p.id == "anamnesis" %}
-    <div class="p-extra" data-reveal>{% include components/audit.html %}</div>
-    {%- endif %}
+    <div data-reveal>{% include components/pipeline.html stage=c.demo_stage uid=c.slug %}</div>
+    {%- case c.slug %}
+    {%- when "sibyl" %}
+    <div class="p-extra" data-reveal>{% include components/search-demo.html id="sibyl-search" %}</div>
+    {%- when "mnemos" %}
+    <div class="p-extra" data-reveal>{% include components/reconcile.html %}</div>
+    <div class="p-extra" id="evaluation" data-reveal>{% include components/cockpit.html %}</div>
+    {%- endcase %}
   </div>
 </section>
-
-{%- if p.how or p.spec %}
-<section class="sec sec--alt" aria-labelledby="under-h">
-  <div class="container">
-    <header class="sec__head" data-reveal>
-      <p class="kicker">Under the hood</p>
-      <h2 class="sec__title sec__title--md" id="under-h">How {{ p.name }} works.</h2>
-    </header>
-    {%- if p.how %}
-    <ol class="steps">
-      {%- for step in p.how %}
-      <li class="step" data-reveal style="--i: {{ forloop.index0 }}">
-        <span class="step__num">{{ forloop.index | prepend: "0" }}</span>
-        <h3>{{ step.title }}</h3>
-        <p>{{ step.body }}</p>
-      </li>
-      {%- endfor %}
-    </ol>
-    {%- endif %}
-
-    {%- if p.state.size > 0 %}
-    <div class="p-state" data-reveal>
-      <p class="kicker kicker--sm">State components {{ p.name }} maintains</p>
-      <ul>
-        {%- for c in paper.state.components %}{% assign own = p.state | where_exp: "x", "x == c.key" | first %}
-        <li class="{% if own %}is-on{% endif %}" style="--c: var(--st-{{ c.key }})"><span class="math">{% include math.html text=c.symbol %}</span><span>{{ c.name }}</span></li>
-        {%- endfor %}
-      </ul>
-    </div>
-    {%- endif %}
-
-    {%- if p.spec %}
-    <div class="p-problem p-problem--under">
-      <div data-reveal>
-        <p class="kicker kicker--sm">The problem it solves</p>
-        <p class="p-problem__body">{{ p.problem }}</p>
-      </div>
-      <figure class="eqcard" data-reveal>
-        <p class="kicker kicker--sm">Specified as</p>
-        <p class="eqcard__eq"><span class="math">{% include math.html text=p.equation %}</span></p>
-        <figcaption>
-          {%- for s in p.spec %}<span>{{ s.ref }} · {% include math.html text=s.what %}</span>{% endfor %}
-          <a href="{{ pd.paper.url }}">arXiv:{{ pd.paper.arxiv }}</a>
-        </figcaption>
-      </figure>
-    </div>
-    {%- endif %}
-
-    {%- if p.metrics.size > 0 %}
-    <div class="judged" data-reveal>
-      <p class="kicker kicker--sm">Judged by // the harness</p>
-      <ul>
-        {%- for mid in p.metrics %}{% assign m = paper.harness.metrics | where: "id", mid | first %}
-        <li><b>{{ m.abbr }}</b><span class="judged__name">{{ m.name }}</span><span class="math">{% include math.html text=m.equation %}</span><span class="judged__what">{{ m.measures }}</span></li>
-        {%- endfor %}
-      </ul>
-    </div>
-    {%- endif %}
-  </div>
-</section>
-{%- endif %}
 
 <section class="sec sec--tight" aria-labelledby="with-h">
   <div class="container">
-    <header class="sec__head" data-reveal>
-      <p class="kicker">Works with</p>
-      <h2 class="sec__title sec__title--md" id="with-h">One chain, one state.</h2>
-    </header>
-    <ul class="with-grid">
-      {%- for w in p.works_with %}{% assign wp = pd.products | where: "id", w | first %}
-      <li data-reveal style="--i: {{ forloop.index0 }}"><a class="with" href="{{ '/products/' | append: wp.id | append: '/' | relative_url }}">
-        {% include emblem.html id=wp.id uid="with" class="with__emblem" %}
-        <span><b>{{ wp.name }}</b><span>{{ wp.role }}</span></span>
-      </a></li>
-      {%- endfor %}
-    </ul>
     <nav class="pn" aria-label="Other products">
-      <a class="pn__a" href="{{ '/products/' | append: prev.id | append: '/' | relative_url }}" rel="prev"><span>← Previous</span><b>{{ prev.name }}</b></a>
-      <a class="pn__a pn__a--next" href="{{ '/products/' | append: next.id | append: '/' | relative_url }}" rel="next"><span>Next →</span><b>{{ next.name }}</b></a>
+      <a class="pn__a" href="{{ '/products/' | append: prev.slug | append: '/' | relative_url }}" rel="prev"><span>← {{ prev.label }}</span><b>{{ prev.name }}</b></a>
+      <a class="pn__a pn__a--next" href="{{ '/products/' | append: next.slug | append: '/' | relative_url }}" rel="next"><span>{{ next.label }} →</span><b>{{ next.name }}</b></a>
     </nav>
   </div>
 </section>
@@ -206,11 +150,11 @@ body_class: product-page
 <section class="sec cta-band" aria-labelledby="cta-h">
   <div class="container cta-band__inner" data-reveal>
     {% include logo.html id="cta" class="contact__mark" %}
-    <h2 class="sec__title sec__title--md" id="cta-h">Put {{ p.name }} on your documents.</h2>
-    <p class="sec__sub">Early access runs as a pilot on a stream of your own documents, measured before anything goes to production.</p>
+    <h2 class="sec__title sec__title--md" id="cta-h">Try {{ c.name }} on your documents.</h2>
+    <p class="sec__sub">We start with a pilot on a sample of your own documents, measured before anything goes to production.</p>
     <div class="hero__ctas hero__ctas--center">
-      <a class="btn btn--grad" href="{{ ask_href }}">Request early access</a>
-      <a class="btn btn--line" href="{{ '/products/' | relative_url }}">All products</a>
+      <a class="btn btn--grad" href="{{ ask_href }}">Start a pilot</a>
+      <a class="btn btn--line" href="{{ '/products/' | relative_url }}">All four products</a>
     </div>
   </div>
 </section>

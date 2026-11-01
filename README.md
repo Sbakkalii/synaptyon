@@ -4,8 +4,8 @@ Product site for SynaptYon SARL, served by GitHub Pages (Jekyll) at
 https://sbakkalii.github.io/synaptyon/ until a company domain exists. It is a
 preview: every page carries `noindex`.
 
-SynaptYon covers the whole Document Intelligence chain in five stages, with
-17 products. The memory layer (Remember, Measure) implements the architecture
+SynaptYon sells four products that cover the whole Document Intelligence
+chain, built from 17 features. The memory product (Mnemos) implements the architecture
 in [“Amnesia by Design, Memory By Necessity”](https://arxiv.org/abs/2609.32041)
 (Bakkali & Merimi, arXiv:2609.32041).
 

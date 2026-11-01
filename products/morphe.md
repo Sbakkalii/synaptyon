@@ -1,7 +1,6 @@
 ---
-layout: product
-product: morphe
-title: "Morphe · Layout & table structure"
-description: "Morphe by SynaptYon: layout & table structure for Document AI. Regions, reading order, every table cell."
+layout: redirect
+title: "Grammata"
+target: /products/grammata/#morphe
 permalink: /products/morphe/
 ---

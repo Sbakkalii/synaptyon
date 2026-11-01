@@ -1,26 +1,29 @@
 {%- comment -%}
-  The chain in five stages, each with its products (site.data.products.chain).
-  Usage: {% include blocks/chain.html %}; `anchors=true` links each stage to
-  its section on the products page instead of to the products page itself.
+  The four products, in chain order, each with its features
+  (site.data.products.chain). Usage: {% include blocks/chain.html %};
+  `anchors=true` links each card to its section on the products page
+  instead of to the product page.
 {%- endcomment -%}
 {%- assign pd = site.data.products -%}
-<ol class="chain">
-  {%- for c in pd.chain %}
-  <li class="chain__stage chain__stage--{{ c.id }}" data-reveal style="--i: {{ forloop.index0 }}">
-    <a class="chain__head" href="{% if include.anchors %}#{{ c.id }}{% else %}{{ '/products/' | relative_url }}#{{ c.id }}{% endif %}">
-      <span class="chain__num">{{ forloop.index | prepend: "0" }}</span>
-      <b>{{ c.name }}</b>
-      <span>{{ c.verb }}</span>
+<ol class="quad">
+  {%- for c in pd.chain %}{% assign st = pd.statuses[c.status] %}
+  <li class="quad__item quad__item--{{ c.slug }}" data-reveal style="--i: {{ forloop.index0 }}">
+    <a class="quad__card" href="{% if include.anchors %}#{{ c.id }}{% else %}{{ '/products/' | append: c.slug | append: '/' | relative_url }}{% endif %}" aria-labelledby="q-{{ c.slug }}-n q-{{ c.slug }}-l">
+      <div class="quad__shot" aria-hidden="true">
+        <span class="quad__step">{{ forloop.index | prepend: "0" }}</span>
+        <span class="quad__halo"></span>
+        {% include emblem.html id=c.slug uid="quad" class="quad__emblem" %}
+      </div>
+      <div class="quad__body">
+        <p class="quad__label" id="q-{{ c.slug }}-l">{{ c.label }}</p>
+        <div class="quad__top"><h3 id="q-{{ c.slug }}-n">{{ c.name }}</h3><span class="status status--{{ st.tone }}">{{ st.label }}</span></div>
+        <p class="quad__tagline">{{ c.tagline }}</p>
+        <ul class="quad__feats">
+          {%- for fid in c.products %}{% assign f = pd.products | where: "id", fid | first %}<li>{{ f.role }}</li>{% endfor %}
+        </ul>
+        <span class="quad__go">{% if include.anchors %}Details{% else %}Discover {{ c.name }}{% endif %} →</span>
+      </div>
     </a>
-    <ul class="chain__products">
-      {%- for pid in c.products %}{% assign cp = pd.products | where: "id", pid | first %}{% assign cst = pd.statuses[cp.status] %}
-      <li><a href="{{ '/products/' | append: cp.id | append: '/' | relative_url }}">
-        {% include emblem.html id=cp.id uid="chain" class="chain__emblem" %}
-        <span class="chain__txt"><b>{{ cp.name }}</b><span>{{ cp.role }}</span></span>
-        {%- if cp.status == "development" or cp.status == "spec" %}<span class="chain__dot chain__dot--{{ cst.tone }}" title="{{ cst.label }}"><span class="visually-hidden">{{ cst.label }}</span></span>{% endif %}
-      </a></li>
-      {%- endfor %}
-    </ul>
   </li>
   {%- endfor %}
 </ol>
