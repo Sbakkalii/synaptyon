@@ -1,0 +1,62 @@
+{%- if page.url == "/" -%}
+  {%- capture title -%}{{ site.title }} · {{ site.tagline }}{%- endcapture -%}
+{%- else -%}
+  {%- capture title -%}{{ page.title | strip_html }} · {{ site.title }}{%- endcapture -%}
+{%- endif -%}
+{%- assign description = page.description | default: site.description | strip_html | strip_newlines | truncate: 300 -%}
+{%- assign canonical = page.url | replace: "index.html", "" | absolute_url -%}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
+<meta name="description" content="{{ description | escape }}">
+<link rel="canonical" href="{{ canonical }}">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#070a12" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#edf1f8" media="(prefers-color-scheme: light)">
+{%- if site.noindex %}
+<meta name="robots" content="noindex, nofollow">
+{%- endif %}
+
+<script>
+  /* Before first paint: mark JS as available and restore the chosen theme. */
+  (function () {
+    var d = document.documentElement;
+    d.classList.add('js');
+    try {
+      var t = localStorage.getItem('sy-theme');
+      if (t === 'dark' || t === 'light') d.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600&display=swap">
+<link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+<script type="module" src="{{ '/assets/js/site.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
+
+<link rel="icon" href="{{ '/assets/favicon.png' | relative_url }}" sizes="64x64" type="image/png">
+<link rel="apple-touch-icon" href="{{ '/assets/apple-touch-icon.png' | relative_url }}">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:title" content="{{ title | escape }}">
+<meta property="og:description" content="{{ description | escape }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:image" content="{{ '/assets/og-card.png' | absolute_url }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": {{ site.legal_name | jsonify }},
+  "url": {{ '/' | absolute_url | jsonify }},
+  "logo": {{ '/assets/logo.png' | absolute_url | jsonify }},
+  "description": {{ site.description | strip | jsonify }},
+  "email": {{ site.contact_email | jsonify }},
+  "founder": { "@type": "Person", "name": "Souhail Bakkali", "url": {{ site.founder_site | jsonify }} }
+}
+</script>

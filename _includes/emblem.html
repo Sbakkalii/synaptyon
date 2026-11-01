@@ -1,0 +1,61 @@
+{%- comment -%}
+  Product emblems: one line drawing per product, stroked with the brand
+  gradient, drawn on a 120 × 120 grid. Elements with class "em-key" carry the
+  live cyan accent and pulse when the emblem is animated.
+  Usage: {% include emblem.html id="mnemos" uid="card" %}
+{%- endcomment -%}
+{%- assign gid = include.id | append: "-" | append: include.uid | prepend: "em-" -%}
+<svg class="emblem emblem--{{ include.id }} {{ include.class }}" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="{{ gid }}" x1="10" y1="10" x2="110" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00c8ff"/>
+      <stop offset="0.5" stop-color="#3a6bff"/>
+      <stop offset="1" stop-color="#c040ff"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="url(#{{ gid }})" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+  {%- case include.id -%}
+  {%- when "mnemos" %}
+    <path d="M60 14 L100 37 L100 83 L60 106 L20 83 L20 37 Z"/>
+    <path d="M60 30 L86 45 L86 75 L60 90 L34 75 L34 45 Z" opacity=".7"/>
+    <path d="M60 46 L72 53 L72 67 L60 74 L48 67 L48 53 Z" opacity=".45"/>
+    <g class="em-key" stroke="none" fill="currentColor">
+      <circle cx="60" cy="14" r="3.6"/><circle cx="100" cy="37" r="3.6"/><circle cx="100" cy="83" r="3.6"/>
+      <circle cx="60" cy="106" r="3.6"/><circle cx="20" cy="83" r="3.6"/><circle cx="20" cy="37" r="3.6"/>
+    </g>
+  {%- when "argus" %}
+    <path d="M12 60 C30 32 90 32 108 60 C90 88 30 88 12 60 Z"/>
+    <circle cx="60" cy="60" r="15"/>
+    <path d="M60 18 L60 30 M60 90 L60 102" opacity=".55"/>
+    <path d="M22 60 L98 60" opacity=".35" stroke-dasharray="3 5"/>
+    <circle class="em-key" cx="60" cy="60" r="5.5" stroke="none" fill="currentColor"/>
+  {%- when "chronos" %}
+    <path d="M16 46 L70 46" />
+    <path d="M70 46 L70 74" stroke-dasharray="3 4" opacity=".6"/>
+    <path d="M70 74 L104 74"/>
+    <path d="M16 40 L16 52 M104 68 L104 80" opacity=".7"/>
+    <path d="M16 74 L58 74" opacity=".3" stroke-dasharray="2 5"/>
+    <circle cx="60" cy="60" r="44" opacity=".22"/>
+    <g class="em-key" stroke="none" fill="currentColor"><circle cx="70" cy="46" r="4"/><circle cx="70" cy="74" r="4"/></g>
+  {%- when "ariadne" %}
+    <rect x="14" y="16" width="30" height="22" rx="3" opacity=".75"/>
+    <path d="M44 27 C64 27 64 50 44 50 C24 50 24 72 46 72 C70 72 72 92 92 92"/>
+    <rect x="84" y="84" width="22" height="18" rx="3" stroke-dasharray="3 3"/>
+    <g class="em-key" stroke="none" fill="currentColor"><circle cx="44" cy="27" r="3.5"/><circle cx="92" cy="92" r="4.2"/></g>
+  {%- when "lethe" %}
+    <path d="M22 98 L98 98"/>
+    <path d="M28 84 L92 84"/>
+    <path d="M34 70 L86 70" opacity=".8"/>
+    <path d="M40 56 L80 56" opacity=".55" stroke-dasharray="6 5"/>
+    <path d="M46 42 L74 42" opacity=".35" stroke-dasharray="2 6"/>
+    <g class="em-key" stroke="none" fill="currentColor"><circle cx="60" cy="24" r="4"/></g>
+    <circle cx="48" cy="28" r="1.6" opacity=".4"/><circle cx="73" cy="30" r="1.4" opacity=".3"/>
+  {%- when "anamnesis" %}
+    <path d="M16 100 L16 18 M16 100 L106 100" opacity=".5"/>
+    <path d="M18 90 C40 64 62 44 104 32"/>
+    <path d="M18 90 C42 78 68 68 104 60" opacity=".65"/>
+    <path d="M18 90 L104 88" opacity=".35" stroke-dasharray="3 5"/>
+    <g class="em-key" stroke="none" fill="currentColor"><circle cx="104" cy="32" r="4.2"/></g>
+  {%- endcase %}
+  </g>
+</svg>

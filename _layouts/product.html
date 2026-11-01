@@ -1,0 +1,163 @@
+---
+layout: default
+body_class: product-page
+---
+{%- assign pd = site.data.products -%}
+{%- assign paper = site.data.paper -%}
+{%- assign p = pd.products | where: "id", page.product | first -%}
+{%- assign st = pd.statuses[p.status] -%}
+{%- assign count = pd.products | size -%}
+{%- for q in pd.products %}{% if q.id == p.id %}{% assign idx = forloop.index0 %}{% endif %}{% endfor -%}
+{%- assign prev_i = idx | minus: 1 | plus: count | modulo: count -%}
+{%- assign next_i = idx | plus: 1 | modulo: count -%}
+{%- assign prev = pd.products[prev_i] -%}
+{%- assign next = pd.products[next_i] -%}
+
+<section class="p-hero" aria-labelledby="p-h">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="container p-hero__inner">
+    <div class="p-hero__copy">
+      <p class="kicker"><a href="{{ '/#products' | relative_url }}">Products</a> // {{ idx | plus: 1 | prepend: "0" }} of {{ count | prepend: "0" }}</p>
+      <div class="p-hero__name">
+        <h1 id="p-h">{{ p.name }}</h1>
+        <span class="status status--{{ st.tone }}">{{ st.label }}</span>
+      </div>
+      <p class="p-hero__role">{{ p.role }}</p>
+      <p class="p-hero__tagline">{{ p.tagline }}</p>
+      <p class="p-hero__pitch">{{ p.pitch }}</p>
+      <div class="hero__ctas">
+        <a class="btn btn--grad" href="#demo">See it work</a>
+        <a class="btn btn--line" href="mailto:{{ site.contact_email }}?subject={{ 'SynaptYon · ' | append: p.name | url_encode }}">Ask about {{ p.name }}</a>
+      </div>
+    </div>
+    <div class="p-hero__vis" aria-hidden="true">
+      <span class="p-hero__halo"></span>
+      {% include emblem.html id=p.id uid="hero" class="p-hero__emblem is-live" %}
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--tight" aria-labelledby="problem-h">
+  <div class="container p-problem">
+    <div data-reveal>
+      <p class="kicker">The problem</p>
+      <h2 class="sec__title sec__title--md" id="problem-h">Why {{ p.name }} exists.</h2>
+      <p class="p-problem__body">{{ p.problem }}</p>
+      <p class="p-problem__for"><b>For</b> {{ p.audience }}</p>
+    </div>
+    <figure class="eqcard" data-reveal>
+      <p class="kicker kicker--sm">Specified as</p>
+      <p class="eqcard__eq"><span class="math">{% include math.html text=p.equation %}</span></p>
+      <figcaption>
+        {%- for s in p.spec %}<span>{{ s.ref }} · {% include math.html text=s.what %}</span>{% endfor %}
+        <a href="{{ pd.paper.url }}">arXiv:{{ pd.paper.arxiv }}</a>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec sec--alt" aria-labelledby="how-h">
+  <div class="container">
+    <header class="sec__head" data-reveal>
+      <p class="kicker">How it works // {{ p.how | size }} steps</p>
+      <h2 class="sec__title sec__title--md" id="how-h">From document to state.</h2>
+    </header>
+    <ol class="steps">
+      {%- for step in p.how %}
+      <li class="step" data-reveal style="--i: {{ forloop.index0 }}">
+        <span class="step__num">{{ forloop.index | prepend: "0" }}</span>
+        <h3>{{ step.title }}</h3>
+        <p>{{ step.body }}</p>
+      </li>
+      {%- endfor %}
+    </ol>
+    {%- if p.state.size > 0 %}
+    <div class="p-state" data-reveal>
+      <p class="kicker kicker--sm">State components {{ p.name }} maintains</p>
+      <ul>
+        {%- for c in paper.state.components %}{% assign own = p.state | where_exp: "x", "x == c.key" | first %}
+        <li class="{% if own %}is-on{% endif %}" style="--c: var(--st-{{ c.key }})"><span class="math">{% include math.html text=c.symbol %}</span><span>{{ c.name }}</span></li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {%- endif %}
+  </div>
+</section>
+
+<section class="sec" id="demo" aria-labelledby="demo-h">
+  <div class="container">
+    <header class="sec__head sec__head--split" data-reveal>
+      <div>
+        <p class="kicker">Try it // illustrative</p>
+        <h2 class="sec__title sec__title--md" id="demo-h">{{ p.name }}, on fictional documents.</h2>
+      </div>
+      <p class="sec__sub">The demo runs in your browser, on fictional documents or hypothetical inputs. It shows the mechanism the paper specifies; it is not production software and it measures nothing.</p>
+    </header>
+    <div data-reveal>{% include components/{{ p.demo }}.html %}</div>
+    {%- if p.id == "anamnesis" %}
+    <div class="p-extra" data-reveal>{% include components/audit.html %}</div>
+    {%- endif %}
+  </div>
+</section>
+
+<section class="sec sec--alt" aria-labelledby="caps-h">
+  <div class="container">
+    <header class="sec__head" data-reveal>
+      <p class="kicker">Capabilities</p>
+      <h2 class="sec__title sec__title--md" id="caps-h">What {{ p.name }} does.</h2>
+    </header>
+    <ul class="caps-grid">
+      {%- for cap in p.capabilities %}
+      <li class="cap" data-reveal style="--i: {{ forloop.index0 }}">
+        <h3>{{ cap.title }}</h3>
+        <p>{{ cap.body }}</p>
+        <p class="cap__refs">{% for slug in cap.research %}{% assign rr = pd.research | where: "pub", slug | first %}<a href="{{ site.founder_site }}publication/{{ slug }}/">{% if rr %}{{ rr.name }} · {{ rr.venue }}{% elsif slug == "2026-amnesia-by-design" %}Amnesia by Design · arXiv 2026{% else %}Publication{% endif %}</a>{% endfor %}</p>
+      </li>
+      {%- endfor %}
+    </ul>
+
+    {%- if p.metrics.size > 0 %}
+    <div class="judged" data-reveal>
+      <p class="kicker kicker--sm">Judged by // the harness</p>
+      <ul>
+        {%- for mid in p.metrics %}{% assign m = paper.harness.metrics | where: "id", mid | first %}
+        <li><b>{{ m.abbr }}</b><span class="judged__name">{{ m.name }}</span><span class="math">{% include math.html text=m.equation %}</span><span class="judged__what">{{ m.measures }}</span></li>
+        {%- endfor %}
+      </ul>
+    </div>
+    {%- endif %}
+  </div>
+</section>
+
+<section class="sec sec--tight" aria-labelledby="with-h">
+  <div class="container">
+    <header class="sec__head" data-reveal>
+      <p class="kicker">Works with</p>
+      <h2 class="sec__title sec__title--md" id="with-h">One state, shared.</h2>
+    </header>
+    <ul class="with-grid">
+      {%- for w in p.works_with %}{% assign wp = pd.products | where: "id", w | first %}
+      <li data-reveal style="--i: {{ forloop.index0 }}"><a class="with" href="{{ '/products/' | append: wp.id | append: '/' | relative_url }}">
+        {% include emblem.html id=wp.id uid="with" class="with__emblem" %}
+        <span><b>{{ wp.name }}</b><span>{{ wp.role }}</span></span>
+      </a></li>
+      {%- endfor %}
+    </ul>
+    <nav class="pn" aria-label="Other products">
+      <a class="pn__a" href="{{ '/products/' | append: prev.id | append: '/' | relative_url }}" rel="prev"><span>← Previous</span><b>{{ prev.name }}</b></a>
+      <a class="pn__a pn__a--next" href="{{ '/products/' | append: next.id | append: '/' | relative_url }}" rel="next"><span>Next →</span><b>{{ next.name }}</b></a>
+    </nav>
+  </div>
+</section>
+
+<section class="sec cta-band" aria-labelledby="cta-h">
+  <div class="container cta-band__inner" data-reveal>
+    {% include logo.html id="cta" class="contact__mark" %}
+    <h2 class="sec__title sec__title--md" id="cta-h">Start with your documents.</h2>
+    <p class="sec__sub">A statefulness audit tells you where {{ p.name }} would change your results, before anything is built.</p>
+    <div class="hero__ctas hero__ctas--center">
+      <a class="btn btn--grad" href="{{ '/#contact' | relative_url }}">Book an audit</a>
+      <a class="btn btn--line" href="{{ pd.paper.pdf }}">Read the paper</a>
+    </div>
+  </div>
+</section>

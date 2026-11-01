@@ -1,0 +1,8 @@
+/* Overrides for the shared figures, loaded after their stylesheets. */
+
+/* Region tabs on the demo's page thumbnail: solid ink so the 6px labels keep
+   their contrast on both themes; flagged and active regions keep their colour. */
+.c-doc-demo .c-doc-demo__box { --box-c: var(--ink-3); }
+
+/* Header cells of the thumbnail's table sit on the highlighter colour. */
+.c-doc-demo .is-head > .c-doc-demo__p-cell { color: var(--ink-2); }

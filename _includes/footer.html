@@ -1,0 +1,43 @@
+{%- assign sy = site.data.sy -%}
+{%- assign pd = site.data.products -%}
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <a class="brand" href="{{ '/' | relative_url }}">
+        {% include logo.html id="ftr" class="brand__mark" %}
+        <span class="brand__word">Synapt<span>Y</span>on</span>
+      </a>
+      <p>{{ site.tagline }}. Built on <a href="{{ pd.paper.url }}">arXiv:{{ pd.paper.arxiv }}</a>.</p>
+    </div>
+    <div>
+      <h2 class="site-footer__h">Products</h2>
+      <ul>
+        {%- for p in pd.products %}
+        <li><a href="{{ '/products/' | append: p.id | append: '/' | relative_url }}">{{ p.name }}</a></li>
+        {%- endfor %}
+      </ul>
+    </div>
+    <div>
+      <h2 class="site-footer__h">Company</h2>
+      <ul>
+        <li><a href="{{ '/#lifecycle' | relative_url }}">Lifecycle</a></li>
+        <li><a href="{{ '/#proof' | relative_url }}">Proof</a></li>
+        <li><a href="{{ '/#work-with-us' | relative_url }}">Work with us</a></li>
+        <li><a href="{{ '/#name' | relative_url }}">The name</a></li>
+        <li><a href="{{ '/legal/' | relative_url }}">Legal notice</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="site-footer__h">Contact</h2>
+      <ul>
+        <li><a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a></li>
+        <li><a href="{{ site.founder_site }}">Founder's research site</a></li>
+        <li><a href="{{ pd.paper.pdf }}">The paper (PDF)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__base">
+    <span>© {{ site.time | date: "%Y" }} {{ site.legal_name }}</span>
+    <span>Preview site · product names are working names · demos use fictional documents</span>
+  </div>
+</footer>

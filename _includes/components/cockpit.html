@@ -1,0 +1,26 @@
+{%- comment -%}
+  The harness cockpit (home page, #proof): how Anamnesis reports a memory
+  system, simulated from the paper's equations with illustrative parameters
+  per document family (site.data.sy.cockpit). Static baseline: the five
+  metrics and what each compares. assets/js/components/cockpit.js replaces
+  it with the interactive cockpit inside [data-app].
+{%- endcomment -%}
+{%- assign ck = site.data.sy.cockpit -%}
+{%- assign hm = site.data.paper.harness -%}
+<figure class="c-cockpit" data-component="cockpit" id="cockpit" aria-labelledby="cockpit-label">
+  <div class="c-cockpit__bar">
+    <span class="c-cockpit__dot" aria-hidden="true"></span>
+    <span class="c-cockpit__label" id="cockpit-label"><b>Anamnesis</b> · harness cockpit</span>
+    <span class="status status--muted">Simulated</span>
+  </div>
+  <script type="application/json" data-for="cockpit">{"families": {{ ck.families | jsonify }}, "gates": {{ ck.gates | jsonify }}, "delta": {{ ck.delta | jsonify }}, "metrics": {{ hm.metrics | jsonify }}}</script>
+  <div class="c-cockpit__app" data-app hidden></div>
+  <div class="c-cockpit__static" data-static>
+    <ul class="c-cockpit__defs">
+      {%- for m in hm.metrics %}
+      <li><b>{{ m.abbr }}</b> {{ m.name }} <span class="math">{% include math.html text=m.equation %}</span><span>{{ m.measures }}</span></li>
+      {%- endfor %}
+    </ul>
+  </div>
+  <figcaption class="c-cockpit__note">{{ ck.note }}</figcaption>
+</figure>

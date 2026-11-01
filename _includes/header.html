@@ -1,0 +1,58 @@
+{%- assign sy = site.data.sy -%}
+{%- assign pd = site.data.products -%}
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header" data-header>
+  <div class="site-header__inner">
+    <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }}, home">
+      {% include logo.html id="hdr" class="brand__mark" %}
+      <span class="brand__word">Synapt<span>Y</span>on</span>
+    </a>
+
+    <nav class="nav" id="site-nav" aria-label="Main">
+      <ul class="nav__list">
+        {%- for item in sy.nav %}
+        <li class="nav__item{% if item.mega %} has-mega{% endif %}">
+          <a class="nav__link" href="{{ item.href | relative_url }}"{% if item.mega %} aria-haspopup="true"{% endif %}>{{ item.label }}</a>
+          {%- if item.mega == "lifecycle" %}
+          <div class="mega" role="group" aria-label="The six lifecycle operations">
+            <ol class="mega__grid mega__grid--3">
+              {%- for st in sy.lifecycle.steps %}{% assign prod = pd.products | where: "id", st.product | first %}
+              <li><a class="mega__row" href="{{ '/' | relative_url }}#op-{{ st.id }}">
+                <span class="mega__num">{{ st.num }}</span>
+                <span class="mega__txt"><b>{{ st.name }}</b><span>{{ st.promise }}</span></span>
+                <span class="mega__tag">{{ prod.name }}</span>
+              </a></li>
+              {%- endfor %}
+            </ol>
+            <p class="mega__foot"><span class="math">{% include math.html text=sy.lifecycle.rail.symbol %}</span> {{ sy.lifecycle.rail.name }}: invariant under every operation · <a href="{{ '/products/ariadne/' | relative_url }}">Ariadne</a></p>
+          </div>
+          {%- elsif item.mega == "products" %}
+          <div class="mega" role="group" aria-label="Products">
+            <ul class="mega__grid mega__grid--3">
+              {%- for p in pd.products %}{% assign st = pd.statuses[p.status] %}
+              <li><a class="mega__row" href="{{ '/products/' | append: p.id | append: '/' | relative_url }}">
+                {% include emblem.html id=p.id uid="mega" class="mega__emblem" %}
+                <span class="mega__txt"><b>{{ p.name }}</b><span>{{ p.role }}</span></span>
+              </a></li>
+              {%- endfor %}
+            </ul>
+            <p class="mega__foot">Every product implements a section of <a href="{{ pd.paper.url }}">arXiv:{{ pd.paper.arxiv }}</a>. None is generally available yet.</p>
+          </div>
+          {%- endif %}
+        </li>
+        {%- endfor %}
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <button class="icon-btn theme-btn" type="button" data-theme-toggle aria-pressed="true" aria-label="Switch to light theme">
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6Z"/></svg>
+      </button>
+      <a class="btn btn--grad btn--sm header-cta" href="{{ '/#contact' | relative_url }}">Book an audit</a>
+      <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,223 @@
+/* ==========================================================================
+   Design tokens. Dark ink is the brand surface: the logo's cyan-to-violet
+   gradient reads best on it. Visitors whose system asks for light get the
+   light palette unless they chose dark, and the toggle overrides both.
+   The interactive figures (shared with the founder's site) only read these
+   variables, so they follow the theme without changes.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* Surfaces: deep ink, cards float a step lighter. */
+  --bg: #070a12;
+  --bg-2: #0a0f1c;
+  --surface: #0d1322;
+  --surface-2: #111a2d;
+  --surface-3: #172238;
+  --glass: rgba(13, 19, 34, 0.72);
+
+  /* Ink */
+  --ink: #eef2fa;
+  --ink-2: #c3cbdb;
+  --ink-3: #8f9bb4;
+  --line: #1b2640;
+  --line-2: #2a3858;
+  --control: #5f7096;
+
+  /* Brand: the logo's gradient, and a cyan "key" for live signals. */
+  --brand-1: #00c2ff;
+  --brand-2: #2f6bff;
+  --brand-3: #b43cff;
+  --grad: linear-gradient(118deg, var(--brand-1) 0%, var(--brand-2) 50%, var(--brand-3) 100%);
+  --grad-btn: linear-gradient(118deg, #2457e6 0%, #6a45f5 55%, #8a3ffc 100%);
+  --key: #38d2ff;
+  --key-soft: rgba(56, 210, 255, 0.1);
+  --violet: #b88cff;
+
+  --accent: #6cc8ff;
+  --accent-2: #a9b6ff;
+  --accent-soft: #10223d;
+  --on-accent: #04111f;
+
+  --btn-bg: #eef2fa;
+  --btn-ink: #070a12;
+  --btn-bg-hover: #d3dbea;
+
+  --mark: #5a4a08;
+  --mark-ink: #fff1b8;
+
+  --ok: #5cd6a0;
+  --ok-soft: #0f2a22;
+  --warn: #f0b45a;
+  --warn-soft: #2c2210;
+  --bad: #ff8f86;
+  --bad-soft: #33191a;
+
+  /* The six components of the state tuple S_t. */
+  --st-E: #7aa6ff;
+  --st-K: #b896ff;
+  --st-G: #45d0c0;
+  --st-V: #eaa94f;
+  --st-P: #ff86b0;
+  --st-A: #a8b3c4;
+
+  /* Type */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans Math", "Segoe UI Symbol", "Noto Sans Symbols 2", sans-serif;
+  /* Serif only for notation and for the fictional documents in the demos. */
+  --font-serif: "Source Serif 4", "Source Serif Pro", Georgia, Cambria, "Times New Roman", "Noto Sans Math", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --font-math: "Source Serif 4", "Noto Sans Math", "Cambria Math", "STIX Two Math", Georgia, serif;
+
+  --fs-2xs: 0.6875rem;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.0625rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: clamp(1.75rem, 1.35rem + 1.6vw, 2.5rem);
+  --fs-3xl: clamp(2.125rem, 1.5rem + 2.6vw, 3.5rem);
+  --fs-display: clamp(2.6rem, 1.5rem + 4.8vw, 5.4rem);
+
+  --lh-tight: 1.04;
+  --lh-snug: 1.25;
+  --lh-body: 1.6;
+  --tracking-tight: -0.028em;
+  --tracking-caps: 0.16em;
+
+  /* Space (4px base) */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+  --sp-9: 6rem;
+  --section-y: clamp(4.5rem, 3rem + 5vw, 8rem);
+
+  /* Layout */
+  --container: 1200px;
+  --container-wide: 1320px;
+  --measure: 66ch;
+  --gutter: clamp(1rem, 0.55rem + 1.8vw, 2rem);
+  --header-h: 68px;
+
+  /* Shape and depth */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-2: 0 18px 50px -24px rgba(0, 0, 0, 0.7), 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-3: 0 40px 90px -40px rgba(0, 0, 0, 0.85), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --glow: 0 0 0 1px rgba(108, 200, 255, 0.12), 0 30px 80px -40px rgba(47, 107, 255, 0.45);
+
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-1: 120ms;
+  --dur-2: 220ms;
+  --dur-3: 420ms;
+  --dur-4: 700ms;
+
+  --bbox-dash: 5px 4px;
+  --dot-grid: radial-gradient(circle at 1px 1px, rgba(238, 242, 250, 0.07) 1px, transparent 1.4px);
+}
+
+/* Light palette: blue-tinted paper, white cards. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --bg: #edf1f8;
+    --bg-2: #e5eaf4;
+    --surface: #ffffff;
+    --surface-2: #f6f8fc;
+    --surface-3: #ebeff7;
+    --glass: rgba(255, 255, 255, 0.78);
+    --ink: #0a1326;
+    --ink-2: #33405b;
+    --ink-3: #536079;
+    --line: #d5dcea;
+    --line-2: #c0cadd;
+    --control: #78849d;
+    --key: #066e99;
+    --key-soft: rgba(10, 143, 196, 0.08);
+    --violet: #7a3fe0;
+    --accent: #1d56dc;
+    --accent-2: #1744b0;
+    --accent-soft: #e2eafd;
+    --on-accent: #ffffff;
+    --btn-bg: #0a1326;
+    --btn-ink: #ffffff;
+    --btn-bg-hover: #24314d;
+    --mark: #ffe58a;
+    --mark-ink: #3d3000;
+    --ok: #137247;
+    --ok-soft: #e1f3ea;
+    --warn: #8f5600;
+    --warn-soft: #fbefd9;
+    --bad: #b02a22;
+    --bad-soft: #fbe5e3;
+    --st-E: #2c63d6;
+    --st-K: #7244cf;
+    --st-G: #0a7368;
+    --st-V: #995600;
+    --st-P: #b8325f;
+    --st-A: #4f5966;
+    --shadow-1: 0 1px 2px rgba(10, 19, 38, 0.06);
+    --shadow-2: 0 18px 44px -28px rgba(10, 19, 38, 0.28), 0 2px 6px rgba(10, 19, 38, 0.05);
+    --shadow-3: 0 34px 80px -40px rgba(10, 19, 38, 0.32), 0 6px 18px rgba(10, 19, 38, 0.07);
+    --glow: 0 0 0 1px rgba(29, 86, 220, 0.08), 0 30px 70px -44px rgba(29, 86, 220, 0.35);
+    --dot-grid: radial-gradient(circle at 1px 1px, rgba(10, 19, 38, 0.09) 1px, transparent 1.4px);
+  }
+}
+
+/* Explicit choice from the toggle. Keep in sync with the block above. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #edf1f8;
+  --bg-2: #e5eaf4;
+  --surface: #ffffff;
+  --surface-2: #f6f8fc;
+  --surface-3: #ebeff7;
+  --glass: rgba(255, 255, 255, 0.78);
+  --ink: #0a1326;
+  --ink-2: #33405b;
+  --ink-3: #536079;
+  --line: #d5dcea;
+  --line-2: #c0cadd;
+  --control: #78849d;
+  --key: #066e99;
+  --key-soft: rgba(10, 143, 196, 0.08);
+  --violet: #7a3fe0;
+  --accent: #1d56dc;
+  --accent-2: #1744b0;
+  --accent-soft: #e2eafd;
+  --on-accent: #ffffff;
+  --btn-bg: #0a1326;
+  --btn-ink: #ffffff;
+  --btn-bg-hover: #24314d;
+  --mark: #ffe58a;
+  --mark-ink: #3d3000;
+  --ok: #137247;
+  --ok-soft: #e1f3ea;
+  --warn: #8f5600;
+  --warn-soft: #fbefd9;
+  --bad: #b02a22;
+  --bad-soft: #fbe5e3;
+  --st-E: #2c63d6;
+  --st-K: #7244cf;
+  --st-G: #0a7368;
+  --st-V: #995600;
+  --st-P: #b8325f;
+  --st-A: #4f5966;
+  --shadow-1: 0 1px 2px rgba(10, 19, 38, 0.06);
+  --shadow-2: 0 18px 44px -28px rgba(10, 19, 38, 0.28), 0 2px 6px rgba(10, 19, 38, 0.05);
+  --shadow-3: 0 34px 80px -40px rgba(10, 19, 38, 0.32), 0 6px 18px rgba(10, 19, 38, 0.07);
+  --glow: 0 0 0 1px rgba(29, 86, 220, 0.08), 0 30px 70px -44px rgba(29, 86, 220, 0.35);
+  --dot-grid: radial-gradient(circle at 1px 1px, rgba(10, 19, 38, 0.09) 1px, transparent 1.4px);
+}

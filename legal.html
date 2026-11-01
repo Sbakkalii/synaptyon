@@ -1,47 +1,18 @@
-<!DOCTYPE html>
-<html lang="fr" data-theme="dark">
-<head>
-    <meta name="robots" content="noindex, nofollow">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mentions légales, politique de confidentialité et politique de cookies — SynaptYon SARL.">
-    <meta name="theme-color" content="#02051F">
-    <title>Mentions légales — SynaptYon SARL</title>
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <a href="#main" class="skip-link">Aller au contenu principal</a>
-
-    <header class="navbar" id="navbar">
-        <nav class="container nav-container">
-            <a href="index.html" class="logo" aria-label="SynaptYon — Retour à l'accueil">
-                <span class="logo-mark" aria-hidden="true">
-                    <img src="assets/logo.png" alt="" width="30" height="36">
-                </span>
-                <span class="logo-text">Synapt<span class="logo-yon">Yon</span></span>
-            </a>
-        </nav>
-    </header>
-
-    <main id="main" style="padding-top: 6rem;">
-        <section class="section">
-            <div class="container" style="max-width: 800px;">
-                <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 2rem;">Mentions légales</h1><p>Les mentions légales complètes seront publiées avec le lancement officiel du site. / Full legal notice will be published at the official launch.</p></div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="container footer-bottom">
-            <p>© <span id="footerYear">2026</span> <strong>SynaptYon SARL</strong>. Tous droits réservés.</p>
-        </div>
-    </footer>
-
-    <script src="js/main.js" defer></script>
-    <script>if(document.getElementById('footerYear'))document.getElementById('footerYear').textContent=new Date().getFullYear();</script>
-</body>
-</html>
+---
+title: "Legal notice"
+permalink: /legal/
+description: "Legal notice for the SynaptYon preview site."
+---
+<section class="sec">
+  <div class="container prose">
+    <p class="kicker">Legal</p>
+    <h1>Legal notice</h1>
+    <p>This is a preview of the {{ site.legal_name }} website, published on GitHub Pages while the company domain is being set up. The full legal notice (registered office, registration number, publication director, host) will be added before the site leaves preview.</p>
+    <h2>Content</h2>
+    <p>Product names on this site are working names. The products are in development or not yet released; nothing here is an offer. Demonstrations run in your browser on fictional documents and do not measure any system.</p>
+    <h2>Data</h2>
+    <p>This site sets no cookies and runs no analytics. The theme choice is stored in your browser only. The contact form does not send anything: it opens your own email application with the message filled in.</p>
+    <h2>Contact</h2>
+    <p><a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a></p>
+  </div>
+</section>

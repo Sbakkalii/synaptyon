@@ -1,0 +1,25 @@
+{%- comment -%}
+  The SynaptYon mark (hexagonal S), redrawn as vector from assets/logo.png.
+  Usage: {% include logo.html id="hdr" class="brand__mark" %}  `id` keeps the
+  gradient id unique when the mark appears more than once on a page;
+  `bare=true` drops the <svg> wrapper, to place the mark inside another SVG.
+{%- endcomment -%}
+{%- assign gid = include.id | default: "m" | prepend: "sy-grad-" -%}
+{%- unless include.bare %}
+<svg class="{{ include.class }}" viewBox="0 0 1236 1484" aria-hidden="true" focusable="false">
+{%- endunless %}
+  <defs>
+    <linearGradient id="{{ gid }}" x1="0" y1="0" x2="1236" y2="1484" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00c8ff"/>
+      <stop offset="0.5" stop-color="#2f62ff"/>
+      <stop offset="1" stop-color="#c83cff"/>
+    </linearGradient>
+  </defs>
+  <g fill="url(#{{ gid }})">
+    <path d="M5 383 L617 5 L1228 383 L1228 555 L617 178 L148 465 L148 630 L680 972 L590 1077 L30 728 L5 720 Z"/>
+    <path d="M637 458 L1228 820 L1228 1150 L680 1478 L680 1310 L1083 1065 L1083 905 L550 565 Z"/>
+    <path d="M5 975 L548 1310 L548 1478 L5 1150 Z"/>
+  </g>
+{%- unless include.bare %}
+</svg>
+{%- endunless %}

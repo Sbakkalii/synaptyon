@@ -1,604 +1,389 @@
-<!DOCTYPE html>
-<html lang="fr" data-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="SynaptYon SARL — centre d'excellence en IA appliquée : conseil stratégique, intégration et recherche pour des secteurs multiples.">
-    <meta name="theme-color" content="#02051F">
-    <meta name="color-scheme" content="dark light">
-    <meta name="robots" content="noindex, nofollow">
-    <title>SynaptYon SARL — Applied AI Hub</title>
+---
+title: "SynaptYon"
+description: "SynaptYon builds persistent, evidence-grounded memory for Document AI: six products, one per part of the architecture in arXiv:2609.32041. Systems that keep what they read, know where it came from, know when it stops being true, and forget on request."
+body_class: "home"
+---
+{%- assign sy = site.data.sy -%}
+{%- assign pd = site.data.products -%}
+{%- assign paper = site.data.paper -%}
 
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="SynaptYon SARL — IA appliquée : recherche, produits, conseil">
-    <meta property="og:description" content="Studio de recherche appliquée en intelligence artificielle. Nous concevons, développons et industrialisons des solutions d'IA de bout en bout.">
-    <meta property="og:image" content="https://synaptyon.com/assets/og-image.png">
-    <meta property="og:locale" content="fr_FR">
-    <meta property="og:locale:alternate" content="en_US">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SynaptYon SARL — IA appliquée : recherche, produits, conseil">
-    <meta name="twitter:description" content="Studio de recherche appliquée en intelligence artificielle.">
-    <meta name="twitter:image" content="https://synaptyon.com/assets/og-image.png">
-
-    <!-- Structured data (JSON-LD) -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "SynaptYon SARL",
-        "url": "https://synaptyon.com",
-        "logo": "https://synaptyon.com/assets/logo.png",
-        "description": "Studio de recherche appliquée en intelligence artificielle. Nous concevons, développons et industrialisons des solutions d'IA de bout en bout.",
-        "sameAs": [
-            "https://linkedin.com/company/synaptyon"
-        ],
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "email": "souhail.bakkali@irisa.fr",
-            "contactType": "customer service"
-        }
-    }
-    </script>
-
-    <!-- Favicon & touch icons -->
-    <link rel="icon" type="image/png" href="assets/favicon.png">
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-
-    <!-- Skip to content (accessibility) -->
-    <a href="#main" class="skip-link">Aller au contenu principal</a>
-
-    <!-- ===== Loader ===== -->
-    <div class="loader" id="loader" aria-hidden="true">
-        <div class="loader-synapse">
-            <span class="loader-dot"></span>
-            <span class="loader-dot"></span>
-            <span class="loader-dot"></span>
-            <span class="loader-line"></span>
-        </div>
-        <span class="loader-text">SYNAPTYON</span>
+<!-- ============================================================ HERO -->
+<section class="hero" id="top" aria-labelledby="hero-h">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <p class="kicker">{{ sy.hero.kicker }}</p>
+      <h1 class="hero__title" id="hero-h">Document AI <span class="hero__l2">that <span class="grad-text">remembers.</span></span></h1>
+      <p class="hero__lead">{{ sy.hero.lead }}</p>
+      <div class="hero__ctas">
+        <a class="btn btn--grad" href="#products">See the six products</a>
+        <a class="btn btn--line" href="#contact">Book a statefulness audit</a>
+      </div>
+      <p class="hero__reassure"><span class="live-dot" aria-hidden="true"></span>{{ sy.hero.reassure }}</p>
     </div>
 
-    <!-- ===== Scroll progress ===== -->
-    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+    <figure class="hero__vis" aria-labelledby="hero-vis-cap">
+      <svg class="statering" viewBox="0 0 520 520" role="img" aria-labelledby="hero-vis-cap">
+        <defs>
+          <radialGradient id="sr-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#2f6bff" stop-opacity=".35"/>
+            <stop offset=".55" stop-color="#7a3cff" stop-opacity=".10"/>
+            <stop offset="1" stop-color="#000" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="sr-ring" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#00c8ff"/><stop offset=".5" stop-color="#2f62ff"/><stop offset="1" stop-color="#c83cff"/>
+          </linearGradient>
+        </defs>
+        <circle cx="260" cy="260" r="250" fill="url(#sr-glow)"/>
+        <circle class="statering__orbit" cx="260" cy="260" r="196" fill="none" stroke="url(#sr-ring)" stroke-width="1.2" stroke-dasharray="2 9"/>
+        <circle class="statering__orbit statering__orbit--slow" cx="260" cy="260" r="232" fill="none" stroke="url(#sr-ring)" stroke-opacity=".35" stroke-width="1" stroke-dasharray="1 14"/>
+        {%- assign comps = paper.state.components -%}
+        {%- assign pos = "260,64|430,162|430,358|260,456|90,358|90,162" | split: "|" -%}
+        <g class="statering__links">
+          {%- for c in comps %}{% assign xy = pos[forloop.index0] | split: "," %}
+          <line x1="260" y1="260" x2="{{ xy[0] }}" y2="{{ xy[1] }}" style="--c: var(--st-{{ c.key }}); --d: {{ forloop.index0 | times: 0.55 }}s"/>
+          {%- endfor %}
+        </g>
+        <g class="statering__mark" transform="translate(197.5 185) scale(0.101)">{% include logo.html id="hero" bare=true %}</g>
+        {%- for c in comps %}{% assign xy = pos[forloop.index0] | split: "," %}
+        <g class="statering__node" style="--c: var(--st-{{ c.key }}); --d: {{ forloop.index0 | times: 0.55 }}s" transform="translate({{ xy[0] }} {{ xy[1] }})">
+          <circle r="31" class="statering__halo"/>
+          <circle r="24" class="statering__disc"/>
+          <text class="statering__sym" y="1" text-anchor="middle" dominant-baseline="central">{{ c.symbol | split: "_" | first }}<tspan class="statering__sub" dy="7">t</tspan></text>
+        </g>
+        {%- endfor %}
+      </svg>
+      <figcaption id="hero-vis-cap" class="hero__cap">The state <span class="math">{% include math.html text=paper.state.symbol %}</span>: evidence, schemas, relations, validity, provenance and policy, updated together after every document.</figcaption>
+    </figure>
+  </div>
+  <a class="hero__scroll" href="#bottleneck" aria-label="Scroll to the demo"><span aria-hidden="true"></span></a>
+</section>
 
-    <!-- ===== Ambient background ===== -->
-    <div class="ambient" aria-hidden="true">
-        <div class="blob blob-a"></div>
-        <div class="blob blob-b"></div>
-        <div class="blob blob-c"></div>
-        <div class="grid-overlay"></div>
-    </div>
+<!-- ====================================================== BOTTLENECK -->
+<section class="sec sec--tight" id="bottleneck" aria-labelledby="bottleneck-h">
+  <div class="container">
+    <header class="sec__head sec__head--split" data-reveal>
+      <div>
+        <p class="kicker">The bottleneck // Fig. 1</p>
+        <h2 class="sec__title" id="bottleneck-h">Read, answer, <span class="strike">reset</span>.</h2>
+      </div>
+      <p class="sec__sub">Today's Document AI is a stateless function: <span class="math">ŷ = arg max P(y | D; θ)</span>. No variable carries a session index, so an amendment read tomorrow starts from nothing. Read the same four fictional documents both ways.</p>
+    </header>
+    <div data-reveal>{% include components/doc-demo.html %}</div>
+  </div>
+</section>
 
-    <!-- ===== NAVBAR ===== -->
-    <header class="navbar" id="navbar">
-        <nav class="container nav-container">
-            <a href="#home" class="logo" aria-label="SynaptYon — Accueil" data-i18n-al="nav_logo_al">
-                <span class="logo-mark" aria-hidden="true">
-                    <img src="assets/logo.png" alt="" width="30" height="36">
-                </span>
-                <span class="logo-text">Synapt<span class="logo-yon">Yon</span></span>
-            </a>
-
-            <button type="button" class="hamburger" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks" data-i18n-al="menu_open">
-                <span></span><span></span><span></span>
-            </button>
-
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home" class="nav-link" data-i18n="nav_home">Accueil</a></li>
-                <li><a href="#about" class="nav-link" data-i18n="nav_about">À propos</a></li>
-                <li><a href="#services" class="nav-link" data-i18n="nav_services">Services</a></li>
-                <li><a href="#process" class="nav-link" data-i18n="nav_process">Méthode</a></li>
-                <li><a href="#contact" class="nav-link nav-cta" data-i18n="nav_contact">Contact</a></li>
-                <li>
-                    <button type="button" class="lang-toggle" id="langToggle" aria-label="Changer de langue" data-i18n-al="lang_al">
-                        <span id="langToggleText">EN</span>
-                    </button>
-                </li>
-                <li>
-                    <button type="button" class="theme-toggle" id="themeToggle" aria-label="Basculer le thème clair/sombre" aria-pressed="false" data-i18n-al="theme_al">
-                        <span class="theme-toggle-track" aria-hidden="true">
-                            <span class="theme-toggle-thumb"></span>
-                        </span>
-                        <span id="themeIcon" aria-hidden="true">🌙</span>
-                    </button>
-                </li>
-            </ul>
-        </nav>
+<!-- ======================================================= LIFECYCLE -->
+<section class="sec bricks" id="lifecycle" aria-labelledby="lifecycle-h">
+  <div class="container">
+    <header class="sec__head sec__head--center" data-reveal>
+      <p class="kicker">{{ sy.lifecycle.kicker }}</p>
+      <h2 class="sec__title" id="lifecycle-h">{{ sy.lifecycle.title }}</h2>
+      <p class="sec__sub">{{ sy.lifecycle.sub }}</p>
     </header>
 
-    <main id="main">
-
-        <!-- ===== HERO ===== -->
-        <section class="hero" id="home">
-            <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
-            <div class="hero-glow" aria-hidden="true"></div>
-
-            <div class="container hero-grid">
-                <div class="hero-content">
-
-                    <div class="hero-eyebrow reveal" data-i18n="hero_eyebrow">
-                        <span class="eyebrow-pulse" aria-hidden="true"></span>
-                        Applied AI Hub
-                    </div>
-
-                    <h1 class="hero-title reveal" data-i18n="hero_title">
-                        De la recherche à la production,<br>
-                        <span class="gradient-text">chaque décision repose sur des résultats reproductibles.</span>
-                    </h1>
-
-                    <p class="hero-sub reveal" data-i18n="hero_sub">
-                        SynaptYon est un studio de recherche appliquée qui conçoit, développe
-                        et industrialise des solutions d'IA — de la publication scientifique
-                        au déploiement en production.
-                    </p>
-
-                    <div class="hero-cta reveal">
-                        <a href="#contact" class="btn btn-primary">
-                            <span data-i18n="hero_btn1">Diagnostic en 48h</span>
-                            <span class="btn-arrow" aria-hidden="true">→</span>
-                        </a>
-                        <a href="#services" class="btn btn-secondary">
-                            <span class="btn-scan" aria-hidden="true"></span>
-                            <span data-i18n="hero_btn2">Découvrir notre méthode</span>
-                        </a>
-                    </div>
-
-                    <div class="hero-stats reveal">
-                        <div class="stat-item">
-                            <h2 class="stat-num" data-target="285" data-suffix="">0</h2>
-                            <span class="stat-label" data-i18n="stat1">Citations</span>
-                        </div>
-                        <div class="stat-item">
-                            <h2 class="stat-num" data-target="9" data-suffix="">0</h2>
-                            <span class="stat-label" data-i18n="stat2">Indice h</span>
-                        </div>
-                        <div class="stat-item">
-                            <h2 class="stat-num" data-target="20" data-suffix="+">0</h2>
-                            <span class="stat-label" data-i18n="stat3">Publications</span>
-                        </div>
-                        <div class="stat-item">
-                            <h2 class="stat-num" data-target="15" data-suffix="+">0</h2>
-                            <span class="stat-label" data-i18n="stat4">Co-auteurs</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hero-visual reveal" aria-hidden="true">
-                    <div class="hero-orbit orbit-1"></div>
-                    <div class="hero-orbit orbit-2"></div>
-                    <div class="hero-orbit orbit-3"></div>
-                    <div class="hero-core">
-                        <img class="hero-logo" src="assets/logo.png" alt="Logo SynaptYon — emblème hexagonal en dégradé cyan, violet et magenta" width="360" height="432" data-i18n-alt="hero_logo_alt" loading="lazy">
-                    </div>
-                </div>
-            </div>
-
-            <div class="hero-scroll-hint" aria-hidden="true">
-                <span data-i18n="scroll_hint">Défiler</span>
-                <span class="mouse"><span class="mouse-wheel"></span></span>
-            </div>
-        </section>
-
-        <!-- ===== MARQUEE / TRUSTED BY ===== -->
-        <section class="marquee" aria-label="Secteurs d'expertise" data-i18n-al="marquee_al">
-            <div class="marquee-track">
-                <span class="marquee-item" data-i18n="m_supply_chain">Supply Chain</span>
-                <span class="marquee-sep">·</span>
-                <span class="marquee-item" data-i18n="m_sante">Santé</span>
-                <span class="marquee-sep">·</span>
-                <span class="marquee-item" data-i18n="m_education">Éducation</span>
-                <span class="marquee-sep">·</span>
-                <span class="marquee-item" data-i18n="m_finance">Finance</span>
-                <span class="marquee-sep">·</span>
-                <span class="marquee-item" data-i18n="m_administration">Administration</span>
-                <span class="marquee-sep">·</span>
-                <span class="marquee-item" data-i18n="m_agro">Agroalimentaire</span>
-                <span class="marquee-sep">·</span>
-                <span class="marquee-item" data-i18n="m_retail">Retail</span>
-                <span class="marquee-sep">·</span>
-                <span class="marquee-item" data-i18n="m_logistique">Logistique</span>
-                <span class="marquee-sep">·</span>
-                <!-- duplicate for seamless loop -->
-                <span class="marquee-item" data-i18n="m_supply_chain">Supply Chain</span>
-                <span class="marquee-sep">·</span>
-                <span class="marquee-item" data-i18n="m_sante">Santé</span>
-                <span class="marquee-sep">·</span>
-                <span class="marquee-item" data-i18n="m_education">Éducation</span>
-                <span class="marquee-sep">·</span>
-                <span class="marquee-item" data-i18n="m_finance">Finance</span>
-                <span class="marquee-sep">·</span>
-                <span class="marquee-item" data-i18n="m_administration">Administration</span>
-                <span class="marquee-sep">·</span>
-                <span class="marquee-item" data-i18n="m_agro">Agroalimentaire</span>
-                <span class="marquee-sep">·</span>
-                <span class="marquee-item" data-i18n="m_retail">Retail</span>
-                <span class="marquee-sep">·</span>
-                <span class="marquee-item" data-i18n="m_logistique">Logistique</span>
-                <span class="marquee-sep">·</span>
-            </div>
-        </section>
-
-        <!-- ===== ABOUT / WHY ===== -->
-        <section class="section" id="about">
-            <div class="container about-grid">
-                <div class="section-header reveal">
-                    <span class="section-tag" data-i18n="about_tag">Pourquoi SynaptYon</span>
-                    <h2 data-i18n="about_h2">L'IA, une ambition <span class="gradient-text">scientifique</span> et <span class="gradient-text">industrielle</span></h2>
-                    <p data-i18n="about_p">
-                        De la recherche au conseil, nous bâtissons des produits et des stratégies
-                        qui transforment des données complexes en véritables capacités métier —
-                        mesurables, scalables et pérennes.
-                    </p>
-                </div>
-
-                <div class="about-cards">
-                    <div class="about-card reveal">
-                        <span class="about-icon" aria-hidden="true">🔬</span>
-                        <h3 data-i18n="about_c1_h3">Ancrage scientifique</h3>
-                        <p data-i18n="about_c1_p">Une exigence de rigueur pour que chaque solution repose sur des résultats reproductibles et validés.</p>
-                    </div>
-                    <div class="about-card reveal">
-                        <span class="about-icon" aria-hidden="true">🛠️</span>
-                        <h3 data-i18n="about_c2_h3">Produits en production</h3>
-                        <p data-i18n="about_c2_p">Des solutions conçues, industrialisées et maintenues pour un impact réel et durable.</p>
-                    </div>
-                    <div class="about-card reveal">
-                        <span class="about-icon" aria-hidden="true">🌍</span>
-                        <h3 data-i18n="about_c3_h3">Vision internationale</h3>
-                        <p data-i18n="about_c3_p">Une capacité d'export et une conformité aux cadres réglementaires locaux.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== SERVICES ===== -->
-        <section class="section" id="services">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag" data-i18n="services_tag">Ce que nous faisons</span>
-                    <h2 data-i18n="services_h2">De la recherche au <span class="gradient-text">produit</span>, puis au <span class="gradient-text">conseil</span></h2>
-                    <p data-i18n="services_p">Trois pôles complémentaires pour couvrir toute la chaîne de valeur de l'IA : explorer, bâtir, conseiller.</p>
-                </div>
-
-                <div class="services-grid">
-                    <article class="service-card reveal">
-                        <span class="service-icon" aria-hidden="true">🔬</span>
-                        <h3 data-i18n="s1_h3">Recherche &amp; Innovation</h3>
-                        <p data-i18n="s1_p">R&amp;D appliquée pour repousser les limites : prototypage, optimisation et valorisation de la propriété intellectuelle.</p>
-                        <ul class="service-features">
-                            <li data-i18n="s1_f1">Prototypage &amp; preuves de concept</li>
-                            <li data-i18n="s1_f2">Optimisation de processus</li>
-                            <li data-i18n="s1_f3">Brevets &amp; licences</li>
-                            <li data-i18n="s1_f4">Partenariats académiques</li>
-                        </ul>
-                        <div class="service-deliverable">
-                            <h4 data-i18n="s1_deliverable">Vous repartez avec</h4>
-                            <ul>
-                                <li data-i18n="s1_d1">Prototype validé sur données réelles</li>
-                                <li data-i18n="s1_d2">Propriété intellectuelle protégée</li>
-                                <li data-i18n="s1_d3">Partenariat académique en place</li>
-                            </ul>
-                        </div>
-                        <div class="service-tech"><span>PyTorch</span><span>HuggingFace</span><span>FastAPI</span></div>
-                        <a href="#contact" class="learn-more"><span data-i18n="learn_more">Découvrir</span> <span aria-hidden="true">→</span></a>
-                    </article>
-
-                    <article class="service-card reveal">
-                        <span class="service-icon" aria-hidden="true">🛠️</span>
-                        <h3 data-i18n="s2_h3">Produits &amp; Plateformes</h3>
-                        <p data-i18n="s2_p">Des solutions IA et IT sur mesure, conçues, développées et mises en production pour un besoin précis.</p>
-                        <ul class="service-features">
-                            <li data-i18n="s2_f1">Conception à la demande</li>
-                            <li data-i18n="s2_f2">Intégration à votre SI</li>
-                            <li data-i18n="s2_f3">SaaS, open-source &amp; custom</li>
-                            <li data-i18n="s2_f4">Évolution &amp; maintenance</li>
-                        </ul>
-                        <div class="service-deliverable">
-                            <h4 data-i18n="s2_deliverable">Vous repartez avec</h4>
-                            <ul>
-                                <li data-i18n="s2_d1">Un produit en production, testé, surveillé</li>
-                                <li data-i18n="s2_d2">Documentation technique complète</li>
-                                <li data-i18n="s2_d3">Zéro vendor lock-in</li>
-                            </ul>
-                        </div>
-                        <div class="service-tech"><span>Python</span><span>Docker</span><span>PostgreSQL</span><span>React</span></div>
-                        <a href="#contact" class="learn-more"><span data-i18n="learn_more">Découvrir</span> <span aria-hidden="true">→</span></a>
-                    </article>
-
-                    <article class="service-card reveal">
-                        <span class="service-icon" aria-hidden="true">🧭</span>
-                        <h3 data-i18n="s3_h3">Conseil IA &amp; IT</h3>
-                        <p data-i18n="s3_p">Un accompagnement stratégique pour identifier la valeur, prioriser et déployer l'IA et l'IT durablement.</p>
-                        <ul class="service-features">
-                            <li data-i18n="s3_f1">Datastratégie &amp; gouvernance</li>
-                            <li data-i18n="s3_f2">Feuilles de route IA</li>
-                            <li data-i18n="s3_f3">Cybersécurité</li>
-                            <li data-i18n="s3_f4">Conduite du changement</li>
-                        </ul>
-                        <div class="service-deliverable">
-                            <h4 data-i18n="s3_deliverable">Vous repartez avec</h4>
-                            <ul>
-                                <li data-i18n="s3_d1">Une feuille de route IA chiffrée</li>
-                                <li data-i18n="s3_d2">Une gouvernance data en place</li>
-                                <li data-i18n="s3_d3">Des équipes formées et autonomes</li>
-                            </ul>
-                        </div>
-                        <div class="service-tech"><span>Gouvernance</span><span>RGPD</span><span>AI Act</span></div>
-                        <a href="#contact" class="learn-more"><span data-i18n="learn_more">Découvrir</span> <span aria-hidden="true">→</span></a>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== RÉALISATIONS ===== -->
-        <section class="section section-alt" id="realisations">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag" data-i18n="reals_tag">Réalisations</span>
-                    <h2 data-i18n="reals_h2">Ce que <span class="gradient-text">nous avons construit.</span></h2>
-                    <p data-i18n="reals_p">Projets clients et R&amp;D interne, du prototype au produit en production.</p>
-                </div>
-
-                <div class="reals-grid">
-                    <article class="real-card reveal">
-                        <span class="real-badge real-badge-research" data-i18n="reals_r1_badge">Recherche</span>
-                        <h3 data-i18n="reals_r1_h3">Document AI pour extraction juridique</h3>
-                        <p data-i18n="reals_r1_p">Pipeline de traitement de documents juridiques utilisant des modèles de langage fine-tunés pour l'extraction et la classification automatique de clauses contractuelles.</p>
-                        <div class="real-tech"><span>PyTorch</span><span>HuggingFace</span><span>FastAPI</span></div>
-                    </article>
-
-                    <article class="real-card reveal">
-                        <span class="real-badge real-badge-product" data-i18n="reals_r2_badge">Produit</span>
-                        <h3 data-i18n="reals_r2_h3">Système de scoring intelligent</h3>
-                        <p data-i18n="reals_r2_p">Plateforme de scoring automatisé pour l'analyse de risques, intégrée au SI client avec dashboard temps réel et alertes configurables.</p>
-                        <div class="real-tech"><span>Python</span><span>PostgreSQL</span><span>React</span></div>
-                    </article>
-
-                    <article class="real-card reveal">
-                        <span class="real-badge real-badge-consulting" data-i18n="reals_r3_badge">Conseil</span>
-                        <h3 data-i18n="reals_r3_h3">Feuille de route IA pour secteur public</h3>
-                        <p data-i18n="reals_r3_p">Audit de maturité data, identification de cas d'usage prioritaires et construction d'une roadmap IA chiffrée sur 18 mois pour une administration publique.</p>
-                        <div class="real-tech"><span>Gouvernance</span><span>Data Strategy</span><span>RGPD</span></div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== PRODUITS ===== -->
-        <section class="section" id="produits">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag" data-i18n="prods_tag">Produits</span>
-                    <h2 data-i18n="prods_h2">Nous les <span class="gradient-text">construisons.</span></h2>
-                    <p data-i18n="prods_p">Nos propres produits et plateformes, conçus et maintenus par SynaptYon.</p>
-                </div>
-
-                <div class="prods-grid">
-                    <article class="prod-card reveal">
-                        <div class="prod-icon" aria-hidden="true">📄</div>
-                        <span class="prod-status prod-dev" data-i18n="prods_p1_status">EN DÉVELOPPEMENT</span>
-                        <h3 data-i18n="prods_p1_h3">DocuMind</h3>
-                        <p data-i18n="prods_p1_p">Plateforme d'analyse intelligente de documents. Extraction, classification et résumé automatique pour les équipes juridiques et financières.</p>
-                    </article>
-
-                    <article class="prod-card reveal">
-                        <div class="prod-icon" aria-hidden="true">🔍</div>
-                        <span class="prod-status prod-soon" data-i18n="prods_p2_status">BIENTÔT</span>
-                        <h3 data-i18n="prods_p2_h3">SynapseSearch</h3>
-                        <p data-i18n="prods_p2_p">Moteur de recherche sémantique pour bases de connaissances internes. Comprend le contexte, pas seulement les mots-clés.</p>
-                    </article>
-
-                    <article class="prod-card reveal">
-                        <div class="prod-icon" aria-hidden="true">🧩</div>
-                        <span class="prod-status prod-soon" data-i18n="prods_p3_status">BIENTÔT</span>
-                        <h3 data-i18n="prods_p3_h3">AgentForge</h3>
-                        <p data-i18n="prods_p3_p">Kit de création d'agents IA spécialisés. Orchestration, mémoire et contrôle qualité intégrés, déployable en quelques heures.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== RECHERCHE / PUBLICATIONS ===== -->
-        <section class="section section-alt" id="recherche">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag" data-i18n="research_tag">Recherche</span>
-                    <h2 data-i18n="research_h2">Nos <span class="gradient-text">publications.</span></h2>
-                    <p data-i18n="research_p">Chaque solution que nous déployons repose sur des résultats publiés et reproductibles.</p>
-                </div>
-
-                <div class="research-grid">
-                    <article class="research-card reveal">
-                        <span class="research-type">Journal · 2023</span>
-                        <h3>VLCDoC: Vision-Language Contrastive Pre-training for Cross-Modal Document Classification</h3>
-                        <p>S. Bakkali, Z. Ming, M. Coustaty, M. Rusiñol, O. Ramos Terrades — <em>Pattern Recognition</em>, vol. 139. 53 citations.</p>
-                        <a href="https://scholar.google.com/citations?view_op=view_citation&hl=fr&user=gO_Q48IAAAAJ&sortby=pubdate&citation_for_view=gO_Q48IAAAAJ:2osOgNQ5qMEC" class="research-link" target="_blank" rel="noopener">Lire →</a>
-                    </article>
-
-                    <article class="research-card reveal">
-                        <span class="research-type">Conférence · 2024</span>
-                        <h3>LLMChain: Blockchain-based Reputation System for Sharing and Evaluating Large Language Models</h3>
-                        <p>M.A. Bouchiha, Q. Telnoff, S. Bakkali, R. Champagnat, M. Rabah, M. Coustaty et al. — <em>IEEE COMPSAC 2024</em>. 27 citations.</p>
-                        <a href="https://scholar.google.com/citations?view_op=view_citation&hl=fr&user=gO_Q48IAAAAJ&sortby=pubdate&citation_for_view=gO_Q48IAAAAJ:YsMSGLbcyi4C" class="research-link" target="_blank" rel="noopener">Lire →</a>
-                    </article>
-
-                    <article class="research-card reveal">
-                        <span class="research-type">Conférence · 2024</span>
-                        <h3>KhmerST: A Low-Resource Khmer Scene Text Detection and Recognition Benchmark</h3>
-                        <p>V. Nom, S. Bakkali, M.M. Luqman, M. Coustaty, J.-M. Ogier — <em>ACCV 2024</em>. 13 citations.</p>
-                        <a href="https://scholar.google.com/citations?view_op=view_citation&hl=fr&user=gO_Q48IAAAAJ&sortby=pubdate&citation_for_view=gO_Q48IAAAAJ:_FxGoFyzp5QC" class="research-link" target="_blank" rel="noopener">Lire →</a>
-                    </article>
-
-                    <article class="research-card reveal">
-                        <span class="research-type">Conférence · 2025</span>
-                        <h3>GlobalDoc: A Cross-Modal Vision-Language Framework for Real-World Document Image Retrieval and Classification</h3>
-                        <p>S. Bakkali, S. Biswas, Z. Ming, M. Coustaty, M. Rusiñol, O. Ramos Terrades et al. — <em>WACV 2025</em>. 9 citations.</p>
-                        <a href="https://scholar.google.com/citations?view_op=view_citation&hl=fr&user=gO_Q48IAAAAJ&sortby=pubdate&citation_for_view=gO_Q48IAAAAJ:roLk4NBRz8UC" class="research-link" target="_blank" rel="noopener">Lire →</a>
-                    </article>
-                </div>
-
-                <p class="research-more reveal" style="text-align: center; margin-top: 2rem;">
-                    <a href="https://scholar.google.com/citations?hl=fr&user=gO_Q48IAAAAJ&view_op=list_works&sortby=pubdate" class="btn btn-secondary" target="_blank" rel="noopener">
-                        <span data-i18n="research_all">Voir toutes les publications</span> <span aria-hidden="true">→</span>
-                    </a>
-                </p>
-            </div>
-        </section>
-
-        <!-- ===== PROCESS ===== -->
-        <section class="section section-alt" id="process">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag" data-i18n="process_tag">Notre méthode</span>
-                    <h2 data-i18n="process_h2">Un parcours <span class="gradient-text">structuré</span>, du diagnostic à la production</h2>
-                    <p data-i18n="process_p">Une démarche agile et itérative, pensée pour réduire le risque et accélérer le value-time.</p>
-                </div>
-
-                <ol class="process-steps">
-                    <li class="process-step reveal">
-                        <span class="step-num" aria-hidden="true">01</span>
-                        <div class="step-body">
-                            <h3 data-i18n="pr1_h3">Audit &amp; cadrage</h3>
-                            <p data-i18n="pr1_p">Cartographie de vos données, identification des cas d'usage à fort ROI et définition de la feuille de route.</p>
-                        </div>
-                        <span class="step-tag" data-i18n="pr1_tag">Semaines 1–2</span>
-                    </li>
-                    <li class="process-step reveal">
-                        <span class="step-num" aria-hidden="true">02</span>
-                        <div class="step-body">
-                            <h3 data-i18n="pr2_h3">Prototype &amp; preuve</h3>
-                            <p data-i18n="pr2_p">Développement d'un PoC sur données réelles pour valider la faisabilité avant tout investissement lourd.</p>
-                        </div>
-                        <span class="step-tag" data-i18n="pr2_tag">Semaines 3–6</span>
-                    </li>
-                    <li class="process-step reveal">
-                        <span class="step-num" aria-hidden="true">03</span>
-                        <div class="step-body">
-                            <h3 data-i18n="pr3_h3">Industrialisation</h3>
-                            <p data-i18n="pr3_p">Architecture robuste, intégration à votre SI, pipelines de données et garde-fous qualité &amp; conformité.</p>
-                        </div>
-                        <span class="step-tag" data-i18n="pr3_tag">Mois 2–4</span>
-                    </li>
-                    <li class="process-step reveal">
-                        <span class="step-num" aria-hidden="true">04</span>
-                        <div class="step-body">
-                            <h3 data-i18n="pr4_h3">Suivi &amp; scaling</h3>
-                            <p data-i18n="pr4_p">Monitoring, itérations continues, formation des équipes et extension vers de nouveaux cas d'usage.</p>
-                        </div>
-                        <span class="step-tag" data-i18n="pr4_tag">En continu</span>
-                    </li>
-                </ol>
-            </div>
-        </section>
-
-        <!-- ===== NOM / ETYMOLOGY ===== -->
-        <section class="section" id="nom">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag" data-i18n="nom_tag">Le nom</span>
-                    <h2 data-i18n="nom_h2">SynaptYon, <span class="gradient-text">au-delà de la connexion.</span></h2>
-                </div>
-                <div class="nom-grid">
-                    <div class="nom-card reveal">
-                        <h3>Synapse</h3>
-                        <p data-i18n="nom_synapse">La connexion neuronale. Le point où l'information devient action.</p>
-                    </div>
-                    <div class="nom-card reveal">
-                        <h3>Yon</h3>
-                        <p data-i18n="nom_yon">Au-delà. Ce qui dépasse la connexion pour atteindre la décision.</p>
-                    </div>
-                </div>
-                <p class="nom-final reveal" data-i18n="nom_final">SynaptYon : de la donnée à la décision, au-delà de la connexion.</p>
-            </div>
-        </section>
-
-        <!-- ===== CONTACT ===== -->
-        <section class="section section-alt" id="contact">
-            <div class="container">
-                <div class="contact-section reveal">
-                    <div class="contact-intro">
-                        <span class="section-tag" data-i18n="contact_tag">Parlons de votre projet</span>
-                        <h2 data-i18n="contact_h2">On commence par un échange. Sans engagement.</h2>
-                        <p data-i18n="contact_p">Décrivez votre besoin, nous vous recontactons sous 24h ouvrées. Premier rendez-vous en 48h.</p>
-
-                        <ul class="contact-list">
-                            <li>
-                                <span class="contact-li-ico" aria-hidden="true">✉️</span>
-                                <div>
-                                    <span class="contact-li-label" data-i18n="contact_email_label">Email</span>
-                                    <a class="contact-li-value" href="mailto:souhail.bakkali@irisa.fr">souhail.bakkali@irisa.fr</a>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="contact-li-ico" aria-hidden="true">🏛️</span>
-                                <div>
-                                    <span class="contact-li-label" data-i18n="contact_company_label">Société</span>
-                                    <span class="contact-li-value">SynaptYon SARL</span>
-                                </div>
-                            </li>
-                        </ul>
-
-                    </div>
-
-                    <div class="contact-form"><p>Décrivez votre besoin par email. / Tell us about your need by email.</p><a class="btn btn-primary" href="mailto:souhail.bakkali@irisa.fr?subject=SynaptYon">souhail.bakkali@irisa.fr <span class="btn-arrow" aria-hidden="true">→</span></a></div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-        <div class="container footer-inner">
-            <div class="footer-brand">
-                <a href="#home" class="logo footer-logo">
-                    <span class="logo-mark" aria-hidden="true">
-                        <img src="assets/logo.png" alt="" width="30" height="36">
-                    </span>
-                    <span class="logo-text">Synapt<span class="logo-yon">Yon</span></span>
-                </a>
-                <p data-i18n="footer_tagline">Applied Intelligence, Amplified.</p>
-            </div>
-
-            <nav class="footer-links" aria-label="Liens de pied de page" data-i18n-al="footer_al">
-                
-                <a href="legal.html" data-i18n="footer_legal">Mentions Légales</a>
-                <a href="legal.html#confidentialite" data-i18n="footer_privacy">Confidentialité</a>
-            </nav>
-        </div>
-        <div class="container footer-bottom">
-            <p>© <span id="footerYear">2026</span> <strong>SynaptYon SARL</strong>. <span data-i18n="footer_tag">Applied Intelligence, Amplified.</span></p>
-        </div>
-    </footer>
-
-    <!-- Back to top -->
-    <button id="backToTop" class="back-to-top" aria-label="Retour en haut" data-i18n-al="back_to_top_al">
-        <span aria-hidden="true">↑</span>
-    </button>
-
-    <!-- Cookie consent banner -->
-    <div id="cookie-banner" class="cookie-banner" role="dialog" aria-label="Consentement cookies">
-        <p data-i18n="cookie_text">Ce site utilise des cookies pour améliorer votre expérience. En continuant, vous acceptez notre politique de confidentialité.</p>
-        <div class="cookie-actions">
-            <button id="cookie-accept" class="btn btn-primary btn-sm" data-i18n="cookie_accept">Accepter</button>
-            <a href="legal.html" class="btn btn-ghost btn-sm" data-i18n="cookie_learn">En savoir plus</a>
-        </div>
+    <div class="bricks__tabs" role="tablist" aria-label="Lifecycle operations" data-tabs>
+      {%- for st in sy.lifecycle.steps %}{% assign prod = pd.products | where: "id", st.product | first %}
+      <button class="brick" type="button" role="tab" id="op-{{ st.id }}" aria-controls="op-{{ st.id }}-panel" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" data-reveal style="--i: {{ forloop.index0 }}">
+        <span class="brick__ord" data-ord="{{ st.num }}" aria-hidden="true"></span>
+        <span class="brick__label">{{ st.num }} // {{ st.name | upcase }}</span>
+        <span class="brick__name">{{ st.name }}</span>
+        <span class="brick__verbs">{{ st.verbs }}</span>
+        <span class="brick__promise">{{ st.promise }}</span>
+        <span class="brick__prod">{% include emblem.html id=prod.id uid=st.id class="brick__emblem" %}{{ prod.name }}</span>
+      </button>
+      {%- endfor %}
     </div>
 
-    <!-- Scripts -->
-    <script src="js/i18n.js" defer></script>
-    <script src="js/main.js" defer></script>
-</body>
-</html>
+    <div class="bricks__rail" data-reveal>
+      <span class="bricks__rail-line" aria-hidden="true"></span>
+      <p><span class="math">{% include math.html text=sy.lifecycle.rail.symbol %}</span> <b>{{ sy.lifecycle.rail.name }}</b> · {{ sy.lifecycle.rail.body }} <a href="{{ '/products/ariadne/' | relative_url }}">Ariadne →</a></p>
+    </div>
+
+    {%- for st in sy.lifecycle.steps %}{% assign prod = pd.products | where: "id", st.product | first %}
+    <div class="bpanel" role="tabpanel" id="op-{{ st.id }}-panel" aria-labelledby="op-{{ st.id }}" tabindex="0"{% unless forloop.first %} data-tab-hidden{% endunless %}>
+      <div class="bpanel__head">
+        <p class="kicker">{{ st.num }} // {{ st.name }} · <span class="math">{% include math.html text=st.ref %}</span></p>
+        <p class="bpanel__intro">{{ st.intro }}</p>
+      </div>
+      <ul class="bpanel__items">
+        {%- for it in st.items %}
+        <li><b>{{ it.title }}</b><span>{{ it.body }}</span></li>
+        {%- endfor %}
+      </ul>
+      <div class="bpanel__out">
+        <p><span class="bpanel__out-k">You get</span> {{ st.outcome }}</p>
+        <a class="btn btn--line btn--sm" href="{{ '/products/' | append: prod.id | append: '/' | relative_url }}">{{ prod.name }} · {{ prod.role }} →</a>
+      </div>
+    </div>
+    {%- endfor %}
+  </div>
+</section>
+
+<!-- ========================================================= DOMAINS -->
+<section class="sec sec--alt" id="domains" aria-labelledby="domains-h">
+  <div class="container">
+    <header class="sec__head" data-reveal>
+      <p class="kicker">{{ sy.domains.kicker }}</p>
+      <h2 class="sec__title" id="domains-h">{{ sy.domains.title }}</h2>
+      <p class="sec__sub">{{ sy.domains.sub }}</p>
+    </header>
+    <div class="uc-grid">
+      {%- for d in sy.domains.items %}
+      <article class="uc-card" data-reveal style="--i: {{ forloop.index0 }}">
+        <div class="uc-card__vis" aria-hidden="true">{% include glyph.html id=d.glyph %}</div>
+        <p class="kicker kicker--sm">{{ d.kicker }}</p>
+        <h3 class="uc-card__title">{{ d.title }}</h3>
+        <ul class="uc-card__list">
+          {%- for pt in d.points %}<li>{{ pt }}</li>{% endfor %}
+        </ul>
+        <p class="uc-card__with">Works with {% for w in d.with %}{% assign wp = pd.products | where: "id", w | first %}<a href="{{ '/products/' | append: w | append: '/' | relative_url }}">{{ wp.name }}</a>{% unless forloop.last %} and {% endunless %}{% endfor %}.</p>
+      </article>
+      {%- endfor %}
+    </div>
+
+    <div class="uc-synth" data-reveal>
+      <div>
+        <p class="kicker">{{ sy.domains.synth.kicker }}</p>
+        <h3 class="uc-synth__title">{{ sy.domains.synth.title }}</h3>
+        <p class="uc-synth__body">{{ sy.domains.synth.body }}</p>
+      </div>
+      <ul class="uc-synth__props" aria-label="The conjunctive target C*: six properties required together">
+        {%- for p in paper.target.properties %}<li style="--i: {{ forloop.index0 }}">{{ p }}</li>{% endfor %}
+      </ul>
+    </div>
+
+    <header class="sec__head sec__head--mt" data-reveal>
+      <p class="kicker">{{ sy.principles.kicker }}</p>
+    </header>
+    <div class="princ-grid">
+      {%- for pr in sy.principles.items %}
+      <figure class="princ" data-reveal style="--i: {{ forloop.index0 }}">
+        <blockquote><p>“{{ pr.quote }}”</p></blockquote>
+        <figcaption><span>{{ pr.body }}</span><cite>{{ paper.short_title }}, {{ pr.ref }}</cite></figcaption>
+      </figure>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true"><span>The proof</span><b>Specified first. Measured before it ships.</b></div>
+
+<!-- ========================================================== COCKPIT -->
+<section class="sec" id="proof" aria-labelledby="proof-h">
+  <div class="container">
+    <header class="sec__head sec__head--split" data-reveal>
+      <div>
+        <p class="kicker">{{ sy.cockpit.kicker }}</p>
+        <h2 class="sec__title" id="proof-h">{{ sy.cockpit.title }}</h2>
+      </div>
+      <p class="sec__sub">{{ sy.cockpit.sub }}</p>
+    </header>
+    <div data-reveal>{% include components/cockpit.html %}</div>
+  </div>
+</section>
+
+<!-- ========================================================= PRODUCTS -->
+<section class="sec sec--alt" id="products" aria-labelledby="products-h">
+  <div class="container">
+    <header class="sec__head sec__head--split" data-reveal>
+      <div>
+        <p class="kicker">Products // SynaptYon</p>
+        <h2 class="sec__title" id="products-h">Six products. One per part of the paper.</h2>
+      </div>
+      <p class="sec__sub">Each product implements a section of the specification and can be adopted on its own. None is generally available yet; each page shows what it does, where it is specified, and a demo on fictional documents.</p>
+    </header>
+
+    <ul class="p-grid">
+      {%- for p in pd.products %}{% assign st = pd.statuses[p.status] %}
+      <li class="p-card{% if p.lead %} p-card--lead{% endif %}" data-reveal style="--i: {{ forloop.index0 }}">
+        <a class="p-card__link" href="{{ '/products/' | append: p.id | append: '/' | relative_url }}" aria-labelledby="p-{{ p.id }}-name" aria-describedby="p-{{ p.id }}-role">
+          <div class="p-card__shot" aria-hidden="true">
+            <span class="p-card__halo"></span>
+            {% include emblem.html id=p.id uid="card" class="p-card__emblem" %}
+          </div>
+          <div class="p-card__body">
+            <div class="p-card__top">
+              <h3 class="p-card__name" id="p-{{ p.id }}-name">{{ p.name }}</h3>
+              <span class="status status--{{ st.tone }}">{{ st.label }}</span>
+            </div>
+            <p class="p-card__role" id="p-{{ p.id }}-role">{{ p.role }}</p>
+            <p class="p-card__tagline">{{ p.tagline }}</p>
+            <p class="p-card__pitch">{{ p.pitch }}</p>
+            <p class="p-card__foot"><span class="p-card__spec">{% for s in p.spec limit: 2 %}{{ s.ref }}{% unless forloop.last %} · {% endunless %}{% endfor %}</span><span class="p-card__go">Product page →</span></p>
+          </div>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+
+    <header class="sec__head sec__head--mt" data-reveal>
+      <h3 class="sec__h3">The research behind them</h3>
+      <p class="sec__sub">Published work the products build on, and what each paper taught us.</p>
+    </header>
+    <ul class="r-grid">
+      {%- for r in pd.research %}{% assign fp = pd.products | where: "id", r.feeds | first %}
+      <li class="r-card" data-reveal style="--i: {{ forloop.index0 }}">
+        <p class="r-card__top"><b>{{ r.name }}</b><span class="tag">{{ r.venue }}</span></p>
+        <p class="r-card__body">{{ r.body }}</p>
+        <p class="r-card__k">What it taught us</p>
+        <p class="r-card__lesson">{{ r.lesson }}</p>
+        <p class="r-card__foot"><a href="{{ site.founder_site }}publication/{{ r.pub }}/">Read the paper</a><span>Used in <a href="{{ '/products/' | append: fp.id | append: '/' | relative_url }}">{{ fp.name }}</a></span></p>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================= LOOP -->
+<section class="sec" id="loop" aria-labelledby="loop-h">
+  <div class="container loop">
+    <div class="loop__vis" data-reveal aria-hidden="true">
+      <svg viewBox="0 0 420 420" class="loop__svg">
+        <defs>
+          <linearGradient id="lp-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00c8ff"/><stop offset=".5" stop-color="#2f62ff"/><stop offset="1" stop-color="#c83cff"/></linearGradient>
+        </defs>
+        <circle cx="210" cy="210" r="160" fill="none" stroke="var(--line-2)" stroke-width="1.5"/>
+        <circle class="loop__arc" cx="210" cy="210" r="160" fill="none" stroke="url(#lp-grad)" stroke-width="3" stroke-linecap="round" pathLength="100" stroke-dasharray="18 82"/>
+        {%- assign n = sy.loop.steps | size -%}
+        {%- for s in sy.loop.steps -%}
+        {%- assign a = forloop.index0 | times: 360.0 | divided_by: n | minus: 90 -%}
+        <g class="loop__node" style="--a: {{ a }}deg; --i: {{ forloop.index0 }}">
+          <g transform="rotate({{ a }} 210 210) translate(370 210) rotate({{ a | times: -1 }})">
+            <circle r="7" />
+            <text y="-15" text-anchor="middle">{{ s.name }}</text>
+          </g>
+        </g>
+        {%- endfor %}
+        <text class="loop__center" x="210" y="200" text-anchor="middle">S<tspan baseline-shift="sub" font-size="60%">t−1</tspan> → S<tspan baseline-shift="sub" font-size="60%">t</tspan></text>
+        <text class="loop__center-sub" x="210" y="230" text-anchor="middle">one transition per session</text>
+      </svg>
+    </div>
+    <div class="loop__copy">
+      <p class="kicker" data-reveal>{{ sy.loop.kicker }}</p>
+      <h2 class="sec__title" id="loop-h" data-reveal>{{ sy.loop.title }}</h2>
+      <p class="sec__sub" data-reveal>{{ sy.loop.sub }}</p>
+      <ol class="loop__legend">
+        {%- for s in sy.loop.steps %}
+        <li data-reveal style="--i: {{ forloop.index0 }}"><b>{{ s.name }}</b><span>{{ s.body }}</span></li>
+        {%- endfor %}
+      </ol>
+      <p class="loop__support" data-reveal>{{ sy.loop.support }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== ENGAGEMENTS -->
+<section class="sec sec--alt" id="work-with-us" aria-labelledby="wwu-h">
+  <div class="container">
+    <header class="sec__head" data-reveal>
+      <p class="kicker">{{ sy.engagements.kicker }}</p>
+      <h2 class="sec__title" id="wwu-h">{{ sy.engagements.title }}</h2>
+    </header>
+    <div class="svc">
+      {%- for e in sy.engagements.items %}{% assign ep = pd.products | where: "id", e.product | first %}
+      <details class="svc__item" data-reveal{% if forloop.first %} open{% endif %}>
+        <summary>
+          <span class="svc__num">{{ e.num }} //</span>
+          <span class="svc__head"><span class="kicker kicker--sm">{{ e.kicker }}</span><b>{{ e.title }}</b></span>
+          <span class="svc__toggle" aria-hidden="true"></span>
+        </summary>
+        <div class="svc__body">
+          <p>{{ e.body }}</p>
+          <ol>{% for s in e.steps %}<li>{{ s }}</li>{% endfor %}</ol>
+          <p class="svc__out"><span>You leave with</span> {{ e.outcome }}</p>
+          <p class="svc__uses">Uses <a href="{{ '/products/' | append: ep.id | append: '/' | relative_url }}">{{ ep.name }}</a> · <a href="#contact">Ask about it</a></p>
+        </div>
+      </details>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= NAME -->
+<section class="sec name" id="name" aria-labelledby="name-h">
+  <div class="container">
+    <header class="sec__head sec__head--center" data-reveal>
+      <p class="kicker">{{ sy.name.kicker }}</p>
+      <h2 class="sec__title" id="name-h">{{ sy.name.title }}</h2>
+    </header>
+    <div class="name__etym" data-reveal>
+      <div class="name__word">Synapt<span>Y</span>on</div>
+      <div class="name__root" lang="grc">{{ sy.name.root }}</div>
+      <p class="name__translit"><i>{{ sy.name.translit }}</i></p>
+      <p class="name__gloss">{{ sy.name.gloss }}</p>
+    </div>
+    <p class="name__body" data-reveal>{{ sy.name.body }}</p>
+    <ul class="name__products">
+      {%- for np in sy.name.products %}{% assign p = pd.products | where: "id", np.id | first %}
+      <li data-reveal style="--i: {{ forloop.index0 }}"><a href="{{ '/products/' | append: p.id | append: '/' | relative_url }}"><b>{{ p.name }}</b><span lang="grc">{{ np.root }}</span><small>{{ np.gloss }}</small></a></li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
+<!-- =========================================================== PEOPLE -->
+<section class="sec sec--alt people" id="people" aria-labelledby="people-h">
+  <div class="container">
+    <header class="sec__head" data-reveal>
+      <p class="kicker">{{ sy.people.kicker }}</p>
+      <h2 class="sec__title" id="people-h">{{ sy.people.title }}</h2>
+      <p class="sec__sub">{{ sy.people.sub }}</p>
+    </header>
+    <div class="people__grid">
+      <figure class="person" data-reveal>
+        <img src="{{ sy.people.founder.photo | relative_url }}" alt="{{ sy.people.founder.name }}" width="400" height="400" loading="lazy">
+        <figcaption>
+          <b>{{ sy.people.founder.name }}</b>
+          <span class="person__role">{{ sy.people.founder.role }}</span>
+          <span class="person__facts">{{ sy.people.founder.facts }}</span>
+          <a href="{{ site.founder_site }}">Research site and publications →</a>
+        </figcaption>
+      </figure>
+      <div class="people__paper" data-reveal>
+        <p class="kicker kicker--sm">The paper</p>
+        <p class="people__paper-title"><a href="{{ pd.paper.url }}">{{ paper.title }}</a></p>
+        <p class="people__paper-authors">{% for a in paper.authors %}{{ a.name }}<span> · {{ a.affiliation }}</span>{% unless forloop.last %}<br>{% endunless %}{% endfor %}</p>
+        <ul class="people__counts">
+          {%- for c in paper.counts %}<li><b>{{ c.value }}</b><span>{{ c.label }}</span></li>{% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="marquee" aria-label="{{ sy.people.places_title }} and {{ sy.people.venues_title | downcase }}">
+      <div class="marquee__row">
+        <span class="marquee__k">{{ sy.people.places_title }}</span>
+        <div class="marquee__track"><ul>{% for x in sy.people.places %}<li>{{ x }}</li>{% endfor %}</ul><ul aria-hidden="true">{% for x in sy.people.places %}<li>{{ x }}</li>{% endfor %}</ul></div>
+      </div>
+      <div class="marquee__row marquee__row--rev">
+        <span class="marquee__k">{{ sy.people.venues_title }}</span>
+        <div class="marquee__track"><ul>{% for x in sy.people.venues %}<li>{{ x }}</li>{% endfor %}</ul><ul aria-hidden="true">{% for x in sy.people.venues %}<li>{{ x }}</li>{% endfor %}</ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== CONTACT -->
+<section class="sec contact" id="contact" aria-labelledby="contact-h">
+  <div class="container contact__inner">
+    <div class="contact__copy" data-reveal>
+      {% include logo.html id="contact" class="contact__mark" %}
+      <h2 class="sec__title" id="contact-h">{{ sy.contact.title }}</h2>
+      <p class="sec__sub">{{ sy.contact.sub }}</p>
+      <p class="contact__direct"><a href="mailto:{{ site.contact_email }}?subject=SynaptYon">{{ site.contact_email }}</a></p>
+    </div>
+    <form class="contact__form" data-mailto="{{ site.contact_email }}" data-reveal>
+      <div class="field"><label for="cf-name">Name</label><input id="cf-name" name="name" autocomplete="name" required></div>
+      <div class="field"><label for="cf-org">Organisation</label><input id="cf-org" name="org" autocomplete="organization"></div>
+      <div class="field">
+        <label for="cf-topic">Interested in</label>
+        <select id="cf-topic" name="topic">
+          {%- for e in sy.engagements.items %}<option>{{ e.kicker }}</option>{% endfor %}
+          {%- for p in pd.products %}<option>{{ p.name }} · {{ p.role }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="field"><label for="cf-msg">Your documents, your question</label><textarea id="cf-msg" name="message" rows="4" required></textarea></div>
+      <button class="btn btn--grad" type="submit">Write the email</button>
+      <p class="contact__note">Opens your email app with the message filled in; nothing is sent from this page.</p>
+    </form>
+  </div>
+</section>

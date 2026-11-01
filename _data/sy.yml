@@ -1,0 +1,353 @@
+# Copy for the SynaptYon home page. Products live in products.yml, the
+# paper's tables and equations in paper.yml. Quotes are verbatim from
+# arXiv:2609.32041; everything else is our wording.
+
+nav:
+  - { label: "Lifecycle", href: "/#lifecycle", mega: lifecycle }
+  - { label: "Products", href: "/#products", mega: products }
+  - { label: "Proof", href: "/#proof" }
+  - { label: "Work with us", href: "/#work-with-us" }
+  - { label: "Contact", href: "/#contact" }
+
+hero:
+  kicker: "SynaptYon // Document Intelligence"
+  title: "Document AI that remembers."
+  lead: >-
+    We build persistent, evidence-grounded memory for document systems.
+    It keeps what it reads, knows where it came from, knows when it stops
+    being true, and forgets on request.
+  reassure: "Built on arXiv:2609.32041 · six products, one state"
+
+# Fig. 3 of the paper: six lifecycle operations over the state, with the
+# provenance ledger as an invariant underneath all of them.
+lifecycle:
+  kicker: "The lifecycle // Fig. 3"
+  title: "Six operations. One state."
+  sub: "Every document goes through the same lifecycle. Each step is a product, and provenance runs under all of them."
+  steps:
+    - id: acquire
+      num: "01"
+      name: "Acquire"
+      verbs: "Read · Structure"
+      promise: "Read the whole document, once."
+      product: mnemos
+      ref: "Eq. (3) · D_t = (V, T, B, G, H, M)"
+      intro: "The observation is conditioned on the document, not on a query: state has to hold the full content for questions nobody has asked yet."
+      items:
+        - { title: "Text, layout and image together", body: "Cross-modal vision-language reading of the page, in the line of GlobalDoc and VLCDoC." }
+        - { title: "Structure is meaning", body: "Table rows and columns, figure–caption links, form–field pairs and section trees are kept as graphs, not flattened to text." }
+        - { title: "Identity and version", body: "Metadata carries document identity, version, timestamp and policy: an amendment means nothing without the version it amends." }
+      outcome: "A complete, structured observation of every document."
+    - id: validate
+      num: "02"
+      name: "Validate"
+      verbs: "Corroborate · Gate"
+      promise: "Nothing is written unverified."
+      product: argus
+      ref: "Eq. (7) · Theorem III.4"
+      intro: "A wrong value written to memory is not one wrong answer. It is a durable error that every later session inherits."
+      items:
+        - { title: "Corroborate", body: "Check the observation against what the provenance ledger already supports or contradicts." }
+        - { title: "Score confidence", body: "Epistemic confidence from predictive entropy over the extracted fields; below threshold, the state is left unchanged." }
+        - { title: "Measure the gate", body: "Estimate its false-accept rate with controlled corruption, then plan with the contamination bound." }
+      outcome: "Admitted evidence, or an unchanged state."
+    - id: write
+      num: "03"
+      name: "Write"
+      verbs: "Append · Tag"
+      promise: "Append, never overwrite."
+      product: mnemos
+      ref: "Episodic store E_t"
+      intro: "Admitted evidence is appended to the episodic store, tagged with when it arrived and where it came from."
+      items:
+        - { title: "Timestamped", body: "Each entry records its ingestion time, separately from the document's own dates." }
+        - { title: "Source-tagged", body: "Each entry links to document, region and version in the provenance ledger." }
+        - { title: "Fast and faithful", body: "The episodic store is built for quick, high-fidelity writes; abstraction happens later, and slower." }
+      outcome: "An episodic record of everything admitted."
+    - id: consolidate
+      num: "04"
+      name: "Consolidate"
+      verbs: "Abstract · Relate"
+      promise: "Learn what recurs."
+      product: mnemos
+      ref: "Eq. (9) · max J(α) − λR(α)"
+      intro: "Repeated document families become schemas and relations, chosen by how useful they will be against what they cost to keep."
+      items:
+        - { title: "Schemas from families", body: "Ten thousand invoices from one supplier become one template, linked to the evidence it came from." }
+        - { title: "Relations, not just vectors", body: "An associative graph links entities, documents and schemas by structure, time and analogy." }
+        - { title: "Keep the tail", body: "The optimum is not the smallest representation: episodic detail stays for the rare question the schema cannot answer." }
+      outcome: "Reusable schemas, still linked to their evidence."
+    - id: reconcile
+      num: "05"
+      name: "Reconcile"
+      verbs: "Supersede · Coexist"
+      promise: "Know what holds, and since when."
+      product: chronos
+      ref: "𝒮_sup · five outcomes"
+      intro: "New evidence is reconciled against the store into one of five outcomes, never by blind overwriting."
+      items:
+        - { title: "Four clocks", body: "Publication, event, effective and ingestion time are tracked separately." }
+        - { title: "Five outcomes", body: "Support, supersede, scope-coexist, retain conflict, or escalate for review, and the outcome is recorded." }
+        - { title: "History kept", body: "A superseded claim's validity interval is closed, not erased, so audits can see what changed and when." }
+      outcome: "Claims with validity intervals, and their history."
+    - id: forget
+      num: "06"
+      name: "Forget"
+      verbs: "Erase · Repair · Certify"
+      promise: "Erase across every store."
+      product: lethe
+      ref: "Algorithm 2 · five levels"
+      intro: "A deletion request reaches every representation derived from the target, including schemas that absorbed it."
+      items:
+        - { title: "Beyond the file", body: "Raw files, page images, OCR caches, embeddings, graph nodes and index entries." }
+        - { title: "Schema repair", body: "Re-consolidate what depended on the deleted evidence; this is where current systems stop." }
+        - { title: "Certificate", body: "Probe-based bounds on residual leakage, reported with Forgetting Fidelity and Coverage Retention." }
+      outcome: "A repaired state and an audit certificate."
+  rail:
+    symbol: "P_t"
+    name: "Provenance ledger"
+    body: "Invariant across every operation: any conclusion traces back to the box it came from."
+    product: ariadne
+
+domains:
+  kicker: "Where memory pays // §V-D"
+  title: "What your documents will remember."
+  sub: "Four domains the paper singles out. In each, the value of Document AI depends on accumulation."
+  items:
+    - id: legal
+      kicker: "Legal // Discovery"
+      title: "Matters that last for months"
+      points:
+        - "Carries findings across review sessions instead of re-deriving them."
+        - "Tracks non-monotonic amendments: what a clause said, and from when."
+        - "Keeps matters, clients and attorneys strictly apart."
+        - "Shows a department the clause, and keeps the negotiated price to finance."
+      with: [chronos, mnemos]
+      glyph: legal
+    - id: health
+      kicker: "Healthcare // Longitudinal"
+      title: "A patient, not an encounter"
+      points:
+        - "Reads a new lab report against the patient's trajectory."
+        - "Surfaces contradictions between successive reports instead of overwriting them."
+        - "Honours disposal rules across every record derived from the source."
+      with: [chronos, lethe]
+      glyph: health
+    - id: audit
+      kicker: "Finance // Audit"
+      title: "From the statement to the receipt"
+      points:
+        - "Keeps an unbroken chain from a consolidated figure to the transaction receipts."
+        - "Learns recurring invoice templates and reads only what changed."
+        - "Lets a preliminary statement stand next to its audited version."
+      with: [ariadne, mnemos]
+      glyph: audit
+    - id: science
+      kicker: "Science // Literature"
+      title: "Established, contested, superseded"
+      points:
+        - "Follows how consensus moves across papers."
+        - "Knows when a new result supersedes an old finding rather than adding to it."
+        - "Keeps results for different populations side by side."
+      with: [chronos, ariadne]
+      glyph: science
+  synth:
+    kicker: "The synthesis // the state"
+    title: "One state, many readers."
+    body: "Six stores, one transition per session, provenance as an invariant, authorization down to the clause. That is what we design: the state your documents need, on substrates you control."
+
+principles:
+  kicker: "From the paper // three lines we build on"
+  items:
+    - quote: "Storage is not retrieval, and retrieval is not consolidation."
+      ref: "§VI"
+      body: "Storage keeps information and retrieval finds it. Only consolidation changes how the next document is processed."
+    - quote: "Validation is a state-integrity condition, not an architectural refinement."
+      ref: "§III-B"
+      body: "Without a gate, one wrong write becomes a wrong answer in every session that follows."
+    - quote: "The gate controls the accumulation rate, not the asymptote."
+      ref: "Corollary III.7"
+      body: "Any imperfect gate only slows contamination, so a memory has to be re-verified on a measured schedule."
+
+# The harness cockpit: a simulation built from the paper's equations, with
+# illustrative parameters per document family. Not measured results.
+cockpit:
+  kicker: "The harness // simulated"
+  title: "What the harness reports."
+  sub: "This is how Anamnesis reports a memory system: the same model on the same future documents, warm, retrieval-only and cold, with the five metrics side by side."
+  note: "Simulation from the paper's Eq. (11)–(12), (17) and (18). Every parameter is illustrative; these are not measurements of any system."
+  families:
+    - id: contracts
+      label: "Contracts"
+      unit: "amendment streams"
+      q0: 0.58
+      access: 0.035
+      b2: 0.02
+      b3: 0.03
+      pe: 0.04
+      dkl: 0.35
+      wm: 0.6
+      cost_save: 0.42
+      maint: 0.12
+      tau: 6
+      ff_l2: 0.38
+      ff_l3: 0.96
+      cr_l2: 1.0
+      cr_l3: 0.97
+    - id: invoices
+      label: "Invoices"
+      unit: "supplier families"
+      q0: 0.71
+      access: 0.02
+      b2: 0.01
+      b3: 0.022
+      pe: 0.03
+      dkl: 0.3
+      wm: 0.5
+      cost_save: 0.63
+      maint: 0.08
+      tau: 4
+      ff_l2: 0.45
+      ff_l3: 0.97
+      cr_l2: 1.0
+      cr_l3: 0.98
+    - id: clinical
+      label: "Clinical"
+      unit: "patient records"
+      q0: 0.52
+      access: 0.03
+      b2: 0.03
+      b3: 0.034
+      pe: 0.06
+      dkl: 0.5
+      wm: 0.7
+      cost_save: 0.3
+      maint: 0.15
+      tau: 8
+      ff_l2: 0.31
+      ff_l3: 0.94
+      cr_l2: 1.0
+      cr_l3: 0.95
+    - id: literature
+      label: "Literature"
+      unit: "paper streams"
+      q0: 0.49
+      access: 0.04
+      b2: 0.015
+      b3: 0.028
+      pe: 0.05
+      dkl: 0.4
+      wm: 0.5
+      cost_save: 0.25
+      maint: 0.1
+      tau: 10
+      ff_l2: 0.42
+      ff_l3: 0.95
+      cr_l2: 1.0
+      cr_l3: 0.96
+  gates:
+    - { id: strict, label: "Strict gate", pc: 0.01 }
+    - { id: standard, label: "Standard gate", pc: 0.05 }
+    - { id: none, label: "No gate", pc: 1.0 }
+  delta: 0.05
+
+loop:
+  kicker: "The loop // Algorithm 1"
+  title: "Not a pipeline. A state that learns."
+  sub: "A pipeline answers once. The per-session transition reads, checks, writes, abstracts and reconciles, then answers from what it now knows."
+  steps:
+    - { name: "Observe", body: "Read the document as pixels, tokens, boxes, graphs, trees and metadata." }
+    - { name: "Corroborate", body: "Look up what prior evidence supports or contradicts." }
+    - { name: "Validate", body: "Admit the evidence, or leave the state unchanged." }
+    - { name: "Write", body: "Append to the episodic store, extend provenance." }
+    - { name: "Consolidate", body: "Abstract what recurs into schemas and relations." }
+    - { name: "Reconcile", body: "Apply supersession; close what no longer holds." }
+    - { name: "Answer", body: "Answer from the new state, and cite it." }
+  support: "The paper's decisive experiment: the same base model, the same future documents, different valid prior histories, and therefore different future competence."
+
+engagements:
+  kicker: "Work with us // three ways in"
+  title: "Start with your documents."
+  items:
+    - id: audit
+      num: "01"
+      kicker: "Statefulness audit"
+      title: "Is your Document AI stateless?"
+      body: "We code your pipeline and your evaluation against the eight statefulness criteria of the paper's audit, and place it among the degenerate regimes: zero-state, append-only, or unstructured summarization."
+      steps:
+        - "A review of the pipeline: what persists between sessions, and in what form."
+        - "Your benchmarks coded against the eight criteria of Table IV."
+        - "The gaps that matter for your documents, ranked."
+      outcome: "A criterion-by-criterion audit, with the gaps that matter first."
+      product: anamnesis
+    - id: pilot
+      num: "02"
+      kicker: "Longitudinal pilot"
+      title: "Does memory pay on your stream?"
+      body: "We build a stream from your own documents, with session boundaries, amendments, recurring families, deletion requests and unanswerable questions, and run the three arms on it."
+      steps:
+        - "A stream with the eight mandatory properties, built from your documents."
+        - "Warm, retrieval-only and cold arms under identical weights."
+        - "Experience Gain, Cost Efficiency, Memory Harm, Forgetting Fidelity and Coverage Retention, together."
+      outcome: "The five metrics on your data, and what they mean for your decision."
+      product: anamnesis
+    - id: build
+      num: "03"
+      kicker: "Build"
+      title: "Persistent state, in your stack."
+      body: "We put Mnemos in place with the gate, reconciliation, provenance and forgetting your domain needs, on substrates you control, with multi-tenant isolation from the start."
+      steps:
+        - "State design: which of the six components, on which substrates."
+        - "Gate, reconciliation and forgetting policies for your documents."
+        - "Hand-over: documentation, runbooks, and the harness to keep measuring."
+      outcome: "A state layer you own and can audit."
+      product: mnemos
+
+name:
+  kicker: "The name // σύναψις"
+  title: "A joining together."
+  word: "SynaptYon"
+  root: "σύναψις"
+  translit: "synapsis"
+  gloss: "Greek: a joining together, a conjunction. Also the root of “synapse”, where one neuron hands a signal to the next."
+  body: "The paper's target is a conjunction too: <span class=\"math\">C*</span> asks for multimodal evidence, document structure, persistence, temporal validity, provenance and governance at once, and no existing paradigm has all six."
+  products:
+    - { id: mnemos, root: "μνήμη", gloss: "memory" }
+    - { id: argus, root: "Ἄργος", gloss: "the hundred-eyed watchman" }
+    - { id: chronos, root: "χρόνος", gloss: "time" }
+    - { id: ariadne, root: "Ἀριάδνη", gloss: "her thread led out of the labyrinth" }
+    - { id: lethe, root: "Λήθη", gloss: "the river of forgetting" }
+    - { id: anamnesis, root: "ἀνάμνησις", gloss: "recollection" }
+
+people:
+  kicker: "The people // behind the state"
+  title: "Research first."
+  sub: "SynaptYon comes out of Document AI research published since 2019: cross-modal document understanding, grounded retrieval, low-resource scripts, and now persistent state."
+  founder:
+    name: "Souhail Bakkali"
+    role: "Co-founder · research & technology"
+    facts: "Lecturer-researcher at IRISA, Université de Rennes · PhD, La Rochelle Université · first author of the paper"
+    photo: "/images/souhail-bakkali-400.webp"
+  places_title: "Where the research was done"
+  places:
+    - "IRISA (UMR 6074)"
+    - "Université de Rennes"
+    - "CNRS"
+    - "ESIR"
+    - "L3i, La Rochelle Université"
+    - "ENSA Berrechid, Hassan First University"
+  venues_title: "Published at"
+  venues:
+    - "WACV"
+    - "ICDAR"
+    - "Pattern Recognition"
+    - "IJDAR"
+    - "ICIP"
+    - "ACCV"
+    - "CVPR Workshops"
+    - "ICPR Workshops"
+    - "EAMT"
+
+contact:
+  title: "We start with an audit."
+  sub: "Tell us about your documents, the decisions they drive, and how often they change."
