@@ -35,7 +35,7 @@
             {%- endfor %}
             <tr>
               <th scope="row"><span class="c-reconcile__oc" data-outcome="{{ o.id }}">{{ o.name }}</span></th>
-              <td>{{ o.body }}{% if o.defined %} <span class="c-reconcile__defined">Defined in the paper.</span>{% else %} <span class="c-reconcile__reading">Named in the paper; description is our reading.</span>{% endif %}</td>
+              <td>{{ o.body }}</td>
               <td>{% if ex %}<b>{{ ex.label }}</b> <span class="c-reconcile__ex-src">{{ ex_doc.ref }}, “{{ ex.value }}”</span><span class="c-reconcile__ex-note">{{ ex.note }}</span>{% else %}—{% endif %}</td>
             </tr>
             {%- endfor %}
@@ -44,5 +44,5 @@
       </div>
     </div>
   </details>
-  <figcaption class="figure__caption"><strong>How to read it.</strong> <span class="js-only">Read the four fictional documents in order: each field meets the claims already stored and gets one outcome; the ledger is the resulting validity index.</span> Outcome names come from the paper, which defines {{ defined | join: " and " | downcase }} and only names {{ named | join: ", " | downcase }}; for those, the descriptions are our reading. “New claim” is not one of the five: nothing was stored yet. {{ demo.disclaimer }}</figcaption>
+  <figcaption class="figure__caption"><strong>How to read it.</strong> <span class="js-only">Read the four fictional documents in order: each field meets the claims already stored and gets one outcome; the ledger is the resulting validity index.</span> “New claim” is not one of the five: nothing was stored yet. {{ demo.disclaimer }}</figcaption>
 </figure>

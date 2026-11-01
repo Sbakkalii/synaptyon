@@ -131,20 +131,15 @@ export default function init(root, ctx) {
     desc.dataset.outcome = state.focus || '';
     if (state.focus === NEW) {
       mount(desc,
-        h('p', { class: 'c-reconcile__desc-head' }, badge(NEW), h('span', { class: 'c-reconcile__reading' }, 'Not one of the paper’s five outcomes')),
+        h('p', { class: 'c-reconcile__desc-head' }, badge(NEW), h('span', { class: 'c-reconcile__reading' }, 'Not one of the five outcomes')),
         h('p', { class: 'c-reconcile__desc-body' }, 'Memory holds no claim for this field yet, so the observation is written as it is, valid from its document’s date.'));
     } else if (o) {
       mount(desc,
-        h('p', { class: 'c-reconcile__desc-head' }, badge(o.id),
-          h('span', { class: o.defined ? 'c-reconcile__defined' : 'c-reconcile__reading' },
-            o.defined ? 'Defined in the paper' : 'Named in the paper; description is our reading')),
+        h('p', { class: 'c-reconcile__desc-head' }, badge(o.id)),
         h('p', { class: 'c-reconcile__desc-body' }, o.body));
     } else {
-      const def = outcomes.filter((x) => x.defined).map((x) => x.name.toLowerCase());
-      const named = outcomes.filter((x) => !x.defined).map((x) => x.name.toLowerCase());
       mount(desc, h('p', { class: 'c-reconcile__desc-body c-reconcile__desc-hint' },
-        `Choose an outcome above to highlight its cards and ledger rows. The paper defines ${def.join(' and ')}; `,
-        `${named.join(', ')} are named only, so their descriptions here are our reading.`));
+        'Choose an outcome above to highlight its cards and ledger rows.'));
     }
   }
 

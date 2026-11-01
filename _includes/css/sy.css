@@ -222,6 +222,7 @@ html.js [data-reveal].is-in { opacity: 1; transform: none; }
 .statering__disc { fill: var(--surface); stroke: var(--c); stroke-width: 1.6; }
 .statering__sym { fill: var(--c); font-family: var(--font-math); font-size: 23px; font-style: italic; font-weight: 600; }
 .statering__sub { font-size: 12px; font-style: normal; }
+.statering__word { fill: var(--c); font-family: var(--font-sans); font-size: 9.5px; font-weight: 600; letter-spacing: 0.01em; }
 @keyframes breathe { 0%, 100% { transform: scale(1); opacity: 0.08; } 50% { transform: scale(1.22); opacity: 0.2; } }
 
 /* ------------------------------------------------------ figure override */

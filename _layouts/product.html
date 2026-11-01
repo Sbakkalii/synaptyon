@@ -101,17 +101,9 @@ body_class: product-page
         <p class="feat__pitch">{{ f.pitch }}</p>
         <ul class="feat__caps">
           {%- for cap in f.capabilities %}
-          <li><b>{{ cap.title }}.</b> {{ cap.body }} <span class="feat__refs">{% for slug in cap.research %}<a href="{{ site.founder_site }}publication/{{ slug }}/">{% include pubname.html slug=slug %}</a>{% endfor %}</span></li>
+          <li><b>{{ cap.title }}.</b> {{ cap.body }} <span class="feat__refs">{% for slug in cap.research %}{% if slug == "2026-amnesia-by-design" %}{% continue %}{% endif %}<a href="{{ site.founder_site }}publication/{{ slug }}/">{% include pubname.html slug=slug %}</a>{% endfor %}</span></li>
           {%- endfor %}
         </ul>
-        {%- if f.spec %}
-        <details class="feat__tech">
-          <summary>Technical note</summary>
-          <p>{{ f.problem }}</p>
-          <p class="feat__eq"><span class="math">{% include math.html text=f.equation %}</span></p>
-          <ul>{% for s in f.spec %}<li>{{ s.ref }} · {% include math.html text=s.what %}</li>{% endfor %}</ul>
-        </details>
-        {%- endif %}
       </article>
       {%- endfor %}
     </div>

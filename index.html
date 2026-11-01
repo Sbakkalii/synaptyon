@@ -47,13 +47,14 @@ body_class: "home"
         <g class="statering__mark" transform="translate(197.5 185) scale(0.101)">{% include logo.html id="hero" bare=true %}</g>
         {%- for c in comps %}{% assign xy = pos[forloop.index0] | split: "," %}
         <g class="statering__node" style="--c: var(--st-{{ c.key }}); --d: {{ forloop.index0 | times: 0.55 }}s" transform="translate({{ xy[0] }} {{ xy[1] }})">
-          <circle r="31" class="statering__halo"/>
-          <circle r="24" class="statering__disc"/>
-          <text class="statering__sym" y="1" text-anchor="middle" dominant-baseline="central">{{ c.symbol | split: "_" | first }}<tspan class="statering__sub" dy="7">t</tspan></text>
+          <circle r="34" class="statering__halo"/>
+          <circle r="28" class="statering__disc"/>
+          {%- assign ring_words = "E:Evidence,K:Templates,G:Links,V:Validity,P:Sources,A:Access" | split: "," -%}{%- assign ring_word = c.key -%}{%- for rw in ring_words -%}{%- assign kv = rw | split: ":" -%}{%- if kv[0] == c.key -%}{%- assign ring_word = kv[1] -%}{%- endif -%}{%- endfor %}
+          <text class="statering__word" y="1" text-anchor="middle" dominant-baseline="central">{{ ring_word }}</text>
         </g>
         {%- endfor %}
       </svg>
-      <figcaption id="hero-vis-cap" class="hero__cap">The state <span class="math">{% include math.html text=paper.state.symbol %}</span>: evidence, schemas, relations, validity, provenance and policy, updated together after every document.</figcaption>
+      <figcaption id="hero-vis-cap" class="hero__cap">One memory for all your documents: evidence, templates, links, validity, sources and permissions, updated together after every document.</figcaption>
     </figure>
   </div>
   <a class="hero__scroll" href="#chain" aria-label="Scroll to the product chain"><span aria-hidden="true"></span></a>
@@ -109,10 +110,10 @@ body_class: "home"
   <div class="container">
     <header class="sec__head sec__head--split" data-reveal>
       <div>
-        <p class="kicker">The memory layer // Fig. 1</p>
+        <p class="kicker">The difference // memory</p>
         <h2 class="sec__title" id="bottleneck-h">Read, answer, <span class="strike">reset</span>.</h2>
       </div>
-      <p class="sec__sub">Today's Document AI is a stateless function: <span class="math">ŷ = arg max P(y | D; θ)</span>. No variable carries a session index, so an amendment read tomorrow starts from nothing. Read the same four fictional documents both ways.</p>
+      <p class="sec__sub">Most document AI treats every file as the first one it has ever seen, so an amendment read tomorrow starts from nothing. Read the same four fictional documents both ways.</p>
     </header>
     <div data-reveal>{% include components/doc-demo.html %}</div>
   </div>
@@ -142,13 +143,13 @@ body_class: "home"
 
     <div class="bricks__rail" data-reveal>
       <span class="bricks__rail-line" aria-hidden="true"></span>
-      <p><span class="math">{% include math.html text=sy.lifecycle.rail.symbol %}</span> <b>{{ sy.lifecycle.rail.name }}</b> · {{ sy.lifecycle.rail.body }} <a href="{% include feature-url.html id="ariadne" %}">Source tracing →</a></p>
+      <p><b>{{ sy.lifecycle.rail.name }}</b> · {{ sy.lifecycle.rail.body }} <a href="{% include feature-url.html id="ariadne" %}">Source tracing →</a></p>
     </div>
 
     {%- for st in sy.lifecycle.steps %}{% assign prod = pd.products | where: "id", st.product | first %}
     <div class="bpanel" role="tabpanel" id="op-{{ st.id }}-panel" aria-labelledby="op-{{ st.id }}" tabindex="0"{% unless forloop.first %} data-tab-hidden{% endunless %}>
       <div class="bpanel__head">
-        <p class="kicker">{{ st.num }} // {{ st.name }} · <span class="math">{% include math.html text=st.ref %}</span></p>
+        <p class="kicker">{{ st.num }} // {{ st.name }}</p>
         <p class="bpanel__intro">{{ st.intro }}</p>
       </div>
       <ul class="bpanel__items">
@@ -258,12 +259,9 @@ body_class: "home"
         </figcaption>
       </figure>
       <div class="people__paper" data-reveal>
-        <p class="kicker kicker--sm">The paper</p>
-        <p class="people__paper-title"><a href="{{ pd.paper.url }}">{{ paper.title }}</a></p>
-        <p class="people__paper-authors">{% for a in paper.authors %}{{ a.name }}<span> · {{ a.affiliation }}</span>{% unless forloop.last %}<br>{% endunless %}{% endfor %}</p>
-        <ul class="people__counts">
-          {%- for c in paper.counts %}<li><b>{{ c.value }}</b><span>{{ c.label }}</span></li>{% endfor %}
-        </ul>
+        <p class="kicker kicker--sm">Published research</p>
+        <p class="people__paper-title">{{ sy.people.research }}</p>
+        <p class="people__paper-authors"><a href="{{ site.founder_site }}publications/">All publications →</a></p>
       </div>
     </div>
     <div class="marquee" aria-label="{{ sy.people.places_title }} and {{ sy.people.venues_title | downcase }}">

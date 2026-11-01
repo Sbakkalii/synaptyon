@@ -92,7 +92,7 @@
   </div>
 
   {%- assign number_words = "zero,one,two,three,four,five,six,seven,eight,nine,ten" | split: "," %}
-  <figcaption class="figure__caption c-doc-demo__caption">{{ demo.disclaimer }} Outcomes follow the paper’s {{ number_words[outcomes.size] | default: outcomes.size }} reconciliation outcomes; {% for o in named_outcomes %}{% if forloop.last and forloop.length > 1 %} and {% elsif forloop.index > 1 %}, {% endif %}{{ o.name | downcase }}{% endfor %} are named there without a definition, so their use here is our reading.</figcaption>
+  <figcaption class="figure__caption c-doc-demo__caption">{{ demo.disclaimer }}</figcaption>
 
   <script type="application/json" data-for="doc-demo">{"page":{{ demo.page | jsonify }},"documents":{{ docs | jsonify }},"outcomes":{{ outcomes | jsonify }}}</script>
 </figure>

@@ -22,7 +22,7 @@ hero:
 # Fig. 3 of the paper: six lifecycle operations over the state, with the
 # provenance ledger as an invariant underneath all of them.
 lifecycle:
-  kicker: "The lifecycle // Fig. 3"
+  kicker: "How Mnemos works // six steps"
   title: "Six operations. One state."
   sub: "Every document goes through the same lifecycle. Each step is a product, and provenance runs under all of them."
   steps:
@@ -106,8 +106,8 @@ lifecycle:
       outcome: "A repaired state and an audit certificate."
   rail:
     symbol: "P_t"
-    name: "Provenance ledger"
-    body: "Invariant across every operation: any conclusion traces back to the box it came from."
+    name: "Source tracing"
+    body: "Runs under every step: any answer traces back to the place on the page it came from."
     product: ariadne
 
 # Production commitments: what every product in the chain is designed to do.
@@ -128,7 +128,7 @@ cockpit:
   kicker: "The harness // simulated"
   title: "What the harness reports."
   sub: "This is how every pilot is reported: the same model on the same future documents, warm, retrieval-only and cold, with the five metrics side by side."
-  note: "Simulation from the paper's Eq. (11)–(12), (17) and (18). Every parameter is illustrative; these are not measurements of any system."
+  note: "Simulation with illustrative parameters. These are not measurements of any system."
   families:
     - id: contracts
       label: "Contracts"
@@ -212,7 +212,7 @@ engagements:
       num: "01"
       kicker: "Discovery"
       title: "Where does Document AI pay in your flows?"
-      body: "We map what arrives, in which volumes and formats, who reads it and which decisions follow, and we audit any existing pipeline against the eight statefulness criteria of the paper's audit."
+      body: "We map what arrives, in which volumes and formats, who reads it and which decisions follow, and we check how well any existing pipeline carries knowledge from one document to the next."
       steps:
         - "Document flows mapped: sources, volumes, formats, owners."
         - "The decisions each document feeds, and what an error costs."
@@ -249,7 +249,7 @@ name:
   root: "σύναψις"
   translit: "synapsis"
   gloss: "Greek: a joining together, a conjunction. Also the root of “synapse”, where one neuron hands a signal to the next."
-  body: "The paper's target is a conjunction too: <span class=\"math\">C*</span> asks for multimodal evidence, document structure, persistence, temporal validity, provenance and governance at once, and no existing paradigm has all six."
+  body: "That is what the products do: they join reading, extraction, answers and memory into one chain, so each step builds on the others."
   products:
     - { id: grammata, name: "Grammata", root: "γράμματα", gloss: "letters" }
     - { id: kleis, name: "Kleis", root: "κλείς", gloss: "key" }
@@ -259,12 +259,13 @@ name:
 people:
   kicker: "The people // behind the state"
   title: "Research first."
-  sub: "SynaptYon comes out of Document AI research published since 2019: cross-modal document understanding, grounded retrieval, low-resource scripts, and now persistent state."
+  sub: "SynaptYon comes out of Document AI research published since 2019: cross-modal document understanding, grounded retrieval, low-resource scripts, and document memory."
   founder:
     name: "Souhail Bakkali"
     role: "Co-founder · research & technology"
-    facts: "Lecturer-researcher at IRISA, Université de Rennes · PhD, La Rochelle Université · first author of the paper"
+    facts: "Lecturer-researcher at IRISA, Université de Rennes · PhD, La Rochelle Université · Document AI research since 2019"
     photo: "/images/souhail-bakkali-400.webp"
+  research: "29 publications since 2019, at venues including WACV, ICDAR, Pattern Recognition and IJDAR."
   places_title: "Where the research was done"
   places:
     - "IRISA (UMR 6074)"

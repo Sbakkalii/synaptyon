@@ -7,8 +7,8 @@ description: >-
   SynaptYon builds Document Intelligence end to end: capture, OCR and
   handwriting, layout, classification, key information extraction, entities,
   question answering, search, summarisation and translation for business,
-  financial, historical and healthcare documents, on a persistent memory
-  specified in arXiv:2609.32041.
+  financial, historical and healthcare documents, with a memory that keeps
+  what it reads.
 url: "https://sbakkalii.github.io"
 baseurl: "/synaptyon"
 lang: en
