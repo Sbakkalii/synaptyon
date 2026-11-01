@@ -4,25 +4,31 @@ Product site for SynaptYon SARL, served by GitHub Pages (Jekyll) at
 https://sbakkalii.github.io/synaptyon/ until a company domain exists. It is a
 preview: every page carries `noindex`.
 
-The six products each implement one part of the architecture in
-[“Amnesia by Design, Memory By Necessity”](https://arxiv.org/abs/2609.32041)
+SynaptYon covers the whole Document Intelligence chain in five stages, with
+17 products. The memory layer (Remember, Measure) implements the architecture
+in [“Amnesia by Design, Memory By Necessity”](https://arxiv.org/abs/2609.32041)
 (Bakkali & Merimi, arXiv:2609.32041).
 
-| Product | Role | Paper |
-| --- | --- | --- |
-| Mnemos | Persistent document state | §III-A–C, Algorithm 1 |
-| Argus | Pre-write validation gate | §III-B, Theorem III.4 |
-| Chronos | Bitemporal reconciliation | 𝒮_sup, §V-B |
-| Ariadne | Recursive provenance | P_t invariant, §V-B |
-| Lethe | Verifiable forgetting | §III-D, §V-C, Algorithm 2 |
-| Anamnesis | Longitudinal benchmark harness | §IV |
+| Stage | Products |
+| --- | --- |
+| Ingest | Agora (ingestion & capture), Grammata (OCR & handwriting), Morphe (layout & tables) |
+| Understand | Taxis (classification & routing), Kleis (key information extraction), Onoma (named entities), Pistis (trust & consistency) |
+| Apply | Sibyl (QA & DocVQA), Heuresis (search), Epitome (summarisation), Hermeneus (translation) |
+| Remember | Mnemos (document memory), Argus (validation gate), Chronos (versions), Ariadne (provenance), Lethe (deletion) |
+| Measure | Anamnesis (evaluation harness) |
+
+Solutions by document family (business, financial, historical, healthcare,
+identity, legal) live in the same data file.
 
 ## Where things live
 
 | What | File |
 | --- | --- |
-| Products (shared with the founder's site, keep both copies identical) | `_data/products.yml` |
-| Home page copy: lifecycle, domains, cockpit parameters, services, name | `_data/sy.yml` |
+| Products, chain and solutions (shared with the founder's site, keep both copies identical) | `_data/products.yml` |
+| Short labels for cited publications | `_data/pubs.yml` |
+| Pipeline demo documents and scripted outputs | `_data/pipeline.yml` |
+| Products overview page | `products/index.html` |
+| Home page copy: lifecycle, commitments, cockpit parameters, engagements, names | `_data/sy.yml` |
 | The paper's tables and equations | `_data/paper.yml` |
 | Fictional documents used by the demos | `_data/demo.yml` |
 | Product page template | `_layouts/product.html` |
@@ -38,7 +44,7 @@ labelled as such on the page and measures nothing.
 
 - Fill in the legal notice (`legal.html`): registered office, registration
   number, publication director, host.
-- Switch `contact_email` in `_config.yml` to a company mailbox.
+- Switch `contact_email` in `_config.yml` (now a Gmail address) to a mailbox on the company domain.
 - Point a custom domain at the repository, then remove `noindex` from
   `_config.yml` and the `Disallow` from `robots.txt`.
 - Product names are working names: run a trademark check.

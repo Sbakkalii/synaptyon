@@ -1,0 +1,53 @@
+{%- comment -%}
+  Pipeline explorer: one fictional document (site.data.pipeline) through the
+  whole chain, stage by stage, with the output each product would produce.
+  Each stage's product name, role and chain stage come from
+  site.data.products, so nothing in the script names a product.
+
+  Parameters (all optional):
+    stage  initial stage id, one of the products' demo_stage values (default: ingest)
+    doc    initial document id: invoice, statement, register, prescription (default: the first)
+    uid    suffix for the static ids, needed when the page has two instances (default: pl)
+
+  Static baseline (no JavaScript): for the initial document, a table of
+  stage, product and what it outputs. assets/js/components/pipeline.js
+  replaces it with the explorer inside [data-app].
+{%- endcomment -%}
+{%- assign pl = site.data.pipeline -%}
+{%- assign pd = site.data.products -%}
+{%- assign products_url = '/products/' | relative_url -%}
+{%- assign pl_uid = include.uid | default: "pl" -%}
+{%- assign pl_stage = include.stage | default: "ingest" -%}
+{%- assign pl_doc = pl.documents | where: "id", include.doc | first -%}
+{%- unless pl_doc -%}{%- assign pl_doc = pl.documents | first -%}{%- endunless -%}
+
+{%- assign pl_stages = "" | split: "" -%}
+{%- for st in pl.stages -%}
+  {%- assign p = pd.products | where: "id", st.product | first -%}
+  {%- assign grp = nil -%}
+  {%- for c in pd.chain -%}{%- if c.products contains st.product -%}{%- assign grp = c -%}{%- endif -%}{%- endfor -%}
+  {%- capture item -%}{"id": {{ st.id | jsonify }}, "name": {{ st.name | jsonify }}, "group": {{ grp.id | jsonify }}, "groupName": {{ grp.name | jsonify }}, "product": {"id": {{ p.id | jsonify }}, "name": {{ p.name | jsonify }}, "role": {{ p.role | jsonify }}, "url": {{ products_url | append: p.id | append: "/" | jsonify }}}}{%- endcapture -%}
+  {%- assign pl_stages = pl_stages | push: item -%}
+{%- endfor -%}
+<figure class="c-pipeline" data-component="pipeline" id="pipeline-{{ pl_uid }}" aria-labelledby="pipeline-{{ pl_uid }}-label">
+  <div class="c-pipeline__bar">
+    <span class="c-pipeline__dot" aria-hidden="true"></span>
+    <span class="c-pipeline__label" id="pipeline-{{ pl_uid }}-label"><b>Pipeline</b> · one document through the chain</span>
+    <span class="status status--muted">Illustrative</span>
+  </div>
+  <script type="application/json" data-for="pipeline">{"stages": [{{ pl_stages | join: ", " }}], "documents": {{ pl.documents | jsonify }}, "types": {{ pl.region_types | jsonify }}, "stage": {{ pl_stage | jsonify }}, "doc": {{ pl_doc.id | jsonify }}}</script>
+  <div class="c-pipeline__app" data-app hidden></div>
+  <div class="c-pipeline__static" data-static>
+    <table class="c-pipeline__s-table">
+      <caption>{{ pl_doc.name | escape }} <span class="tag">Fictional</span> through the chain</caption>
+      <thead><tr><th scope="col">Stage</th><th scope="col">Product</th><th scope="col">What it outputs</th></tr></thead>
+      <tbody>
+        {%- for st in pl.stages %}
+        {%- assign p = pd.products | where: "id", st.product | first %}
+        <tr><th scope="row"><span class="c-pipeline__s-n">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span> {{ st.name | escape }}</th><td><a href="{{ products_url }}{{ p.id }}/">{{ p.name | escape }}</a> <span class="c-pipeline__s-role">{{ p.role | escape }}</span></td><td>{{ pl_doc.out[st.id].brief | escape }}</td></tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+  </div>
+  <figcaption class="c-pipeline__note">{{ pl.note | escape }}</figcaption>
+</figure>

@@ -1,0 +1,743 @@
+# Pipeline explorer (_includes/components/pipeline.html): one fictional
+# document through the whole chain, with the output each product would give.
+#
+# Everything here is scripted and illustrative. Every person, company,
+# address and place is invented; postcodes start with 00 and every
+# identifier (IBAN, SIRET, VAT, RPPS, account numbers) is zeros or X's.
+#
+# Page model. A document is drawn from its `lines` on a page of `page.w` x
+# `page.h` units. A line has an id, a box `b` [x, y, w, h], its text `t`,
+# a style `st`, an anchor `a` (end, mid) and a recognition confidence `c`
+# (default 0.985) with per-word exceptions in `lo` (all below 0.90, so they
+# are the flagged words). `art` is drawn decoration (logos, rules, stamps,
+# signatures). `regions` are the layout output in reading order; a region's
+# box is its `box`, or its lines' bounding box.
+#
+# Refs. Wherever an output points at the page (`at`, `near`) it uses a
+# region id (r3), a line id (l12), a span inside a line ("l12#text", the
+# first occurrence) or a literal box [x, y, w, h]; a list combines several.
+#
+# Stage ids match `demo_stage` in _data/products.yml; `product` names the
+# product whose name and role the include looks up there.
+
+note: "Illustrative: scripted outputs on fictional documents. Confidences and scores are examples, not measurements."
+
+stages:
+  - { id: ingest,    name: "Ingest",    product: agora }
+  - { id: read,      name: "Read",      product: grammata }
+  - { id: layout,    name: "Layout",    product: morphe }
+  - { id: classify,  name: "Classify",  product: taxis }
+  - { id: extract,   name: "Extract",   product: kleis }
+  - { id: entities,  name: "Entities",  product: onoma }
+  - { id: verify,    name: "Verify",    product: pistis }
+  - { id: ask,       name: "Ask",       product: sibyl }
+  - { id: summarise, name: "Summarise", product: epitome }
+  - { id: translate, name: "Translate", product: hermeneus }
+  - { id: remember,  name: "Remember",  product: mnemos }
+
+region_types:
+  logo: "Logo"
+  title: "Title"
+  header: "Header"
+  address: "Address"
+  paragraph: "Paragraph"
+  table: "Table"
+  total: "Total"
+  item: "List item"
+  date: "Date"
+  patient: "Patient"
+  signature: "Signature"
+  stamp: "Stamp"
+  margin: "Margin note"
+  footer: "Footer"
+
+documents:
+  # =================================================================== invoice
+  - id: invoice
+    family: business
+    family_label: "Business"
+    name: "Supplier invoice"
+    title: "Supplier invoice FV-2026-0418"
+    ref: "FV-2026-0418"
+    page: { w: 600, h: 848, paper: plain, ink: print }
+    lines:
+      - { id: l1, b: [84, 43, 230, 18], t: "VERDANE FOURNITURES", st: brand }
+      - { id: l2, b: [84, 63, 230, 11], t: "Linge et fournitures pour l’hôtellerie", st: small }
+      - { id: l3, b: [40, 98, 220, 13], t: "Verdane Fournitures SAS", st: strong }
+      - { id: l4, b: [40, 114, 220, 12], t: "12 rue des Tisserands" }
+      - { id: l5, b: [40, 129, 220, 12], t: "00170 Brimeval-sur-Ardelle" }
+      - { id: l6, b: [40, 146, 220, 11], t: "SIRET 000 000 000 00000", st: small }
+      - { id: l7, b: [40, 160, 220, 11], t: "TVA intracom. FR 00 000000000", st: small, c: 0.97 }
+      - { id: l8, b: [340, 40, 220, 28], t: "FACTURE", st: title, a: end }
+      - { id: l9, b: [372, 82, 90, 12], t: "N° de facture", st: label }
+      - { id: l10, b: [462, 82, 98, 12], t: "FV-2026-0418", st: strong, a: end }
+      - { id: l11, b: [372, 98, 90, 12], t: "Date", st: label }
+      - { id: l12, b: [462, 98, 98, 12], t: "14/03/2026", a: end }
+      - { id: l13, b: [372, 114, 90, 12], t: "Échéance", st: label }
+      - { id: l14, b: [462, 114, 98, 12], t: "13/04/2026", a: end }
+      - { id: l15, b: [372, 130, 90, 12], t: "Réf. client", st: label }
+      - { id: l16, b: [462, 130, 98, 12], t: "CLI-00087", a: end }
+      - { id: l17, b: [352, 184, 150, 10], t: "FACTURÉ À", st: label }
+      - { id: l18, b: [352, 199, 196, 13], t: "Les Ormeaux Hôtellerie SARL", st: strong }
+      - { id: l19, b: [352, 215, 196, 12], t: "À l’attention de Mme Hélène Vasseur", lo: { "Vasseur": 0.86 } }
+      - { id: l20, b: [352, 230, 196, 12], t: "3 place de la Halle" }
+      - { id: l21, b: [352, 245, 196, 12], t: "00340 Castelnoir-les-Prés" }
+      - { id: l22, b: [40, 284, 380, 13], t: "Objet : réassort de linge de chambre et de bain, mars 2026" }
+      - { id: l23, b: [48, 311, 200, 12], t: "Désignation", st: th }
+      - { id: l24, b: [300, 311, 52, 12], t: "Qté", st: th, a: end }
+      - { id: l25, b: [370, 311, 74, 12], t: "PU HT", st: th, a: end }
+      - { id: l26, b: [462, 311, 90, 12], t: "Montant HT", st: th, a: end }
+      - { id: l27, b: [48, 336, 240, 13], t: "Drap housse 160 × 200, coton" }
+      - { id: l28, b: [300, 336, 52, 13], t: "24", a: end }
+      - { id: l29, b: [370, 336, 74, 13], t: "18,50", a: end }
+      - { id: l30, b: [462, 336, 90, 13], t: "444,00", a: end }
+      - { id: l31, b: [48, 358, 240, 13], t: "Taie d’oreiller 50 × 70", lo: { "d’oreiller": 0.84 } }
+      - { id: l32, b: [300, 358, 52, 13], t: "48", a: end, lo: { "48": 0.88 } }
+      - { id: l33, b: [370, 358, 74, 13], t: "4,20", a: end }
+      - { id: l34, b: [462, 358, 90, 13], t: "201,60", a: end }
+      - { id: l35, b: [48, 380, 240, 13], t: "Serviette de bain 70 × 140" }
+      - { id: l36, b: [300, 380, 52, 13], t: "36", a: end }
+      - { id: l37, b: [370, 380, 74, 13], t: "9,80", a: end }
+      - { id: l38, b: [462, 380, 90, 13], t: "352,80", a: end }
+      - { id: l39, b: [48, 402, 240, 13], t: "Livraison et installation" }
+      - { id: l40, b: [300, 402, 52, 13], t: "1", a: end }
+      - { id: l41, b: [370, 402, 74, 13], t: "65,00", a: end }
+      - { id: l42, b: [462, 402, 90, 13], t: "65,00", a: end }
+      - { id: l43, b: [372, 438, 90, 13], t: "Total HT" }
+      - { id: l44, b: [462, 438, 90, 13], t: "1 063,40 €", a: end }
+      - { id: l45, b: [372, 456, 90, 13], t: "TVA 20 %" }
+      - { id: l46, b: [462, 456, 90, 13], t: "212,68 €", a: end }
+      - { id: l47, b: [372, 482, 90, 14], t: "Total TTC", st: strong }
+      - { id: l48, b: [452, 482, 100, 14], t: "1 276,08 €", st: strong, a: end }
+      - { id: l49, b: [40, 524, 300, 13], t: "Conditions de paiement", st: strong }
+      - { id: l50, b: [40, 541, 420, 12], t: "Paiement à 30 jours par virement, au plus tard le 13/04/2026." }
+      - { id: l51, b: [40, 557, 420, 12], t: "IBAN FR76 XXXX XXXX XXXX XXXX XXXX 000 · BIC XXXXFRXX", st: mono }
+      - { id: l52, b: [40, 580, 480, 11], t: "En cas de retard de paiement, pénalités au taux de trois fois le taux d’intérêt légal", st: small }
+      - { id: l53, b: [40, 594, 480, 11], t: "et indemnité forfaitaire de 40 € pour frais de recouvrement.", st: small }
+      - { id: l54, b: [40, 806, 520, 10], t: "Verdane Fournitures SAS · capital 20 000 € · RCS 000 000 000 · document fictif", st: small, a: mid }
+    art:
+      - { k: logo, b: [40, 40, 34, 34], t: "V" }
+      - { k: frame, b: [340, 176, 220, 88] }
+      - { k: band, b: [40, 306, 520, 22] }
+      - { k: band, b: [360, 475, 200, 28] }
+      - { k: stamp, b: [392, 628, 160, 62], t: ["VERDANE FOURNITURES", "SAS · Brimeval-sur-Ardelle", "Service facturation"], rot: -4 }
+      - { k: sign, b: [414, 640, 116, 40], ink: blue }
+      - { k: rule, b: [40, 796, 520, 0] }
+    regions:
+      - { id: r1, type: logo, box: [36, 36, 282, 42], lines: [l1, l2] }
+      - { id: r2, type: address, lines: [l3, l4, l5, l6, l7] }
+      - { id: r3, type: title, lines: [l8] }
+      - { id: r4, type: header, lines: [l9, l10, l11, l12, l13, l14, l15, l16] }
+      - { id: r5, type: address, box: [340, 176, 220, 88], lines: [l17, l18, l19, l20, l21] }
+      - { id: r6, type: paragraph, lines: [l22] }
+      - { id: r7, type: table, box: [40, 306, 520, 116], rows: [[l23, l24, l25, l26], [l27, l28, l29, l30], [l31, l32, l33, l34], [l35, l36, l37, l38], [l39, l40, l41, l42]] }
+      - { id: r8, type: total, box: [360, 432, 200, 71], lines: [l43, l44, l45, l46, l47, l48] }
+      - { id: r9, type: paragraph, lines: [l49, l50, l51] }
+      - { id: r10, type: paragraph, lines: [l52, l53] }
+      - { id: r11, type: stamp, box: [388, 622, 168, 72] }
+      - { id: r12, type: signature, box: [410, 636, 124, 48] }
+      - { id: r13, type: footer, lines: [l54] }
+    out:
+      ingest:
+        brief: "Scanned PDF, 1 page, capture quality 0.96: accepted"
+        format: "PDF 1.7, scanned"
+        pages: 1
+        source: "Accounts-payable mailbox, email attachment"
+        resolution: "300 dpi, greyscale"
+        score: 0.96
+        verdict: "Accepted"
+        checks:
+          - { id: blur, name: "Blur", value: "0.03", result: pass, note: "Sharp text edges" }
+          - { id: skew, name: "Skew", value: "0.4°", result: pass, note: "Within tolerance, no correction" }
+          - { id: glare, name: "Glare", value: "none", result: pass, note: "Flatbed scan" }
+          - { id: contrast, name: "Contrast", value: "0.91", result: pass, note: "Dark text on a clean background" }
+        actions:
+          - "1 document found in the file"
+          - "Not a duplicate of a file already received"
+      read:
+        brief: "Printed French, Latin script; 3 words flagged below 0.90"
+        lang: "French (fr)"
+        script: "Latin"
+        mode: "Printed"
+      layout:
+        brief: "13 regions in reading order; line-item table rebuilt as 5 rows × 4 columns"
+      classify:
+        brief: "Supplier invoice (0.97), routed to accounts payable"
+        top:
+          - { type: "Supplier invoice", score: 0.97 }
+          - { type: "Credit note", score: 0.02 }
+          - { type: "Quote", score: 0.01 }
+        route: { dest: "Accounts payable · approval queue", why: "An invoice with a VAT breakdown, an amount due and supplier identifiers." }
+        cues:
+          - { text: "Title “FACTURE”", at: r3 }
+          - { text: "VAT breakdown and total due", at: r8 }
+          - { text: "Line items with unit prices", at: r7 }
+          - { text: "Supplier SIRET and VAT number", at: r2 }
+      extract:
+        brief: "13 fields normalised; 1 below 0.90 held for review"
+        fields:
+          - { key: invoice_number, raw: "FV-2026-0418", norm: "FV-2026-0418", conf: 0.99, at: l10 }
+          - { key: invoice_date, raw: "14/03/2026", norm: "2026-03-14", conf: 0.99, at: l12 }
+          - { key: due_date, raw: "13/04/2026", norm: "2026-04-13", conf: 0.98, at: l14 }
+          - { key: supplier_name, raw: "Verdane Fournitures SAS", norm: "Verdane Fournitures SAS", conf: 0.98, at: l3 }
+          - { key: supplier_siret, raw: "000 000 000 00000", norm: "00000000000000", conf: 0.96, at: "l6#000 000 000 00000" }
+          - { key: supplier_vat, raw: "FR 00 000000000", norm: "FR00000000000", conf: 0.96, at: "l7#FR 00 000000000" }
+          - { key: client_name, raw: "Les Ormeaux Hôtellerie SARL", norm: "Les Ormeaux Hôtellerie SARL", conf: 0.97, at: l18 }
+          - { key: client_contact, raw: "Mme Hélène Vasseur", norm: "Hélène Vasseur", conf: 0.86, at: "l19#Mme Hélène Vasseur" }
+          - { key: payment_terms, raw: "Paiement à 30 jours par virement", norm: "net 30 days · bank transfer", conf: 0.95, at: "l50#Paiement à 30 jours par virement" }
+          - { key: iban, raw: "FR76 XXXX XXXX XXXX XXXX XXXX 000", norm: "FR76XXXXXXXXXXXXXXXXXXXX000", conf: 0.94, at: "l51#FR76 XXXX XXXX XXXX XXXX XXXX 000" }
+          - { key: subtotal_excl_vat, raw: "1 063,40 €", norm: "1063.40 EUR", conf: 0.98, at: l44 }
+          - { key: vat_amount, raw: "212,68 €", norm: "212.68 EUR (rate 0.20)", conf: 0.98, at: [l45, l46] }
+          - { key: total_incl_vat, raw: "1 276,08 €", norm: "1276.08 EUR", conf: 0.99, at: l48 }
+      entities:
+        brief: "9 entities, 5 linked to known records"
+        spans:
+          - { text: "Verdane Fournitures SAS", type: ORG, id: "org:0412", seen: "6 earlier invoices from this supplier", at: l3 }
+          - { text: "Les Ormeaux Hôtellerie SARL", type: ORG, id: "org:0087", seen: "the client record CLI-00087", at: l18 }
+          - { text: "Hélène Vasseur", type: PERSON, id: "per:0913", seen: "2 delivery notes signed for this client", at: "l19#Hélène Vasseur" }
+          - { text: "Brimeval-sur-Ardelle", type: PLACE, id: "plc:0170", seen: "the supplier’s registered address", at: "l5#Brimeval-sur-Ardelle" }
+          - { text: "Castelnoir-les-Prés", type: PLACE, id: "plc:0340", seen: "the bank statement in this demo", at: "l21#Castelnoir-les-Prés" }
+          - { text: "14/03/2026", type: DATE, norm: "2026-03-14", at: l12 }
+          - { text: "13/04/2026", type: DATE, norm: "2026-04-13", at: l14 }
+          - { text: "1 276,08 €", type: MONEY, norm: "1276.08 EUR", at: l48 }
+          - { text: "40 €", type: MONEY, norm: "40.00 EUR", at: "l53#40 €" }
+      verify:
+        brief: "5 checks: 4 pass, 1 warning"
+        checks:
+          - { id: sum, name: "Line items sum to the subtotal", result: pass, detail: "444,00 + 201,60 + 352,80 + 65,00 = 1 063,40", at: [l30, l34, l38, l42, l44] }
+          - { id: vat, name: "VAT is consistent", result: pass, detail: "20 % × 1 063,40 = 212,68, and 1 063,40 + 212,68 = 1 276,08", at: [l45, l46, l48] }
+          - { id: rows, name: "Row arithmetic", result: pass, detail: "Quantity × unit price = amount on all 4 rows; the low-confidence “48” is confirmed by 48 × 4,20 = 201,60", at: r7 }
+          - { id: due, name: "Due date follows the terms", result: pass, detail: "14/03/2026 + 30 days = 13/04/2026", at: [l12, l14, "l50#Paiement à 30 jours"] }
+          - { id: po, name: "Purchase order reference", result: warn, detail: "No PO number on the invoice: approval needs a manual match", at: r4 }
+      ask:
+        brief: "3 answers with citations, 1 explicit abstention"
+        qa:
+          - { q: "What is the total amount due?", a: "1 276,08 € including 20 % VAT, due by 13 April 2026.", conf: 0.97, at: [l47, l48] }
+          - { q: "How many fitted sheets were invoiced?", a: "24, at 18,50 € each: 444,00 € before VAT.", conf: 0.95, at: [l27, l28, l29, l30] }
+          - { q: "Which account should be paid?", a: "FR76 XXXX XXXX XXXX XXXX XXXX 000, by bank transfer (a fictional IBAN).", conf: 0.94, at: l51 }
+          - { q: "Who approved this purchase?", abstain: true, a: "Not stated. The invoice names a contact at the client, not an approver, so there is no region to cite.", near: "l19#Mme Hélène Vasseur" }
+      summarise:
+        brief: "3 sentences, each citing its regions"
+        sentences:
+          - { t: "Verdane Fournitures invoices Les Ormeaux Hôtellerie for a March restock of bed and bath linen.", at: [r2, r5, r6] }
+          - { t: "Four lines come to 1 063,40 € before VAT and 1 276,08 € with 20 % VAT.", at: [r7, r8] }
+          - { t: "Payment is due by bank transfer by 13 April 2026, with late-payment penalties stated.", at: [r9, r10] }
+      translate:
+        brief: "2 regions, French → English, terminology kept"
+        items:
+          - at: r9
+            dst: "Payment terms. Payment within 30 days by bank transfer, no later than 13/04/2026. IBAN FR76 XXXX XXXX XXXX XXXX XXXX 000 · BIC XXXXFRXX"
+            terms: [["virement", "bank transfer"], ["au plus tard", "no later than"]]
+          - at: r10
+            dst: "In the event of late payment, penalties at three times the statutory interest rate and a fixed indemnity of €40 for recovery costs."
+            terms: [["taux d’intérêt légal", "statutory interest rate"], ["indemnité forfaitaire", "fixed indemnity"]]
+      remember:
+        brief: "4 claims written with provenance; matches a known supplier template"
+        claims:
+          - { s: "Verdane Fournitures SAS", p: "bank account", o: "FR76 XXXX … 000", from: "2026-03-14", at: l51 }
+          - { s: "FV-2026-0418", p: "amount due", o: "1 276,08 € incl. VAT", from: "2026-03-14", to: "2026-04-13", at: [l47, l48] }
+          - { s: "Les Ormeaux Hôtellerie SARL", p: "payment terms", o: "30 days, bank transfer", from: "2026-03-14", at: l50 }
+          - { s: "Hélène Vasseur", p: "contact at", o: "Les Ormeaux Hôtellerie SARL", from: "2026-03-14", status: review, note: "surname read at 0.86: held for review before it is used", at: l19 }
+        reconcile:
+          outcome: "Supports"
+          text: "Matches the supplier template learned from 6 earlier invoices: same layout, VAT number and bank account. Nothing is superseded."
+          at: [r1, r2, l51]
+
+  # ================================================================= statement
+  - id: statement
+    family: financial
+    family_label: "Financial"
+    name: "Bank statement"
+    title: "Bank statement 03/2026"
+    ref: "RC-03/2026"
+    page: { w: 600, h: 848, paper: plain, ink: print }
+    lines:
+      - { id: l1, b: [80, 43, 220, 17], t: "BANQUE HAUTMARAIS", st: brand }
+      - { id: l2, b: [80, 62, 250, 11], t: "Agence de Castelnoir · 8 cours des Lices", st: small }
+      - { id: l3, b: [330, 40, 230, 22], t: "RELEVÉ DE COMPTE", st: title, a: end }
+      - { id: l4, b: [290, 67, 270, 12], t: "N° 03/2026 · du 01/03/2026 au 31/03/2026", a: end }
+      - { id: l5, b: [340, 104, 220, 13], t: "Mme Clarisse Arnoult-Dervaux", st: strong }
+      - { id: l6, b: [340, 120, 220, 12], t: "27 allée des Merisiers" }
+      - { id: l7, b: [340, 135, 220, 12], t: "00340 Castelnoir-les-Prés" }
+      - { id: l8, b: [40, 104, 260, 12], t: "Compte courant n° XXXX XXXX 0000" }
+      - { id: l9, b: [40, 120, 270, 12], t: "IBAN FR76 XXXX XXXX XXXX XXXX XXXX 000", st: mono }
+      - { id: l10, b: [40, 135, 260, 12], t: "BIC XXXXFRXX · devise EUR" }
+      - { id: l11, b: [48, 169, 50, 12], t: "Date", st: th }
+      - { id: l12, b: [104, 169, 200, 12], t: "Libellé", st: th }
+      - { id: l13, b: [404, 169, 72, 12], t: "Débit", st: th, a: end }
+      - { id: l14, b: [480, 169, 72, 12], t: "Crédit", st: th, a: end }
+      - { id: l15, b: [48, 194, 50, 12], t: "01/03" }
+      - { id: l16, b: [104, 194, 280, 12], t: "Solde précédent au 28/02/2026", st: em }
+      - { id: l17, b: [480, 194, 72, 12], t: "1 842,35", a: end }
+      - { id: l18, b: [48, 214, 50, 12], t: "02/03" }
+      - { id: l19, b: [104, 214, 280, 12], t: "PRLV Assurance habitation" }
+      - { id: l20, b: [404, 214, 72, 12], t: "38,90", a: end }
+      - { id: l21, b: [48, 234, 50, 12], t: "04/03" }
+      - { id: l22, b: [104, 234, 280, 12], t: "CB Supermarché des Halles" }
+      - { id: l23, b: [404, 234, 72, 12], t: "86,47", a: end, lo: { "86,47": 0.79 } }
+      - { id: l24, b: [48, 254, 50, 12], t: "05/03" }
+      - { id: l25, b: [104, 254, 280, 12], t: "VIR Salaire Atelier Kervalen" }
+      - { id: l26, b: [480, 254, 72, 12], t: "2 415,00", a: end }
+      - { id: l27, b: [48, 274, 50, 12], t: "09/03" }
+      - { id: l28, b: [104, 274, 280, 12], t: "PRLV Énergies de l’Ardelle" }
+      - { id: l29, b: [404, 274, 72, 12], t: "72,30", a: end }
+      - { id: l30, b: [48, 294, 50, 12], t: "12/03" }
+      - { id: l31, b: [104, 294, 280, 12], t: "CB Pharmacie du Marais" }
+      - { id: l32, b: [404, 294, 72, 12], t: "23,15", a: end }
+      - { id: l33, b: [48, 314, 50, 12], t: "15/03" }
+      - { id: l34, b: [104, 314, 280, 12], t: "Retrait DAB Castelnoir" }
+      - { id: l35, b: [404, 314, 72, 12], t: "60,00", a: end }
+      - { id: l36, b: [48, 334, 50, 12], t: "18/03" }
+      - { id: l37, b: [104, 334, 280, 12], t: "VIR Loyer mars SCI Les Tilleuls" }
+      - { id: l38, b: [404, 334, 72, 12], t: "780,00", a: end }
+      - { id: l39, b: [48, 354, 50, 12], t: "22/03" }
+      - { id: l40, b: [104, 354, 280, 12], t: "CB Librairie La Plume" }
+      - { id: l41, b: [404, 354, 72, 12], t: "34,20", a: end }
+      - { id: l42, b: [48, 374, 50, 12], t: "26/03" }
+      - { id: l43, b: [104, 374, 280, 12], t: "VIR Remboursement C. Morand" }
+      - { id: l44, b: [480, 374, 72, 12], t: "45,00", a: end }
+      - { id: l45, b: [48, 394, 50, 12], t: "29/03" }
+      - { id: l46, b: [104, 394, 280, 12], t: "PRLV Forfait mobile" }
+      - { id: l47, b: [404, 394, 72, 12], t: "19,99", a: end }
+      - { id: l48, b: [48, 414, 50, 12], t: "31/03" }
+      - { id: l49, b: [104, 414, 280, 12], t: "Frais de tenue de compte" }
+      - { id: l50, b: [404, 414, 72, 12], t: "2,50", a: end }
+      - { id: l51, b: [104, 440, 200, 13], t: "Total des opérations", st: strong }
+      - { id: l52, b: [404, 440, 72, 13], t: "1 117,51", st: strong, a: end, c: 0.95, lo: { "117,51": 0.87 } }
+      - { id: l53, b: [480, 440, 72, 13], t: "2 460,00", st: strong, a: end, c: 0.95 }
+      - { id: l54, b: [104, 469, 280, 13], t: "Nouveau solde créditeur au 31/03/2026", st: strong }
+      - { id: l55, b: [452, 469, 100, 13], t: "3 184,84 €", st: strong, a: end, c: 0.94, lo: { "184,84": 0.86 } }
+      - { id: l56, b: [40, 512, 440, 12], t: "Votre conseiller : M. Adrien Solvet · tél. 00 00 00 00 00" }
+      - { id: l57, b: [40, 528, 440, 12], t: "Découvert autorisé : selon les conditions de votre convention de compte." }
+      - { id: l58, b: [40, 806, 520, 10], t: "Banque Hautmarais · document fictif, sans valeur contractuelle", st: small, a: mid }
+    art:
+      - { k: logo, b: [40, 40, 30, 30], t: "BH", round: true }
+      - { k: band, b: [40, 164, 520, 22] }
+      - { k: band, b: [40, 462, 520, 27] }
+      - { k: rule, b: [40, 796, 520, 0] }
+    regions:
+      - { id: r1, type: logo, box: [36, 36, 298, 42], lines: [l1, l2] }
+      - { id: r2, type: title, lines: [l3, l4] }
+      - { id: r3, type: header, lines: [l8, l9, l10] }
+      - { id: r4, type: address, lines: [l5, l6, l7] }
+      - { id: r5, type: table, box: [40, 164, 520, 293], rows: [[l11, l12, l13, l14], [l15, l16, null, l17], [l18, l19, l20, null], [l21, l22, l23, null], [l24, l25, null, l26], [l27, l28, l29, null], [l30, l31, l32, null], [l33, l34, l35, null], [l36, l37, l38, null], [l39, l40, l41, null], [l42, l43, null, l44], [l45, l46, l47, null], [l48, l49, l50, null], [null, l51, l52, l53]] }
+      - { id: r6, type: total, box: [40, 462, 520, 27], lines: [l54, l55] }
+      - { id: r7, type: paragraph, lines: [l56, l57] }
+      - { id: r8, type: footer, lines: [l58] }
+    out:
+      ingest:
+        brief: "Phone photo, 1 page, capture quality 0.84: straightened, one glare warning"
+        format: "JPEG, 3024 × 4032 px"
+        pages: 1
+        source: "Mobile app upload, phone camera"
+        resolution: "≈ 290 dpi after cropping, colour"
+        score: 0.84
+        verdict: "Accepted with a warning"
+        effect: { rotate: 3.1, glare: [418, 414, 170, 100] }
+        checks:
+          - { id: blur, name: "Blur", value: "0.07", result: pass, note: "Sharp enough for printed text" }
+          - { id: skew, name: "Skew", value: "3.1°", result: pass, note: "Corrected by deskewing" }
+          - { id: glare, name: "Glare", value: "1 patch", result: warn, note: "Over the totals: 3 amounts will be read at lower confidence", at: [418, 414, 170, 100] }
+          - { id: contrast, name: "Contrast", value: "0.84", result: pass, note: "Even lighting elsewhere" }
+        actions:
+          - "Page edges found, perspective corrected"
+          - "Deskewed by −3.1°"
+          - "1 document in the upload, not seen before"
+      read:
+        brief: "Printed French, Latin script; 3 amounts flagged below 0.90, 2 of them under the glare"
+        lang: "French (fr)"
+        script: "Latin"
+        mode: "Printed"
+      layout:
+        brief: "8 regions in reading order; transaction table rebuilt as 14 rows × 4 columns"
+      classify:
+        brief: "Bank account statement (0.96), routed to statement reconciliation"
+        top:
+          - { type: "Bank account statement", score: 0.96 }
+          - { type: "Credit card statement", score: 0.03 }
+          - { type: "Payslip", score: 0.01 }
+        route: { dest: "Personal finance · statement reconciliation", why: "A dated period, an account identifier, and debit and credit columns with balances." }
+        cues:
+          - { text: "Title “RELEVÉ DE COMPTE” with a period", at: r2 }
+          - { text: "Debit and credit columns", at: r5 }
+          - { text: "Account number and IBAN", at: r3 }
+          - { text: "Closing balance line", at: r6 }
+      extract:
+        brief: "10 fields normalised; 2 below 0.90, both confirmed by the balance check"
+        fields:
+          - { key: statement_number, raw: "N° 03/2026", norm: "2026-03", conf: 0.98, at: "l4#N° 03/2026" }
+          - { key: period, raw: "du 01/03/2026 au 31/03/2026", norm: "2026-03-01/2026-03-31", conf: 0.98, at: "l4#du 01/03/2026 au 31/03/2026" }
+          - { key: account_holder, raw: "Mme Clarisse Arnoult-Dervaux", norm: "Clarisse Arnoult-Dervaux", conf: 0.97, at: l5 }
+          - { key: account_number, raw: "XXXX XXXX 0000", norm: "XXXXXXXX0000", conf: 0.97, at: "l8#XXXX XXXX 0000" }
+          - { key: iban, raw: "FR76 XXXX XXXX XXXX XXXX XXXX 000", norm: "FR76XXXXXXXXXXXXXXXXXXXX000", conf: 0.96, at: "l9#FR76 XXXX XXXX XXXX XXXX XXXX 000" }
+          - { key: opening_balance, raw: "1 842,35", norm: "1842.35 EUR", conf: 0.98, at: l17 }
+          - { key: total_debits, raw: "1 117,51", norm: "1117.51 EUR", conf: 0.87, at: l52 }
+          - { key: total_credits, raw: "2 460,00", norm: "2460.00 EUR", conf: 0.95, at: l53 }
+          - { key: closing_balance, raw: "3 184,84 €", norm: "3184.84 EUR", conf: 0.86, at: l55 }
+          - { key: transactions, raw: "11 rows", norm: "11 transactions: 9 debits, 2 credits", conf: 0.97, at: r5 }
+      entities:
+        brief: "9 entities, 6 linked to known records"
+        spans:
+          - { text: "Clarisse Arnoult-Dervaux", type: PERSON, id: "per:2211", seen: "26 earlier statements for this account", at: "l5#Clarisse Arnoult-Dervaux" }
+          - { text: "Banque Hautmarais", type: ORG, id: "org:0031", seen: "every statement for this account", at: l1 }
+          - { text: "Atelier Kervalen", type: ORG, id: "org:0954", seen: "12 earlier salary credits", at: "l25#Atelier Kervalen" }
+          - { text: "SCI Les Tilleuls", type: ORG, id: "org:0602", seen: "the same rent each month since 2025", at: "l37#SCI Les Tilleuls" }
+          - { text: "Adrien Solvet", type: PERSON, id: "per:3307", seen: "the February statement", at: "l56#Adrien Solvet" }
+          - { text: "Castelnoir-les-Prés", type: PLACE, id: "plc:0340", seen: "the client address on invoice FV-2026-0418", at: "l7#Castelnoir-les-Prés" }
+          - { text: "31/03/2026", type: DATE, norm: "2026-03-31", at: "l54#31/03/2026" }
+          - { text: "3 184,84 €", type: MONEY, norm: "3184.84 EUR", at: l55 }
+          - { text: "780,00", type: MONEY, norm: "780.00 EUR", at: l38 }
+      verify:
+        brief: "6 checks: 5 pass, 1 warning; the balance adds up"
+        checks:
+          - { id: balance, name: "Opening + credits − debits = closing", result: pass, detail: "1 842,35 + 2 460,00 − 1 117,51 = 3 184,84", at: [l17, l53, l52, l55] }
+          - { id: debits, name: "Debit column sums to its total", result: pass, detail: "9 debits add up to 1 117,51", at: [l20, l23, l29, l32, l35, l38, l41, l47, l50, l52] }
+          - { id: credits, name: "Credit column sums to its total", result: pass, detail: "2 415,00 + 45,00 = 2 460,00", at: [l26, l44, l53] }
+          - { id: lowconf, name: "Low-confidence amounts confirmed", result: pass, detail: "86,47, 1 117,51 and 3 184,84 were read below 0.90; the sums above fix all three", at: [l23, l52, l55] }
+          - { id: dates, name: "Dates inside the period", result: pass, detail: "All 11 transactions fall between 01/03 and 31/03/2026", at: [l18, l48] }
+          - { id: overdraft, name: "Overdraft limit", result: warn, detail: "Not stated: the statement refers to the account agreement", at: l57 }
+      ask:
+        brief: "3 answers with citations, 1 explicit abstention"
+        qa:
+          - { q: "What was the closing balance?", a: "3 184,84 € in credit on 31 March 2026.", conf: 0.94, at: [l54, l55] }
+          - { q: "How much rent was paid in March?", a: "780,00 € to SCI Les Tilleuls, on 18 March.", conf: 0.97, at: [l36, l37, l38] }
+          - { q: "What was the largest card payment?", a: "86,47 € at Supermarché des Halles on 4 March; the amount, read at 0.79, is confirmed by the balance check.", conf: 0.88, at: [l21, l22, l23] }
+          - { q: "What is the authorised overdraft limit?", abstain: true, a: "Not stated. The statement only refers to the account agreement, which is not part of this document.", near: l57 }
+      summarise:
+        brief: "3 sentences, each citing its regions"
+        sentences:
+          - { t: "March 2026 statement for Clarisse Arnoult-Dervaux’s current account at Banque Hautmarais.", at: [r1, r2, r4] }
+          - { t: "Two credits (a 2 415,00 € salary and a 45,00 € refund) and nine debits totalling 1 117,51 €, the largest being 780,00 € of rent.", at: [r5] }
+          - { t: "The balance rises from 1 842,35 € to 3 184,84 €, and the figures add up.", at: [r5, r6] }
+      translate:
+        brief: "2 regions, French → English, terminology kept"
+        items:
+          - at: r6
+            dst: "New credit balance at 31/03/2026: €3,184.84"
+            terms: [["solde créditeur", "credit balance"]]
+          - at: r7
+            dst: "Your adviser: Mr Adrien Solvet · tel. 00 00 00 00 00. Authorised overdraft: as set out in your account agreement."
+            terms: [["Découvert autorisé", "authorised overdraft"], ["convention de compte", "account agreement"]]
+      remember:
+        brief: "4 claims written with provenance; the balance continues from last month"
+        claims:
+          - { s: "Account XXXX XXXX 0000", p: "balance", o: "3 184,84 € in credit", from: "2026-03-31", at: [l54, l55] }
+          - { s: "Clarisse Arnoult-Dervaux", p: "rent paid to", o: "SCI Les Tilleuls, 780,00 € a month", from: "2026-03-18", note: "supported by 6 earlier statements", at: l37 }
+          - { s: "Clarisse Arnoult-Dervaux", p: "employer", o: "Atelier Kervalen", from: "2026-03-05", at: "l25#Atelier Kervalen" }
+          - { s: "Account XXXX XXXX 0000", p: "adviser", o: "Adrien Solvet", from: "2026-03-31", at: "l56#Adrien Solvet" }
+        reconcile:
+          outcome: "Supersedes"
+          text: "The balance continues from last month: the opening 1 842,35 € equals the closing balance of statement 02/2026. That claim is closed on 2026-02-28 and this one takes over."
+          at: [l16, l17]
+
+  # ================================================================== register
+  - id: register
+    family: historical
+    family_label: "Historical"
+    name: "Birth register, 1877"
+    title: "Civil register birth entry no. 23, 1877"
+    ref: "EC-1877-N23"
+    page: { w: 600, h: 848, paper: sepia, ink: iron }
+    lines:
+      - { id: l1, b: [240, 30, 120, 18], t: "Année 1877", st: hand, a: mid, c: 0.95 }
+      - { id: l2, b: [500, 32, 60, 16], t: "f° 6", st: hand, a: end, c: 0.93 }
+      - { id: l3, b: [36, 96, 108, 17], t: "N° 23", st: hand, c: 0.94 }
+      - { id: l4, b: [36, 118, 108, 16], t: "Naissance de", st: hand, c: 0.94 }
+      - { id: l5, b: [36, 138, 108, 16], t: "Marie Joséphine", st: hand, c: 0.93 }
+      - { id: l6, b: [36, 158, 108, 16], t: "Lescanet", st: hand, c: 0.93, lo: { "Lescanet": 0.82 } }
+      - { id: l7, b: [170, 92, 392, 18], t: "L’an mil huit cent soixante-dix-sept, le douze mars, à", st: hand, c: 0.93, lo: { "soixante-dix-sept": 0.72 } }
+      - { id: l8, b: [170, 116, 392, 18], t: "dix heures du matin, par-devant nous, Augustin Ferrandel,", st: hand, c: 0.93, lo: { "Ferrandel": 0.79 } }
+      - { id: l9, b: [170, 140, 392, 18], t: "maire et officier de l’état civil de la commune de", st: hand, c: 0.94 }
+      - { id: l10, b: [170, 164, 392, 18], t: "Saint-Ivrel-des-Landes, canton de Hautmarais, département", st: hand, c: 0.93, lo: { "Saint-Ivrel-des-Landes": 0.83 } }
+      - { id: l11, b: [170, 188, 392, 18], t: "de l’Ardelle, est comparu Pierre Lescanet, cultivateur,", st: hand, c: 0.93 }
+      - { id: l12, b: [170, 212, 392, 18], t: "âgé de trente-quatre ans, domicilié en cette commune,", st: hand, c: 0.94 }
+      - { id: l13, b: [170, 236, 392, 18], t: "lequel nous a présenté un enfant du sexe féminin, né", st: hand, c: 0.94 }
+      - { id: l14, b: [170, 260, 392, 18], t: "hier à onze heures du soir, en sa demeure, de lui", st: hand, c: 0.93 }
+      - { id: l15, b: [170, 284, 392, 18], t: "déclarant et de Marie Anne Guérivel, son épouse, sans", st: hand, c: 0.93, lo: { "Guérivel": 0.61 } }
+      - { id: l16, b: [170, 308, 392, 18], t: "profession, âgée de vingt-neuf ans, et auquel il a", st: hand, c: 0.94 }
+      - { id: l17, b: [170, 332, 392, 18], t: "déclaré vouloir donner les prénoms de Marie Joséphine.", st: hand, c: 0.94 }
+      - { id: l18, b: [170, 356, 392, 18], t: "Lesdites déclaration et présentation faites en présence", st: hand, c: 0.93 }
+      - { id: l19, b: [170, 380, 392, 18], t: "de Jean Morvillec, forgeron, âgé de cinquante et un ans,", st: hand, c: 0.93, lo: { "Morvillec": 0.68, "forgeron": 0.77 } }
+      - { id: l20, b: [170, 404, 392, 18], t: "et de Louis Barradec, instituteur, âgé de quarante ans,", st: hand, c: 0.93, lo: { "Barradec": 0.66 } }
+      - { id: l21, b: [170, 428, 392, 18], t: "tous deux domiciliés en cette commune ; et ont les", st: hand, c: 0.94 }
+      - { id: l22, b: [170, 452, 392, 18], t: "témoins signé avec nous, le père ayant déclaré ne", st: hand, c: 0.94 }
+      - { id: l23, b: [170, 476, 392, 18], t: "savoir signer, après lecture faite.", st: hand, c: 0.94 }
+      - { id: l24, b: [182, 522, 104, 22], t: "Morvillec", st: sign, lo: { "Morvillec": 0.58 } }
+      - { id: l25, b: [312, 518, 100, 22], t: "Barradec", st: sign, lo: { "Barradec": 0.63 } }
+      - { id: l26, b: [440, 546, 112, 24], t: "Ferrandel", st: sign, lo: { "Ferrandel": 0.6 } }
+      - { id: l27, b: [36, 610, 112, 14], t: "Mariée à Hautmarais", st: hand2, c: 0.92 }
+      - { id: l28, b: [36, 627, 112, 14], t: "le 4 juin 1898 avec", st: hand2, c: 0.92 }
+      - { id: l29, b: [36, 644, 112, 14], t: "Émile Ravenot.", st: hand2, c: 0.92, lo: { "Ravenot": 0.74 } }
+      - { id: l30, b: [40, 812, 520, 10], t: "Registre fictif · reproduction de démonstration", st: small, a: mid }
+    art:
+      - { k: stamp, b: [52, 24, 58, 58], t: ["ÉTAT CIVIL", "ST-IVREL"], round: true, rot: -12 }
+      - { k: vrule, b: [156, 64, 0, 728] }
+      - { k: flourish, b: [178, 546, 112, 10] }
+      - { k: flourish, b: [306, 542, 110, 10] }
+      - { k: flourish, b: [434, 572, 124, 12] }
+      - { k: spot, b: [522, 712, 9, 0] }
+      - { k: spot, b: [92, 760, 5, 0] }
+      - { k: spot, b: [306, 668, 6, 0] }
+      - { k: spot, b: [436, 742, 6, 0] }
+    regions:
+      - { id: r1, type: header, lines: [l1, l2] }
+      - { id: r2, type: stamp, box: [48, 20, 66, 66] }
+      - { id: r3, type: margin, lines: [l3, l4, l5, l6] }
+      - { id: r4, type: paragraph, lines: [l7, l8, l9, l10, l11, l12, l13, l14, l15, l16, l17, l18, l19, l20, l21, l22, l23] }
+      - { id: r5, type: signature, box: [176, 514, 386, 64], lines: [l24, l25, l26] }
+      - { id: r6, type: margin, lines: [l27, l28, l29] }
+      - { id: r7, type: footer, lines: [l30] }
+    out:
+      ingest:
+        brief: "Archive TIFF, 1 page, capture quality 0.74: contrast enhanced"
+        format: "TIFF, greyscale"
+        pages: 1
+        source: "Archive digitisation batch, overhead scanner"
+        resolution: "400 dpi"
+        score: 0.74
+        verdict: "Accepted after enhancement"
+        effect: { fade: true }
+        checks:
+          - { id: blur, name: "Blur", value: "0.05", result: pass, note: "Pen strokes resolved" }
+          - { id: skew, name: "Skew", value: "0.8°", result: pass, note: "Corrected by deskewing" }
+          - { id: glare, name: "Glare", value: "none", result: pass, note: "Diffuse archive lighting" }
+          - { id: contrast, name: "Contrast", value: "0.38", result: warn, note: "Faded iron-gall ink on toned paper", at: r4 }
+        actions:
+          - "Contrast enhanced (adaptive, per tile)"
+          - "Deskewed by −0.8°"
+          - "Folio 6 recto of the batch, not seen before"
+      read:
+        brief: "Handwritten French (HTR), Latin script; 12 words flagged below 0.90"
+        lang: "French (fr), 19th century"
+        script: "Latin, cursive"
+        mode: "Handwritten"
+      layout:
+        brief: "7 regions in reading order: margin notes, the act, signatures and a stamp"
+      classify:
+        brief: "Civil register birth act (0.93), routed to genealogy indexing"
+        top:
+          - { type: "Civil register · birth act", score: 0.93 }
+          - { type: "Civil register · marriage act", score: 0.05 }
+          - { type: "Parish register · baptism", score: 0.02 }
+        route: { dest: "Archives · genealogy indexing queue", why: "A dated civil-status act with a margin index and the declaration formula of a birth." }
+        cues:
+          - { text: "Margin note “Naissance de …”", at: r3 }
+          - { text: "Formula “est comparu … nous a présenté un enfant”", at: r4 }
+          - { text: "Signatures of the witnesses and the mayor", at: r5 }
+      extract:
+        brief: "11 fields normalised; 7 below 0.90 held for an archivist"
+        fields:
+          - { key: act_type, raw: "Naissance", norm: "birth", conf: 0.94, at: l4 }
+          - { key: act_number, raw: "N° 23", norm: "23", conf: 0.94, at: l3 }
+          - { key: act_date, raw: "mil huit cent soixante-dix-sept, le douze mars", norm: "1877-03-12T10:00", conf: 0.88, at: "l7#mil huit cent soixante-dix-sept, le douze mars" }
+          - { key: birth_date, raw: "né hier à onze heures du soir", norm: "1877-03-11T23:00", conf: 0.86, at: [l13, "l14#hier à onze heures du soir"] }
+          - { key: child_name, raw: "Marie Joséphine Lescanet", norm: "Marie Joséphine LESCANET", conf: 0.84, at: [l5, l6] }
+          - { key: child_sex, raw: "sexe féminin", norm: "F", conf: 0.95, at: "l13#sexe féminin" }
+          - { key: father, raw: "Pierre Lescanet, cultivateur", norm: "Pierre LESCANET · farmer · 34", conf: 0.92, at: ["l11#Pierre Lescanet, cultivateur", "l12#trente-quatre ans"] }
+          - { key: mother, raw: "Marie Anne Guérivel", norm: "Marie Anne GUÉRIVEL · 29", conf: 0.61, at: ["l15#Marie Anne Guérivel", "l16#vingt-neuf ans"] }
+          - { key: commune, raw: "Saint-Ivrel-des-Landes", norm: "Saint-Ivrel-des-Landes (fictional)", conf: 0.83, at: "l10#Saint-Ivrel-des-Landes" }
+          - { key: registrar, raw: "Augustin Ferrandel, maire", norm: "Augustin FERRANDEL · mayor", conf: 0.79, at: ["l8#Augustin Ferrandel", "l9#maire"] }
+          - { key: witnesses, raw: "Jean Morvillec; Louis Barradec", norm: "2 witnesses", conf: 0.67, at: ["l19#Jean Morvillec", "l20#Louis Barradec"] }
+      entities:
+        brief: "11 entities, 9 linked to known records"
+        spans:
+          - { text: "Marie Joséphine Lescanet", type: PERSON, id: "per:7714", seen: "her 1898 marriage act, named in the margin", at: [l5, l6] }
+          - { text: "Pierre Lescanet", type: PERSON, id: "per:5120", seen: "marriage act no. 7 of 1869, as the groom", at: "l11#Pierre Lescanet" }
+          - { text: "Marie Anne Guérivel", type: PERSON, id: "per:5121", seen: "the same 1869 act, as the bride", at: "l15#Marie Anne Guérivel" }
+          - { text: "Augustin Ferrandel", type: PERSON, id: "per:0402", seen: "40 acts of 1875–1881 as registrar", at: "l8#Augustin Ferrandel" }
+          - { text: "Jean Morvillec", type: PERSON, id: "per:5302", seen: "3 other acts as a witness", at: "l19#Jean Morvillec" }
+          - { text: "Louis Barradec", type: PERSON, id: "per:5303", seen: "the 1876 census, as the village teacher", at: "l20#Louis Barradec" }
+          - { text: "Saint-Ivrel-des-Landes", type: PLACE, id: "plc:2201", seen: "every act in this register", at: "l10#Saint-Ivrel-des-Landes" }
+          - { text: "Hautmarais", type: PLACE, id: "plc:0520", seen: "the prescription in this demo, 149 years later", at: "l10#Hautmarais" }
+          - { text: "mil huit cent soixante-dix-sept, le douze mars", type: DATE, norm: "1877-03-12", at: "l7#mil huit cent soixante-dix-sept, le douze mars" }
+          - { text: "Émile Ravenot", type: PERSON, id: "per:8811", seen: "the 1898 marriage act, as the groom", at: "l29#Émile Ravenot" }
+          - { text: "4 juin 1898", type: DATE, norm: "1898-06-04", at: "l28#4 juin 1898" }
+      verify:
+        brief: "6 checks: 5 pass, 1 warning on the mother’s surname"
+        checks:
+          - { id: delay, name: "Declared within the legal delay", result: pass, detail: "Born 11 March at 11 pm, declared 12 March at 10 am: within 3 days", at: ["l7#le douze mars", "l8#dix heures du matin", "l14#hier à onze heures du soir"] }
+          - { id: ages, name: "Ages are plausible", result: pass, detail: "Father 34, mother 29, witnesses 51 and 40", at: ["l12#trente-quatre ans", "l16#vingt-neuf ans", "l19#cinquante et un ans", "l20#quarante ans"] }
+          - { id: signatures, name: "Signatures present", result: pass, detail: "3 of 3 expected: both witnesses and the mayor; the father declared he could not sign", at: [r5, "l22#le père ayant déclaré ne", "l23#savoir signer"] }
+          - { id: names, name: "Name consistent with the margin", result: pass, detail: "Margin and body both name Marie Joséphine", at: [l5, "l17#Marie Joséphine"] }
+          - { id: mother, name: "Mother’s surname uncertain", result: warn, detail: "“Guérivel” read at 0.61, “Guérinel” is the next reading: held for an archivist", at: "l15#Guérivel" }
+          - { id: mention, name: "Margin mention dated after the birth", result: pass, detail: "Marriage on 4 June 1898, at age 21", at: r6 }
+      ask:
+        brief: "3 answers with citations, 1 explicit abstention"
+        qa:
+          - { q: "When was the child born?", a: "On 11 March 1877 at 11 pm: the act, dated 12 March, says she was born “yesterday”.", conf: 0.86, at: ["l7#le douze mars", "l14#hier à onze heures du soir"] }
+          - { q: "Who were the witnesses?", a: "Jean Morvillec, a blacksmith aged 51, and Louis Barradec, a schoolteacher aged 40, both of the commune.", conf: 0.71, at: [l19, l20] }
+          - { q: "Why did the father not sign?", a: "He declared that he did not know how to sign.", conf: 0.92, at: ["l22#le père ayant déclaré ne", "l23#savoir signer"] }
+          - { q: "Where was the father born?", abstain: true, a: "Not stated. The act gives his residence and occupation, not his birthplace.", near: "l12#domicilié en cette commune" }
+      summarise:
+        brief: "3 sentences, each citing its regions"
+        sentences:
+          - { t: "Birth act no. 23 of 1877 from the fictional commune of Saint-Ivrel-des-Landes records Marie Joséphine Lescanet, born on 11 March.", at: [r3, r4] }
+          - { t: "Her father, the farmer Pierre Lescanet, declared the birth before the mayor and two witnesses, who signed; he could not.", at: [r4, r5] }
+          - { t: "A later margin note records her marriage to Émile Ravenot in 1898.", at: [r6] }
+      translate:
+        brief: "2 regions, French → English, terminology kept"
+        items:
+          - at: r3
+            dst: "No. 23 · Birth of Marie Joséphine Lescanet"
+            terms: [["Naissance", "birth (act)"]]
+          - at: r4
+            dst: "In the year eighteen hundred and seventy-seven, on the twelfth of March, at ten in the morning, before us, Augustin Ferrandel, mayor and civil registrar of the commune of Saint-Ivrel-des-Landes, canton of Hautmarais, department of Ardelle, appeared Pierre Lescanet, farmer, aged thirty-four, residing in this commune, who presented to us a child of the female sex, born yesterday at eleven in the evening at his home, to him, the declarant, and to Marie Anne Guérivel, his wife, without profession, aged twenty-nine, and to whom he declared he wished to give the forenames Marie Joséphine. The said declaration and presentation were made in the presence of Jean Morvillec, blacksmith, aged fifty-one, and of Louis Barradec, schoolteacher, aged forty, both residing in this commune; and the witnesses signed with us, the father having declared that he could not sign, after reading."
+            terms: [["officier de l’état civil", "civil registrar"], ["est comparu", "appeared"], ["cultivateur", "farmer"]]
+      remember:
+        brief: "4 claims written with provenance; the father is linked to an existing person"
+        claims:
+          - { s: "Marie Joséphine Lescanet", p: "born", o: "1877-03-11, Saint-Ivrel-des-Landes", from: "1877-03-11", at: [r3, "l14#hier à onze heures du soir"] }
+          - { s: "Marie Joséphine Lescanet", p: "parents", o: "Pierre Lescanet and Marie Anne Guérivel", from: "1877-03-11", status: review, note: "mother’s surname held for review", at: ["l11#Pierre Lescanet", "l15#Marie Anne Guérivel"] }
+          - { s: "Pierre Lescanet", p: "occupation", o: "farmer (cultivateur)", from: "1877-03-12", note: "as stated on that date, not a lifelong fact", at: "l11#cultivateur" }
+          - { s: "Marie Joséphine Lescanet", p: "married", o: "Émile Ravenot", from: "1898-06-04", at: r6 }
+        reconcile:
+          outcome: "Links"
+          text: "Person linked to an existing entity: Pierre Lescanet matches the groom of marriage act no. 7 of 1869 in this register, aged 26 then and 34 now."
+          at: ["l11#Pierre Lescanet", "l12#trente-quatre ans"]
+
+  # ============================================================== prescription
+  - id: prescription
+    family: healthcare
+    family_label: "Healthcare"
+    name: "Prescription"
+    title: "Handwritten prescription, 3 February 2026"
+    ref: "ORD-2026-02-03"
+    page: { w: 600, h: 848, paper: plain, ink: blue }
+    lines:
+      - { id: l1, b: [40, 40, 320, 20], t: "Docteur Élise Varennat", st: serifb }
+      - { id: l2, b: [40, 64, 320, 13], t: "Médecine générale", st: serif }
+      - { id: l3, b: [40, 83, 340, 11], t: "12 avenue des Platanes · 00520 Hautmarais", st: small }
+      - { id: l4, b: [40, 97, 340, 11], t: "Tél. 00 00 00 00 00 · RPPS 00000000000", st: small }
+      - { id: l5, b: [300, 144, 260, 20], t: "Hautmarais, le 3 février 2026", st: hand, a: end, c: 0.93 }
+      - { id: l6, b: [60, 190, 260, 22], t: "Mme Lucie Fontrel", st: hand, c: 0.93, lo: { "Fontrel": 0.81 } }
+      - { id: l7, b: [60, 216, 220, 18], t: "46 ans · 62 kg", st: hand, c: 0.92 }
+      - { id: l8, b: [64, 270, 300, 24], t: "1) Amoxicilline 1 g", st: handb, c: 0.93, lo: { "Amoxicilline": 0.86 } }
+      - { id: l9, b: [92, 298, 440, 20], t: "1 comprimé matin et soir pendant 7 jours", st: hand, c: 0.93 }
+      - { id: l10, b: [64, 344, 300, 24], t: "2) Paracétamol 1 g", st: handb, c: 0.93 }
+      - { id: l11, b: [92, 372, 450, 20], t: "1 comprimé jusqu’à 3 fois par jour si douleur", st: hand, c: 0.92, lo: { "3": 0.64 } }
+      - { id: l12, b: [92, 396, 450, 20], t: "ou fièvre, en espaçant les prises d’au moins 6 h", st: hand, c: 0.92 }
+      - { id: l13, b: [64, 442, 300, 24], t: "3) Ibuprofène 400 mg", st: handb, c: 0.93, lo: { "400": 0.83 } }
+      - { id: l14, b: [92, 470, 460, 20], t: "1 comprimé matin, midi et soir au cours des repas", st: hand, c: 0.93 }
+      - { id: l15, b: [64, 520, 260, 20], t: "Ne pas renouveler.", st: hand, c: 0.94 }
+      - { id: l16, b: [40, 806, 520, 10], t: "Ordonnance fictive · spécimen de démonstration, non valable", st: small, a: mid }
+    art:
+      - { k: rule, b: [40, 122, 520, 0] }
+      - { k: stamp, b: [330, 608, 226, 66], t: ["Dr Élise VARENNAT", "Médecine générale · Hautmarais", "RPPS 00000000000"], rot: -3, ink: blue }
+      - { k: sign, b: [372, 572, 150, 52], ink: blue }
+      - { k: rule, b: [40, 796, 520, 0] }
+    regions:
+      - { id: r1, type: header, lines: [l1, l2, l3, l4] }
+      - { id: r2, type: date, lines: [l5] }
+      - { id: r3, type: patient, lines: [l6, l7] }
+      - { id: r4, type: item, lines: [l8, l9] }
+      - { id: r5, type: item, lines: [l10, l11, l12] }
+      - { id: r6, type: item, lines: [l13, l14] }
+      - { id: r7, type: paragraph, lines: [l15] }
+      - { id: r8, type: signature, box: [366, 566, 162, 62] }
+      - { id: r9, type: stamp, box: [324, 600, 238, 82] }
+      - { id: r10, type: footer, lines: [l16] }
+    out:
+      ingest:
+        brief: "Scanned PDF, 1 page, capture quality 0.86: low resolution flagged"
+        format: "PDF, scanned"
+        pages: 1
+        source: "Pharmacy counter scanner"
+        resolution: "200 dpi, colour"
+        score: 0.86
+        verdict: "Accepted with a warning"
+        effect: { blur: true }
+        checks:
+          - { id: blur, name: "Blur", value: "0.11", result: pass, note: "Soft, still within tolerance" }
+          - { id: skew, name: "Skew", value: "1.2°", result: pass, note: "Corrected by deskewing" }
+          - { id: glare, name: "Glare", value: "none", result: pass, note: "Flatbed scan" }
+          - { id: contrast, name: "Contrast", value: "0.88", result: pass, note: "Blue ink on white" }
+          - { id: resolution, name: "Resolution", value: "200 dpi", result: warn, note: "Below the 300 dpi recommended for handwriting", at: [r4, r5, r6] }
+        actions:
+          - "Deskewed by −1.2°"
+          - "Handwriting detected: routed to the handwriting model"
+      read:
+        brief: "Printed letterhead, handwritten French body; 4 words flagged below 0.90"
+        lang: "French (fr)"
+        script: "Latin"
+        mode: "Printed and handwritten"
+      layout:
+        brief: "10 regions in reading order: letterhead, patient, 3 items, signature and stamp"
+      classify:
+        brief: "Medical prescription (0.95), routed to a pharmacist’s dispensing check"
+        top:
+          - { type: "Medical prescription", score: 0.95 }
+          - { type: "Medical certificate", score: 0.03 }
+          - { type: "Referral letter", score: 0.02 }
+        route: { dest: "Pharmacy · dispensing check, pharmacist review", why: "A prescriber letterhead, numbered drug lines with posology, and a signed stamp." }
+        cues:
+          - { text: "Letterhead with an RPPS number", at: r1 }
+          - { text: "Numbered drug lines with posology", at: [r4, r5, r6] }
+          - { text: "Prescriber stamp and signature", at: [r8, r9] }
+      extract:
+        brief: "9 fields normalised; 4 below 0.90 for the pharmacist to confirm"
+        fields:
+          - { key: prescriber, raw: "Docteur Élise Varennat", norm: "Élise Varennat · general practice", conf: 0.98, at: l1 }
+          - { key: prescriber_id, raw: "RPPS 00000000000", norm: "00000000000 (fictional)", conf: 0.97, at: "l4#RPPS 00000000000" }
+          - { key: date, raw: "le 3 février 2026", norm: "2026-02-03", conf: 0.93, at: "l5#le 3 février 2026" }
+          - { key: patient, raw: "Mme Lucie Fontrel", norm: "Lucie Fontrel", conf: 0.81, at: l6 }
+          - { key: patient_age_weight, raw: "46 ans · 62 kg", norm: "46 years · 62 kg", conf: 0.92, at: l7 }
+          - { key: item_1, raw: "Amoxicilline 1 g · 1 comprimé matin et soir pendant 7 jours", norm: "amoxicillin 1 g · 1 tablet twice daily · 7 days", conf: 0.86, at: [l8, l9] }
+          - { key: item_2, raw: "Paracétamol 1 g · 1 comprimé jusqu’à 3 fois par jour", norm: "paracetamol 1 g · 1 tablet up to 3 times daily as needed · ≥ 6 h apart", conf: 0.64, at: [l10, l11, l12] }
+          - { key: item_3, raw: "Ibuprofène 400 mg · 1 comprimé matin, midi et soir", norm: "ibuprofen 400 mg · 1 tablet 3 times daily with meals · duration missing", conf: 0.83, at: [l13, l14] }
+          - { key: renewable, raw: "Ne pas renouveler", norm: "false", conf: 0.94, at: l15 }
+      entities:
+        brief: "10 entities, 6 linked to known records"
+        spans:
+          - { text: "Élise Varennat", type: PERSON, id: "per:6610", seen: "2 earlier prescriptions for this patient", at: "l1#Élise Varennat" }
+          - { text: "Lucie Fontrel", type: PERSON, id: "per:6611", seen: "the patient’s pharmacy file", at: "l6#Lucie Fontrel" }
+          - { text: "Hautmarais", type: PLACE, id: "plc:0520", seen: "the 1877 register in this demo", at: "l5#Hautmarais" }
+          - { text: "3 février 2026", type: DATE, norm: "2026-02-03", at: "l5#3 février 2026" }
+          - { text: "Amoxicilline", type: DRUG, id: "inn:amoxicillin", seen: "a November 2025 prescription", at: "l8#Amoxicilline" }
+          - { text: "1 g", type: DOSE, norm: "1000 mg", at: "l8#1 g" }
+          - { text: "Paracétamol", type: DRUG, id: "inn:paracetamol", seen: "2 earlier prescriptions", at: "l10#Paracétamol" }
+          - { text: "1 g", type: DOSE, norm: "1000 mg", at: "l10#1 g" }
+          - { text: "Ibuprofène", type: DRUG, id: "inn:ibuprofen", seen: "no earlier prescription", at: "l13#Ibuprofène" }
+          - { text: "400 mg", type: DOSE, norm: "400 mg", at: "l13#400 mg" }
+      verify:
+        brief: "7 checks: 5 pass, 1 warning, 1 fail (no duration on line 3)"
+        checks:
+          - { id: signature, name: "Prescriber signature present", result: pass, detail: "Signed over the stamp; the stamp matches the letterhead", at: [r8, r9] }
+          - { id: prescriber, name: "Prescriber identified", result: pass, detail: "Name, specialty and RPPS on the letterhead and the stamp", at: [r1, r9] }
+          - { id: date, name: "Prescription date", result: pass, detail: "Dated 3 February 2026, within its validity", at: l5 }
+          - { id: format, name: "Dosage format, lines 1–2", result: pass, detail: "Drug, strength, frequency and a duration or a limit on each line", at: [r4, r5] }
+          - { id: duration, name: "Dosage format, line 3", result: fail, detail: "Ibuprofen has a dose and a frequency but no duration", at: r6 }
+          - { id: daily, name: "Daily maximum", result: pass, detail: "Paracetamol at most 3 g a day, under the 4 g adult ceiling; ibuprofen 1 200 mg a day", at: [l10, l11, l13, l14] }
+          - { id: freq, name: "Frequency on line 2 uncertain", result: warn, detail: "“3 fois” read at 0.64: the pharmacist confirms on the original", at: "l11#3 fois" }
+      ask:
+        brief: "3 answers with citations, 1 explicit abstention"
+        qa:
+          - { q: "How long is the amoxicillin course?", a: "7 days, one tablet morning and evening.", conf: 0.93, at: l9 }
+          - { q: "How much paracetamol at most per day?", a: "Up to three 1 g tablets a day, at least 6 hours apart. The “3” was read at 0.64: confirm on the original.", conf: 0.64, at: [l10, l11, l12] }
+          - { q: "Can this prescription be renewed?", a: "No: it says “Ne pas renouveler”.", conf: 0.94, at: l15 }
+          - { q: "Is the patient allergic to penicillin?", abstain: true, a: "Not stated. The prescription records no allergies, so it can neither confirm nor rule one out." }
+      summarise:
+        brief: "3 sentences, each citing its regions"
+        sentences:
+          - { t: "Dr Élise Varennat prescribes three medicines to Lucie Fontrel on 3 February 2026.", at: [r1, r2, r3] }
+          - { t: "Amoxicillin 1 g twice daily for 7 days, paracetamol 1 g up to three times a day as needed, and ibuprofen 400 mg three times a day with meals.", at: [r4, r5, r6] }
+          - { t: "It is not renewable, and the ibuprofen line has no duration, so it needs a pharmacist’s check.", at: [r7, r6] }
+      translate:
+        brief: "2 regions, French → English, terminology kept"
+        items:
+          - at: r5
+            dst: "2) Paracetamol 1 g · 1 tablet up to 3 times a day for pain or fever, at least 6 hours between doses"
+            terms: [["Paracétamol", "paracetamol (INN)"], ["comprimé", "tablet"]]
+          - at: r6
+            dst: "3) Ibuprofen 400 mg · 1 tablet morning, noon and evening with meals"
+            terms: [["Ibuprofène", "ibuprofen (INN)"], ["au cours des repas", "with meals"]]
+      remember:
+        brief: "4 claims written with provenance; the prescriber is linked to an existing record"
+        claims:
+          - { s: "Lucie Fontrel", p: "active medication", o: "amoxicillin 1 g twice daily", from: "2026-02-03", to: "2026-02-09", at: [l8, l9] }
+          - { s: "Lucie Fontrel", p: "as-needed medication", o: "paracetamol 1 g, at most 3 a day", from: "2026-02-03", status: review, note: "frequency read at 0.64", at: [l10, l11] }
+          - { s: "Lucie Fontrel", p: "medication", o: "ibuprofen 400 mg three times a day", from: "2026-02-03", status: review, note: "no duration: held until the pharmacist confirms", at: [l13, l14] }
+          - { s: "Élise Varennat", p: "prescriber for", o: "Lucie Fontrel", from: "2026-02-03", at: r1 }
+        reconcile:
+          outcome: "Links"
+          text: "Prescriber linked to an existing entity: same stamp and RPPS as 2 earlier prescriptions. The November 2025 amoxicillin course is already closed, so this one opens alongside nothing."
+          at: [r9, r1]

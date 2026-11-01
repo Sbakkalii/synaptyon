@@ -1,6 +1,6 @@
 ---
 title: "SynaptYon"
-description: "SynaptYon builds persistent, evidence-grounded memory for Document AI: six products, one per part of the architecture in arXiv:2609.32041. Systems that keep what they read, know where it came from, know when it stops being true, and forget on request."
+description: "SynaptYon builds Document Intelligence end to end: capture, OCR and handwriting, layout, classification, extraction, question answering, search, summarisation and translation for business, financial and historical documents, on a persistent memory specified in arXiv:2609.32041."
 body_class: "home"
 ---
 {%- assign sy = site.data.sy -%}
@@ -16,8 +16,8 @@ body_class: "home"
       <h1 class="hero__title" id="hero-h">Document AI <span class="hero__l2">that <span class="grad-text">remembers.</span></span></h1>
       <p class="hero__lead">{{ sy.hero.lead }}</p>
       <div class="hero__ctas">
-        <a class="btn btn--grad" href="#products">See the six products</a>
-        <a class="btn btn--line" href="#contact">Book a statefulness audit</a>
+        <a class="btn btn--grad" href="{{ '/products/' | relative_url }}">Explore the products</a>
+        <a class="btn btn--line" href="#pipeline">Watch the live demo</a>
       </div>
       <p class="hero__reassure"><span class="live-dot" aria-hidden="true"></span>{{ sy.hero.reassure }}</p>
     </div>
@@ -56,15 +56,60 @@ body_class: "home"
       <figcaption id="hero-vis-cap" class="hero__cap">The state <span class="math">{% include math.html text=paper.state.symbol %}</span>: evidence, schemas, relations, validity, provenance and policy, updated together after every document.</figcaption>
     </figure>
   </div>
-  <a class="hero__scroll" href="#bottleneck" aria-label="Scroll to the demo"><span aria-hidden="true"></span></a>
+  <a class="hero__scroll" href="#chain" aria-label="Scroll to the product chain"><span aria-hidden="true"></span></a>
 </section>
+
+<!-- ============================================================ CHAIN -->
+<section class="sec sec--tight" id="chain" aria-labelledby="chain-h">
+  <div class="container">
+    <header class="sec__head sec__head--split" data-reveal>
+      <div>
+        <p class="kicker">The chain // ingestion to application</p>
+        <h2 class="sec__title" id="chain-h">Every step of Document Intelligence.</h2>
+      </div>
+      <p class="sec__sub">Seventeen products in five stages, from the scan that arrives in a mailbox to the answer an analyst acts on. Adopt one, or the whole chain: they share one state.</p>
+    </header>
+    {% include blocks/chain.html %}
+    <p class="chain__more" data-reveal><a class="btn btn--line btn--sm" href="{{ '/products/' | relative_url }}">All products, inputs and outputs →</a></p>
+  </div>
+</section>
+
+<!-- ========================================================= PIPELINE -->
+<section class="sec sec--alt" id="pipeline" aria-labelledby="pipeline-h">
+  <div class="container">
+    <header class="sec__head sec__head--split" data-reveal>
+      <div>
+        <p class="kicker">Live demo // one document, every stage</p>
+        <h2 class="sec__title" id="pipeline-h">Watch a document go through.</h2>
+      </div>
+      <p class="sec__sub">An invoice, a bank statement, a 19th-century register and a handwritten prescription, all fictional. Step through what each product returns, or run the whole chain.</p>
+    </header>
+    <div data-reveal>{% include components/pipeline.html uid="home" %}</div>
+  </div>
+</section>
+
+<!-- ======================================================== SOLUTIONS -->
+<section class="sec" id="solutions" aria-labelledby="solutions-h">
+  <div class="container">
+    <header class="sec__head sec__head--split" data-reveal>
+      <div>
+        <p class="kicker">Solutions // by document family</p>
+        <h2 class="sec__title" id="solutions-h">Built for the documents you actually have.</h2>
+      </div>
+      <p class="sec__sub">Business, financial, historical, healthcare, identity and legal documents: the same chain, assembled for each.</p>
+    </header>
+    {% include blocks/solutions.html %}
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true"><span>The difference</span><b>Most Document AI forgets. Ours remembers.</b></div>
 
 <!-- ====================================================== BOTTLENECK -->
 <section class="sec sec--tight" id="bottleneck" aria-labelledby="bottleneck-h">
   <div class="container">
     <header class="sec__head sec__head--split" data-reveal>
       <div>
-        <p class="kicker">The bottleneck // Fig. 1</p>
+        <p class="kicker">The memory layer // Fig. 1</p>
         <h2 class="sec__title" id="bottleneck-h">Read, answer, <span class="strike">reset</span>.</h2>
       </div>
       <p class="sec__sub">Today's Document AI is a stateless function: <span class="math">ŷ = arg max P(y | D; θ)</span>. No variable carries a session index, so an amendment read tomorrow starts from nothing. Read the same four fictional documents both ways.</p>
@@ -120,54 +165,16 @@ body_class: "home"
   </div>
 </section>
 
-<!-- ========================================================= DOMAINS -->
-<section class="sec sec--alt" id="domains" aria-labelledby="domains-h">
+<!-- ====================================================== PRODUCTION -->
+<section class="sec sec--alt" id="production" aria-labelledby="production-h">
   <div class="container">
     <header class="sec__head" data-reveal>
-      <p class="kicker">{{ sy.domains.kicker }}</p>
-      <h2 class="sec__title" id="domains-h">{{ sy.domains.title }}</h2>
-      <p class="sec__sub">{{ sy.domains.sub }}</p>
+      <p class="kicker">{{ sy.commitments.kicker }}</p>
+      <h2 class="sec__title" id="production-h">{{ sy.commitments.title }}</h2>
     </header>
-    <div class="uc-grid">
-      {%- for d in sy.domains.items %}
-      <article class="uc-card" data-reveal style="--i: {{ forloop.index0 }}">
-        <div class="uc-card__vis" aria-hidden="true">{% include glyph.html id=d.glyph %}</div>
-        <p class="kicker kicker--sm">{{ d.kicker }}</p>
-        <h3 class="uc-card__title">{{ d.title }}</h3>
-        <ul class="uc-card__list">
-          {%- for pt in d.points %}<li>{{ pt }}</li>{% endfor %}
-        </ul>
-        <p class="uc-card__with">Works with {% for w in d.with %}{% assign wp = pd.products | where: "id", w | first %}<a href="{{ '/products/' | append: w | append: '/' | relative_url }}">{{ wp.name }}</a>{% unless forloop.last %} and {% endunless %}{% endfor %}.</p>
-      </article>
-      {%- endfor %}
-    </div>
-
-    <div class="uc-synth" data-reveal>
-      <div>
-        <p class="kicker">{{ sy.domains.synth.kicker }}</p>
-        <h3 class="uc-synth__title">{{ sy.domains.synth.title }}</h3>
-        <p class="uc-synth__body">{{ sy.domains.synth.body }}</p>
-      </div>
-      <ul class="uc-synth__props" aria-label="The conjunctive target C*: six properties required together">
-        {%- for p in paper.target.properties %}<li style="--i: {{ forloop.index0 }}">{{ p }}</li>{% endfor %}
-      </ul>
-    </div>
-
-    <header class="sec__head sec__head--mt" data-reveal>
-      <p class="kicker">{{ sy.principles.kicker }}</p>
-    </header>
-    <div class="princ-grid">
-      {%- for pr in sy.principles.items %}
-      <figure class="princ" data-reveal style="--i: {{ forloop.index0 }}">
-        <blockquote><p>“{{ pr.quote }}”</p></blockquote>
-        <figcaption><span>{{ pr.body }}</span><cite>{{ paper.short_title }}, {{ pr.ref }}</cite></figcaption>
-      </figure>
-      {%- endfor %}
-    </div>
+    {% include blocks/commitments.html %}
   </div>
 </section>
-
-<div class="divider" aria-hidden="true"><span>The proof</span><b>Specified first. Measured before it ships.</b></div>
 
 <!-- ========================================================== COCKPIT -->
 <section class="sec" id="proof" aria-labelledby="proof-h">
@@ -180,96 +187,6 @@ body_class: "home"
       <p class="sec__sub">{{ sy.cockpit.sub }}</p>
     </header>
     <div data-reveal>{% include components/cockpit.html %}</div>
-  </div>
-</section>
-
-<!-- ========================================================= PRODUCTS -->
-<section class="sec sec--alt" id="products" aria-labelledby="products-h">
-  <div class="container">
-    <header class="sec__head sec__head--split" data-reveal>
-      <div>
-        <p class="kicker">Products // SynaptYon</p>
-        <h2 class="sec__title" id="products-h">Six products. One per part of the paper.</h2>
-      </div>
-      <p class="sec__sub">Each product implements a section of the specification and can be adopted on its own. None is generally available yet; each page shows what it does, where it is specified, and a demo on fictional documents.</p>
-    </header>
-
-    <ul class="p-grid">
-      {%- for p in pd.products %}{% assign st = pd.statuses[p.status] %}
-      <li class="p-card{% if p.lead %} p-card--lead{% endif %}" data-reveal style="--i: {{ forloop.index0 }}">
-        <a class="p-card__link" href="{{ '/products/' | append: p.id | append: '/' | relative_url }}" aria-labelledby="p-{{ p.id }}-name" aria-describedby="p-{{ p.id }}-role">
-          <div class="p-card__shot" aria-hidden="true">
-            <span class="p-card__halo"></span>
-            {% include emblem.html id=p.id uid="card" class="p-card__emblem" %}
-          </div>
-          <div class="p-card__body">
-            <div class="p-card__top">
-              <h3 class="p-card__name" id="p-{{ p.id }}-name">{{ p.name }}</h3>
-              <span class="status status--{{ st.tone }}">{{ st.label }}</span>
-            </div>
-            <p class="p-card__role" id="p-{{ p.id }}-role">{{ p.role }}</p>
-            <p class="p-card__tagline">{{ p.tagline }}</p>
-            <p class="p-card__pitch">{{ p.pitch }}</p>
-            <p class="p-card__foot"><span class="p-card__spec">{% for s in p.spec limit: 2 %}{{ s.ref }}{% unless forloop.last %} · {% endunless %}{% endfor %}</span><span class="p-card__go">Product page →</span></p>
-          </div>
-        </a>
-      </li>
-      {%- endfor %}
-    </ul>
-
-    <header class="sec__head sec__head--mt" data-reveal>
-      <h3 class="sec__h3">The research behind them</h3>
-      <p class="sec__sub">Published work the products build on, and what each paper taught us.</p>
-    </header>
-    <ul class="r-grid">
-      {%- for r in pd.research %}{% assign fp = pd.products | where: "id", r.feeds | first %}
-      <li class="r-card" data-reveal style="--i: {{ forloop.index0 }}">
-        <p class="r-card__top"><b>{{ r.name }}</b><span class="tag">{{ r.venue }}</span></p>
-        <p class="r-card__body">{{ r.body }}</p>
-        <p class="r-card__k">What it taught us</p>
-        <p class="r-card__lesson">{{ r.lesson }}</p>
-        <p class="r-card__foot"><a href="{{ site.founder_site }}publication/{{ r.pub }}/">Read the paper</a><span>Used in <a href="{{ '/products/' | append: fp.id | append: '/' | relative_url }}">{{ fp.name }}</a></span></p>
-      </li>
-      {%- endfor %}
-    </ul>
-  </div>
-</section>
-
-<!-- ============================================================= LOOP -->
-<section class="sec" id="loop" aria-labelledby="loop-h">
-  <div class="container loop">
-    <div class="loop__vis" data-reveal aria-hidden="true">
-      <svg viewBox="0 0 420 420" class="loop__svg">
-        <defs>
-          <linearGradient id="lp-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00c8ff"/><stop offset=".5" stop-color="#2f62ff"/><stop offset="1" stop-color="#c83cff"/></linearGradient>
-        </defs>
-        <circle cx="210" cy="210" r="160" fill="none" stroke="var(--line-2)" stroke-width="1.5"/>
-        <circle class="loop__arc" cx="210" cy="210" r="160" fill="none" stroke="url(#lp-grad)" stroke-width="3" stroke-linecap="round" pathLength="100" stroke-dasharray="18 82"/>
-        {%- assign n = sy.loop.steps | size -%}
-        {%- for s in sy.loop.steps -%}
-        {%- assign a = forloop.index0 | times: 360.0 | divided_by: n | minus: 90 -%}
-        <g class="loop__node" style="--a: {{ a }}deg; --i: {{ forloop.index0 }}">
-          <g transform="rotate({{ a }} 210 210) translate(370 210) rotate({{ a | times: -1 }})">
-            <circle r="7" />
-            <text y="-15" text-anchor="middle">{{ s.name }}</text>
-          </g>
-        </g>
-        {%- endfor %}
-        <text class="loop__center" x="210" y="200" text-anchor="middle">S<tspan baseline-shift="sub" font-size="60%">t−1</tspan> → S<tspan baseline-shift="sub" font-size="60%">t</tspan></text>
-        <text class="loop__center-sub" x="210" y="230" text-anchor="middle">one transition per session</text>
-      </svg>
-    </div>
-    <div class="loop__copy">
-      <p class="kicker" data-reveal>{{ sy.loop.kicker }}</p>
-      <h2 class="sec__title" id="loop-h" data-reveal>{{ sy.loop.title }}</h2>
-      <p class="sec__sub" data-reveal>{{ sy.loop.sub }}</p>
-      <ol class="loop__legend">
-        {%- for s in sy.loop.steps %}
-        <li data-reveal style="--i: {{ forloop.index0 }}"><b>{{ s.name }}</b><span>{{ s.body }}</span></li>
-        {%- endfor %}
-      </ol>
-      <p class="loop__support" data-reveal>{{ sy.loop.support }}</p>
-    </div>
   </div>
 </section>
 

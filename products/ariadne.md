@@ -1,7 +1,7 @@
 ---
 layout: product
 product: ariadne
-title: "Ariadne · Recursive provenance"
-description: "Ariadne, by SynaptYon: Every answer, traced to the bounding box. Recursive provenance for Document AI, implementing arXiv:2609.32041."
+title: "Ariadne · Provenance & citations"
+description: "Ariadne by SynaptYon: provenance & citations for Document AI. Every answer, traced to the bounding box."
 permalink: /products/ariadne/
 ---

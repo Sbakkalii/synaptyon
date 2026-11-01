@@ -1,0 +1,29 @@
+# Short names and venues of the founder's publications cited by products.yml,
+# so product pages can label "Built on" links without the publication collection.
+2019-face-detection-icdarw: { name: "Faces on ID documents", venue: "ICDAR Workshops 2019" }
+2020-cross-modal-deep-networks: { name: "Cross-modal networks", venue: "ICIP 2020" }
+2020-visual-textual-fusion: { name: "Visual–textual fusion", venue: "CVPR Workshops 2020" }
+2021-eaml: { name: "EAML", venue: "IJDAR 2021" }
+2022-thesis: { name: "Cross-modal document understanding", venue: "PhD thesis 2022" }
+2023-transferdoc: { name: "TransferDoc", venue: "SSRN 2023" }
+2023-vlcdoc: { name: "VLCDoC", venue: "Pattern Recognition 2023" }
+2024-khmer-text-recognition-sota: { name: "Khmer text recognition", venue: "ACET 2024" }
+2024-khmerst: { name: "KhmerST", venue: "ACCV 2024" }
+2024-multimodal-adaptive-inference: { name: "Anytime early exits", venue: "ICDAR 2024" }
+2025-confidence-based-kd: { name: "Confidence-based KD", venue: "Applied Sciences 2025" }
+2025-cross-lingual-khmer: { name: "Cross-lingual Khmer", venue: "ICDAR Workshops 2025" }
+2025-docsum: { name: "DocSum", venue: "WACV Workshops 2025" }
+2025-globaldoc: { name: "GlobalDoc", venue: "WACV 2025" }
+2025-gnn-gbdt-fusion: { name: "GNN + GBDT", venue: "GbRPR 2025" }
+2025-hybrid-rag: { name: "MTRACE", venue: "arXiv 2025" }
+2025-idtrust: { name: "IDTrust", venue: "WACV Workshops 2025" }
+2025-khmer-font-types: { name: "Khmer font types", venue: "arXiv 2025" }
+2025-wildkhmerst: { name: "WildKhmerST", venue: "ICDAR 2025" }
+2026-amnesia-by-design: { name: "Amnesia by Design", venue: "arXiv 2026" }
+2026-bhcp-doc: { name: "BHCP-DOC", venue: "ICPR Workshops 2026" }
+2026-fresh-at-decision: { name: "Fresh at Decision", venue: "arXiv 2026" }
+2026-hsb-gdl: { name: "HSB-GDL", venue: "IJDAR 2026" }
+2026-kg-to-text-llm-study: { name: "KG-to-text with LLMs", venue: "arXiv 2026" }
+2026-khmer-scene-text-spotting: { name: "Khmer text spotting", venue: "WACV Workshops 2026" }
+2026-model-compression-nmt-biomed: { name: "Compressed biomedical NMT", venue: "AICS 2025" }
+2026-terminology-aware-rakd-nmt: { name: "Terminology-aware RAKD", venue: "EAMT 2026" }

@@ -1,0 +1,12 @@
+{%- comment -%}Production commitments (site.data.sy.commitments).{%- endcomment -%}
+{%- assign pd = site.data.products -%}
+<ul class="commit-grid">
+  {%- for c in site.data.sy.commitments.items %}{% assign cp = pd.products | where: "id", c.product | first %}
+  <li class="commit" data-reveal style="--i: {{ forloop.index0 }}">
+    {% include emblem.html id=cp.id uid="commit" class="commit__emblem" %}
+    <h3>{{ c.title }}</h3>
+    <p>{{ c.body }}</p>
+    <a href="{{ '/products/' | append: cp.id | append: '/' | relative_url }}">{{ cp.name }} · {{ cp.role }} →</a>
+  </li>
+  {%- endfor %}
+</ul>

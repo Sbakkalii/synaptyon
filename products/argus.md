@@ -1,7 +1,7 @@
 ---
 layout: product
 product: argus
-title: "Argus · Pre-write validation gate"
-description: "Argus, by SynaptYon: Nothing enters memory unverified. Pre-write validation gate for Document AI, implementing arXiv:2609.32041."
+title: "Argus · Validation gate"
+description: "Argus by SynaptYon: validation gate for Document AI. Nothing enters memory unverified."
 permalink: /products/argus/
 ---

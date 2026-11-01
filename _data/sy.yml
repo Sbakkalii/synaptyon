@@ -3,9 +3,10 @@
 # arXiv:2609.32041; everything else is our wording.
 
 nav:
-  - { label: "Lifecycle", href: "/#lifecycle", mega: lifecycle }
-  - { label: "Products", href: "/#products", mega: products }
-  - { label: "Proof", href: "/#proof" }
+  - { label: "Products", href: "/products/", mega: products }
+  - { label: "Solutions", href: "/products/#solutions" }
+  - { label: "Demo", href: "/#pipeline" }
+  - { label: "Memory", href: "/#lifecycle", mega: lifecycle }
   - { label: "Work with us", href: "/#work-with-us" }
   - { label: "Contact", href: "/#contact" }
 
@@ -13,10 +14,11 @@ hero:
   kicker: "SynaptYon // Document Intelligence"
   title: "Document AI that remembers."
   lead: >-
-    We build persistent, evidence-grounded memory for document systems.
-    It keeps what it reads, knows where it came from, knows when it stops
-    being true, and forgets on request.
-  reassure: "Built on arXiv:2609.32041 · six products, one state"
+    From the first scan to the last answer: SynaptYon captures, reads,
+    classifies, extracts, answers and summarises business, financial and
+    historical documents, on a memory that keeps what it reads, cites where
+    it came from and forgets on request.
+  reassure: "17 products · one chain · built on published research"
 
 # Fig. 3 of the paper: six lifecycle operations over the state, with the
 # provenance ledger as an invariant underneath all of them.
@@ -109,65 +111,17 @@ lifecycle:
     body: "Invariant across every operation: any conclusion traces back to the box it came from."
     product: ariadne
 
-domains:
-  kicker: "Where memory pays // §V-D"
-  title: "What your documents will remember."
-  sub: "Four domains the paper singles out. In each, the value of Document AI depends on accumulation."
+# Production commitments: what every product in the chain is designed to do.
+commitments:
+  kicker: "Built for production // six commitments"
+  title: "Documents you can act on."
   items:
-    - id: legal
-      kicker: "Legal // Discovery"
-      title: "Matters that last for months"
-      points:
-        - "Carries findings across review sessions instead of re-deriving them."
-        - "Tracks non-monotonic amendments: what a clause said, and from when."
-        - "Keeps matters, clients and attorneys strictly apart."
-        - "Shows a department the clause, and keeps the negotiated price to finance."
-      with: [chronos, mnemos]
-      glyph: legal
-    - id: health
-      kicker: "Healthcare // Longitudinal"
-      title: "A patient, not an encounter"
-      points:
-        - "Reads a new lab report against the patient's trajectory."
-        - "Surfaces contradictions between successive reports instead of overwriting them."
-        - "Honours disposal rules across every record derived from the source."
-      with: [chronos, lethe]
-      glyph: health
-    - id: audit
-      kicker: "Finance // Audit"
-      title: "From the statement to the receipt"
-      points:
-        - "Keeps an unbroken chain from a consolidated figure to the transaction receipts."
-        - "Learns recurring invoice templates and reads only what changed."
-        - "Lets a preliminary statement stand next to its audited version."
-      with: [ariadne, mnemos]
-      glyph: audit
-    - id: science
-      kicker: "Science // Literature"
-      title: "Established, contested, superseded"
-      points:
-        - "Follows how consensus moves across papers."
-        - "Knows when a new result supersedes an old finding rather than adding to it."
-        - "Keeps results for different populations side by side."
-      with: [chronos, ariadne]
-      glyph: science
-  synth:
-    kicker: "The synthesis // the state"
-    title: "One state, many readers."
-    body: "Six stores, one transition per session, provenance as an invariant, authorization down to the clause. That is what we design: the state your documents need, on substrates you control."
-
-principles:
-  kicker: "From the paper // three lines we build on"
-  items:
-    - quote: "Storage is not retrieval, and retrieval is not consolidation."
-      ref: "§VI"
-      body: "Storage keeps information and retrieval finds it. Only consolidation changes how the next document is processed."
-    - quote: "Validation is a state-integrity condition, not an architectural refinement."
-      ref: "§III-B"
-      body: "Without a gate, one wrong write becomes a wrong answer in every session that follows."
-    - quote: "The gate controls the accumulation rate, not the asymptote."
-      ref: "Corollary III.7"
-      body: "Any imperfect gate only slows contamination, so a memory has to be re-verified on a measured schedule."
+    - { title: "Every value cites its box", body: "Fields, answers and summaries point to the document, region and version they came from.", product: ariadne }
+    - { title: "Nothing written unverified", body: "Low-confidence extractions go to review instead of into memory, and the gate's error rate is measured.", product: argus }
+    - { title: "Versions, not overwrites", body: "Amendments close the old value at their effective date and keep it for audit.", product: chronos }
+    - { title: "Deletion you can prove", body: "Erasure reaches every derived record, schemas included, with a certificate.", product: lethe }
+    - { title: "Permissions down to the clause", body: "Tenants, matters and teams stay apart, and a clause can be visible while its price is not.", product: mnemos }
+    - { title: "Measured on your documents", body: "Every pilot reports accuracy on your labels and the five harness metrics together.", product: anamnesis }
 
 # The harness cockpit: a simulation built from the paper's equations, with
 # illustrative parameters per document family. Not measured results.
@@ -251,60 +205,46 @@ cockpit:
     - { id: none, label: "No gate", pc: 1.0 }
   delta: 0.05
 
-loop:
-  kicker: "The loop // Algorithm 1"
-  title: "Not a pipeline. A state that learns."
-  sub: "A pipeline answers once. The per-session transition reads, checks, writes, abstracts and reconciles, then answers from what it now knows."
-  steps:
-    - { name: "Observe", body: "Read the document as pixels, tokens, boxes, graphs, trees and metadata." }
-    - { name: "Corroborate", body: "Look up what prior evidence supports or contradicts." }
-    - { name: "Validate", body: "Admit the evidence, or leave the state unchanged." }
-    - { name: "Write", body: "Append to the episodic store, extend provenance." }
-    - { name: "Consolidate", body: "Abstract what recurs into schemas and relations." }
-    - { name: "Reconcile", body: "Apply supersession; close what no longer holds." }
-    - { name: "Answer", body: "Answer from the new state, and cite it." }
-  support: "The paper's decisive experiment: the same base model, the same future documents, different valid prior histories, and therefore different future competence."
-
 engagements:
-  kicker: "Work with us // three ways in"
-  title: "Start with your documents."
+  kicker: "Work with us // three steps"
+  title: "From your documents to production."
   items:
-    - id: audit
+    - id: discovery
       num: "01"
-      kicker: "Statefulness audit"
-      title: "Is your Document AI stateless?"
-      body: "We code your pipeline and your evaluation against the eight statefulness criteria of the paper's audit, and place it among the degenerate regimes: zero-state, append-only, or unstructured summarization."
+      kicker: "Discovery"
+      title: "Where does Document AI pay in your flows?"
+      body: "We map what arrives, in which volumes and formats, who reads it and which decisions follow, and we audit any existing pipeline against the eight statefulness criteria of the paper's audit."
       steps:
-        - "A review of the pipeline: what persists between sessions, and in what form."
-        - "Your benchmarks coded against the eight criteria of Table IV."
-        - "The gaps that matter for your documents, ranked."
-      outcome: "A criterion-by-criterion audit, with the gaps that matter first."
+        - "Document flows mapped: sources, volumes, formats, owners."
+        - "The decisions each document feeds, and what an error costs."
+        - "The products that matter for you, and the metrics to judge them."
+      outcome: "A scoped plan: which products, on which documents, judged how."
       product: anamnesis
     - id: pilot
       num: "02"
-      kicker: "Longitudinal pilot"
-      title: "Does memory pay on your stream?"
-      body: "We build a stream from your own documents, with session boundaries, amendments, recurring families, deletion requests and unanswerable questions, and run the three arms on it."
+      kicker: "Pilot"
+      title: "Proof on your own documents."
+      body: "We run the chain products you need on a stream of your documents, with the accuracy targets you set per field and the harness metrics: warm state against retrieval-only and cold processing."
       steps:
-        - "A stream with the eight mandatory properties, built from your documents."
-        - "Warm, retrieval-only and cold arms under identical weights."
-        - "Experience Gain, Cost Efficiency, Memory Harm, Forgetting Fidelity and Coverage Retention, together."
-      outcome: "The five metrics on your data, and what they mean for your decision."
+        - "A stream built from your documents, with session boundaries and the edge cases you care about."
+        - "Field-level accuracy on your labels, plus Experience Gain, Cost Efficiency, Memory Harm, Forgetting Fidelity and Coverage Retention."
+        - "A review of every error class with your team."
+      outcome: "Numbers on your data, and a go or no-go."
       product: anamnesis
-    - id: build
+    - id: production
       num: "03"
-      kicker: "Build"
-      title: "Persistent state, in your stack."
-      body: "We put Mnemos in place with the gate, reconciliation, provenance and forgetting your domain needs, on substrates you control, with multi-tenant isolation from the start."
+      kicker: "Production"
+      title: "Rolled out, and owned by you."
+      body: "We integrate the pipeline with your systems on the infrastructure agreed in the pilot, with validation gates, version history, citations and deletion policies set for your domain."
       steps:
-        - "State design: which of the six components, on which substrates."
-        - "Gate, reconciliation and forgetting policies for your documents."
-        - "Hand-over: documentation, runbooks, and the harness to keep measuring."
-      outcome: "A state layer you own and can audit."
+        - "Integration with your intake, storage and business applications."
+        - "Gate, reconciliation, retention and access policies for your documents."
+        - "Documentation, runbooks and the harness to keep measuring."
+      outcome: "A document pipeline you own and can audit."
       product: mnemos
 
 name:
-  kicker: "The name // σύναψις"
+  kicker: "The names // σύναψις"
   title: "A joining together."
   word: "SynaptYon"
   root: "σύναψις"
@@ -312,6 +252,17 @@ name:
   gloss: "Greek: a joining together, a conjunction. Also the root of “synapse”, where one neuron hands a signal to the next."
   body: "The paper's target is a conjunction too: <span class=\"math\">C*</span> asks for multimodal evidence, document structure, persistence, temporal validity, provenance and governance at once, and no existing paradigm has all six."
   products:
+    - { id: agora, root: "ἀγορά", gloss: "the gathering place" }
+    - { id: grammata, root: "γράμματα", gloss: "letters" }
+    - { id: morphe, root: "μορφή", gloss: "form, shape" }
+    - { id: taxis, root: "τάξις", gloss: "order, arrangement" }
+    - { id: kleis, root: "κλείς", gloss: "key" }
+    - { id: onoma, root: "ὄνομα", gloss: "name" }
+    - { id: pistis, root: "πίστις", gloss: "trust" }
+    - { id: sibyl, root: "Σίβυλλα", gloss: "the oracle who answered" }
+    - { id: heuresis, root: "εὕρεσις", gloss: "finding, discovery" }
+    - { id: epitome, root: "ἐπιτομή", gloss: "abridgment" }
+    - { id: hermeneus, root: "ἑρμηνεύς", gloss: "interpreter" }
     - { id: mnemos, root: "μνήμη", gloss: "memory" }
     - { id: argus, root: "Ἄργος", gloss: "the hundred-eyed watchman" }
     - { id: chronos, root: "χρόνος", gloss: "time" }
@@ -349,5 +300,5 @@ people:
     - "EAMT"
 
 contact:
-  title: "We start with an audit."
-  sub: "Tell us about your documents, the decisions they drive, and how often they change."
+  title: "Start with your documents."
+  sub: "Tell us what arrives, in which volumes, which decisions it drives and how often it changes."

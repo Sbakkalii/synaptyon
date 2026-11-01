@@ -7,21 +7,22 @@
         {% include logo.html id="ftr" class="brand__mark" %}
         <span class="brand__word">Synapt<span>Y</span>on</span>
       </a>
-      <p>{{ site.tagline }}. Built on <a href="{{ pd.paper.url }}">arXiv:{{ pd.paper.arxiv }}</a>.</p>
+      <p>Document Intelligence, end to end: from ingestion to answers, on a memory that keeps what it reads.</p>
     </div>
     <div>
       <h2 class="site-footer__h">Products</h2>
       <ul>
-        {%- for p in pd.products %}
-        <li><a href="{{ '/products/' | append: p.id | append: '/' | relative_url }}">{{ p.name }}</a></li>
+        {%- for c in pd.chain %}
+        <li><a href="{{ '/products/' | relative_url }}#{{ c.id }}">{{ c.name }}</a> <span class="site-footer__sub">{% for pid in c.products %}{% assign p = pd.products | where: "id", pid | first %}{{ p.name }}{% unless forloop.last %} · {% endunless %}{% endfor %}</span></li>
         {%- endfor %}
       </ul>
     </div>
     <div>
       <h2 class="site-footer__h">Company</h2>
       <ul>
-        <li><a href="{{ '/#lifecycle' | relative_url }}">Lifecycle</a></li>
-        <li><a href="{{ '/#proof' | relative_url }}">Proof</a></li>
+        <li><a href="{{ '/products/' | relative_url }}#solutions">Solutions</a></li>
+        <li><a href="{{ '/#pipeline' | relative_url }}">Live demo</a></li>
+        <li><a href="{{ '/#lifecycle' | relative_url }}">The memory layer</a></li>
         <li><a href="{{ '/#work-with-us' | relative_url }}">Work with us</a></li>
         <li><a href="{{ '/#name' | relative_url }}">The name</a></li>
         <li><a href="{{ '/legal/' | relative_url }}">Legal notice</a></li>

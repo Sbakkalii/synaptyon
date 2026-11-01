@@ -1,0 +1,2 @@
+{%- comment -%}Short label for a publication slug: {% include pubname.html slug="2025-globaldoc" %}{%- endcomment -%}
+{%- assign pb = site.data.pubs[include.slug] -%}{% if pb %}{{ pb.name }} · {{ pb.venue }}{% else %}Publication{% endif %}

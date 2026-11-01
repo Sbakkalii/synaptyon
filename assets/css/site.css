@@ -15,4 +15,7 @@ layout: null
 {% include css/components/harness.css %}
 {% include css/components/unlearning.css %}
 {% include css/components/cockpit.css %}
+{% include css/components/pipeline.css %}
+{% include css/components/search-demo.css %}
+{% include css/components/stack.css %}
 {% include css/overrides.css %}

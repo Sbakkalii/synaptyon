@@ -1,0 +1,26 @@
+{%- comment -%}
+  The chain in five stages, each with its products (site.data.products.chain).
+  Usage: {% include blocks/chain.html %}; `anchors=true` links each stage to
+  its section on the products page instead of to the products page itself.
+{%- endcomment -%}
+{%- assign pd = site.data.products -%}
+<ol class="chain">
+  {%- for c in pd.chain %}
+  <li class="chain__stage chain__stage--{{ c.id }}" data-reveal style="--i: {{ forloop.index0 }}">
+    <a class="chain__head" href="{% if include.anchors %}#{{ c.id }}{% else %}{{ '/products/' | relative_url }}#{{ c.id }}{% endif %}">
+      <span class="chain__num">{{ forloop.index | prepend: "0" }}</span>
+      <b>{{ c.name }}</b>
+      <span>{{ c.verb }}</span>
+    </a>
+    <ul class="chain__products">
+      {%- for pid in c.products %}{% assign cp = pd.products | where: "id", pid | first %}{% assign cst = pd.statuses[cp.status] %}
+      <li><a href="{{ '/products/' | append: cp.id | append: '/' | relative_url }}">
+        {% include emblem.html id=cp.id uid="chain" class="chain__emblem" %}
+        <span class="chain__txt"><b>{{ cp.name }}</b><span>{{ cp.role }}</span></span>
+        {%- if cp.status == "development" or cp.status == "spec" %}<span class="chain__dot chain__dot--{{ cst.tone }}" title="{{ cst.label }}"><span class="visually-hidden">{{ cst.label }}</span></span>{% endif %}
+      </a></li>
+      {%- endfor %}
+    </ul>
+  </li>
+  {%- endfor %}
+</ol>

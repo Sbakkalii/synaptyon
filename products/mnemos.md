@@ -1,7 +1,7 @@
 ---
 layout: product
 product: mnemos
-title: "Mnemos · Persistent document state"
-description: "Mnemos, by SynaptYon: Documents, remembered. Persistent document state for Document AI, implementing arXiv:2609.32041."
+title: "Mnemos · Document memory"
+description: "Mnemos by SynaptYon: document memory for Document AI. Documents, remembered."
 permalink: /products/mnemos/
 ---

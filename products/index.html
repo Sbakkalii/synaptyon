@@ -1,0 +1,157 @@
+---
+title: "Products"
+permalink: /products/
+description: "SynaptYon's Document Intelligence platform: 17 products covering the whole chain, from ingestion, OCR and handwriting to classification, extraction, question answering, search, summarisation, translation and persistent memory, for business, financial, historical, healthcare, identity and legal documents."
+body_class: "products-page"
+---
+{%- assign pd = site.data.products -%}
+{%- assign sy = site.data.sy -%}
+{%- assign n = pd.products | size -%}
+
+<section class="p-hero p-hero--index" aria-labelledby="pi-h">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="container">
+    <p class="kicker">Products // the Document Intelligence platform</p>
+    <h1 class="pi__title" id="pi-h">From the first scan <span class="pi__l2">to the last <span class="grad-text">answer.</span></span></h1>
+    <p class="pi__lede">{{ n }} products cover the whole chain: capture, OCR and handwriting, layout, classification, extraction, entities, trust checks, question answering, search, summarisation and translation, on a memory layer that keeps what was read. Each can be adopted on its own. None is generally available yet: we open them one by one, as pilots on your documents.</p>
+    <div class="hero__ctas">
+      <a class="btn btn--grad" href="mailto:{{ site.contact_email }}?subject={{ 'SynaptYon · pilot' | url_encode }}">Start a pilot</a>
+      <a class="btn btn--line" href="#pipeline">Watch a document go through</a>
+    </div>
+    <ul class="pi__chips" aria-label="Jump to">
+      {%- for c in pd.chain %}<li><a href="#{{ c.id }}">{{ c.name }} <span>{{ c.products | size }}</span></a></li>{% endfor %}
+      <li><a href="#solutions">Solutions</a></li>
+      <li><a href="#production">Built for production</a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec sec--tight" id="chain" aria-labelledby="chain-h">
+  <div class="container">
+    <header class="sec__head sec__head--split" data-reveal>
+      <div>
+        <p class="kicker">§ 01 // The chain</p>
+        <h2 class="sec__title" id="chain-h">Five stages. Seventeen products.</h2>
+      </div>
+      <p class="sec__sub">Documents move left to right: in through capture, read, understood, put to work, and remembered, with every step measured. Products share one state, so each stage builds on what the others found.</p>
+    </header>
+    {% include blocks/chain.html anchors=true %}
+  </div>
+</section>
+
+<section class="sec sec--alt" id="pipeline" aria-labelledby="pipe-h">
+  <div class="container">
+    <header class="sec__head sec__head--split" data-reveal>
+      <div>
+        <p class="kicker">§ 02 // Live demo</p>
+        <h2 class="sec__title" id="pipe-h">One document, through the whole chain.</h2>
+      </div>
+      <p class="sec__sub">Pick an invoice, a bank statement, a 19th-century register or a handwritten prescription, and step through what each product returns. Fictional documents, scripted outputs.</p>
+    </header>
+    <div data-reveal>{% include components/pipeline.html uid="products" %}</div>
+  </div>
+</section>
+
+{%- for c in pd.chain %}
+<section class="sec{% cycle '', ' sec--alt' %} stage" id="{{ c.id }}" aria-labelledby="{{ c.id }}-h">
+  <div class="container">
+    <header class="sec__head sec__head--split" data-reveal>
+      <div>
+        <p class="kicker">§ 0{{ forloop.index | plus: 2 }} // {{ c.name }}</p>
+        <h2 class="sec__title" id="{{ c.id }}-h">{{ c.verb }}.</h2>
+      </div>
+      <p class="sec__sub">{% case c.id %}{% when "ingest" %}Everything starts with a usable page. These products take documents in from wherever they arrive, read every line, printed or handwritten, and rebuild the structure of the page.{% when "understand" %}Once a page is read, these products decide what it is, pull out the fields and entities a workflow needs, and check that the document can be trusted.{% when "apply" %}This is where documents do work: answers that cite their source, search by meaning, summaries and domain translation.{% when "remember" %}The layer that makes the chain improve with use: what was read is kept, checked before it is written, versioned, traceable and deletable. Specified in our paper, arXiv:{{ pd.paper.arxiv }}.{% when "measure" %}Before anything goes to production, the chain is measured on your documents: benefit, cost, risk and governability, together.{% endcase %}</p>
+    </header>
+
+    <div class="pblocks">
+      {%- for pid in c.products %}{% assign p = pd.products | where: "id", pid | first %}{% assign st = pd.statuses[p.status] %}
+      <article class="pblock" id="p-{{ p.id }}" data-reveal style="--i: {{ forloop.index0 }}">
+        <div class="pblock__head">
+          {% include emblem.html id=p.id uid="block" class="pblock__emblem" %}
+          <div>
+            <div class="pblock__name"><h3>{{ p.name }}</h3><span class="status status--{{ st.tone }}">{{ st.label }}</span></div>
+            <p class="pblock__role">{{ p.role }}</p>
+          </div>
+        </div>
+        <p class="pblock__tagline">{{ p.tagline }}</p>
+        <p class="pblock__pitch">{{ p.pitch }}</p>
+        <div class="pblock__io">
+          <div><p class="pblock__k">In</p><ul>{% for x in p.inputs %}<li>{{ x }}</li>{% endfor %}</ul></div>
+          <div><p class="pblock__k">Out</p><ul>{% for x in p.outputs %}<li>{{ x }}</li>{% endfor %}</ul></div>
+        </div>
+        <ul class="pblock__caps">{% for cap in p.capabilities %}<li>{{ cap.title }}</li>{% endfor %}</ul>
+        <p class="pblock__foot">
+          <span class="pblock__fam">{% for t in p.doc_types limit: 4 %}{% assign so = pd.solutions | where: "id", t | first %}<a href="#sol-{{ so.id }}">{{ so.name }}</a>{% endfor %}</span>
+          <a class="pblock__go" href="{{ '/products/' | append: p.id | append: '/' | relative_url }}">Product page →</a>
+        </p>
+      </article>
+      {%- endfor %}
+    </div>
+
+    {%- case c.id %}
+    {%- when "apply" %}
+    <div class="stage__demo" data-reveal>{% include components/search-demo.html id="products-search" %}</div>
+    {%- when "remember" %}
+    <div class="stage__demo" data-reveal>{% include components/reconcile.html %}</div>
+    {%- endcase %}
+  </div>
+</section>
+{%- endfor %}
+
+<section class="sec sec--alt" id="solutions" aria-labelledby="sol-h">
+  <div class="container">
+    <header class="sec__head sec__head--split" data-reveal>
+      <div>
+        <p class="kicker">§ 08 // Solutions</p>
+        <h2 class="sec__title" id="sol-h">Built for your documents.</h2>
+      </div>
+      <p class="sec__sub">The same chain, assembled for six document families: the products each one uses, and what changes for the people who handle them.</p>
+    </header>
+    {% include blocks/solutions.html %}
+  </div>
+</section>
+
+<section class="sec" id="production" aria-labelledby="prod-h">
+  <div class="container">
+    <header class="sec__head" data-reveal>
+      <p class="kicker">§ 09 // {{ sy.commitments.kicker | split: "// " | last }}</p>
+      <h2 class="sec__title" id="prod-h">{{ sy.commitments.title }}</h2>
+    </header>
+    {% include blocks/commitments.html %}
+  </div>
+</section>
+
+<section class="sec sec--alt" id="research" aria-labelledby="res-h">
+  <div class="container">
+    <header class="sec__head sec__head--split" data-reveal>
+      <div>
+        <p class="kicker">§ 10 // Built on published research</p>
+        <h2 class="sec__title sec__title--md" id="res-h">The work behind the products.</h2>
+      </div>
+      <p class="sec__sub">Peer-reviewed and preprint work by the founding team, each paper feeding one product. <a href="{{ site.founder_site }}publications/">All publications →</a></p>
+    </header>
+    <ul class="r-grid">
+      {%- for r in pd.research %}{% assign fp = pd.products | where: "id", r.feeds | first %}
+      <li class="r-card" data-reveal style="--i: {{ forloop.index0 }}">
+        <p class="r-card__top"><b>{{ r.name }}</b><span class="tag">{{ r.venue }}</span></p>
+        <p class="r-card__body">{{ r.body }}</p>
+        <p class="r-card__k">What it taught us</p>
+        <p class="r-card__lesson">{{ r.lesson }}</p>
+        <p class="r-card__foot"><a href="{{ site.founder_site }}publication/{{ r.pub }}/">Read the paper</a><span>Used in <a href="{{ '/products/' | append: fp.id | append: '/' | relative_url }}">{{ fp.name }}</a></span></p>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="sec cta-band" aria-labelledby="pilot-h">
+  <div class="container cta-band__inner" data-reveal>
+    {% include logo.html id="cta" class="contact__mark" %}
+    <h2 class="sec__title sec__title--md" id="pilot-h">Start with a pilot on your documents.</h2>
+    <p class="sec__sub">Tell us what arrives, in which volumes, and which decisions it drives. We pick the products that matter and measure them on your stream.</p>
+    <div class="hero__ctas hero__ctas--center">
+      <a class="btn btn--grad" href="mailto:{{ site.contact_email }}?subject={{ 'SynaptYon · pilot' | url_encode }}">{{ site.contact_email }}</a>
+      <a class="btn btn--line" href="{{ '/#work-with-us' | relative_url }}">How a pilot works</a>
+    </div>
+  </div>
+</section>

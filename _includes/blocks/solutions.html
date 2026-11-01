@@ -1,0 +1,14 @@
+{%- comment -%}Document families and the products each uses (site.data.products.solutions).{%- endcomment -%}
+{%- assign pd = site.data.products -%}
+<div class="sol-grid">
+  {%- for so in pd.solutions %}
+  <article class="sol" id="sol-{{ so.id }}" data-reveal style="--i: {{ forloop.index0 }}">
+    <div class="sol__vis" aria-hidden="true">{% include glyph.html id=so.id %}</div>
+    <p class="kicker kicker--sm">{{ so.kicker }}</p>
+    <h3 class="sol__title">{{ so.name }}</h3>
+    <p class="sol__ex">{{ so.examples }}</p>
+    <ul class="sol__list">{% for pt in so.points %}<li>{{ pt }}</li>{% endfor %}</ul>
+    <p class="sol__uses"><span>Uses</span>{% for pid in so.products %}{% assign sp = pd.products | where: "id", pid | first %}<a href="{{ '/products/' | append: pid | append: '/' | relative_url }}">{{ sp.name }}</a>{% endfor %}</p>
+  </article>
+  {%- endfor %}
+</div>

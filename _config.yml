@@ -2,12 +2,13 @@
 # https://sbakkalii.github.io/synaptyon/ until a company domain exists.
 title: "SynaptYon"
 legal_name: "SynaptYon SARL"
-tagline: "Persistent memory for Document AI"
+tagline: "Document Intelligence, end to end"
 description: >-
-  SynaptYon builds persistent, evidence-grounded memory for Document AI: six
-  products from the architecture in "Amnesia by Design, Memory By Necessity"
-  (arXiv:2609.32041). Systems that keep what they read, know where it came
-  from, know when it stops being true, and forget on request.
+  SynaptYon builds Document Intelligence end to end: capture, OCR and
+  handwriting, layout, classification, key information extraction, entities,
+  question answering, search, summarisation and translation for business,
+  financial, historical and healthcare documents, on a persistent memory
+  specified in arXiv:2609.32041.
 url: "https://sbakkalii.github.io"
 baseurl: "/synaptyon"
 lang: en
@@ -16,8 +17,8 @@ lang: en
 # out of search engines (robots.txt and a meta tag on every page).
 noindex: true
 
-# Contact goes to the founder until a company mailbox exists.
-contact_email: "souhail.bakkali@irisa.fr"
+# Company mailbox until a company domain exists.
+contact_email: "sbakkali.sirajai@gmail.com"
 founder_site: "https://sbakkalii.github.io/"
 
 markdown: kramdown
