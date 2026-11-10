@@ -1,6 +1,6 @@
 /* ==========================================================================
    Second palette: emerald green and gold, taken from the calligraphy mark
-   the owner supplied (deep emerald field #012714 to #0f4a28, metallic gold
+   the owner supplied (deep emerald field #012714 to #0f4a28 for the original mark; the dark theme softens it to an olive-charcoal so it is not all green, metallic gold
    #c38a30 / #e2ad49 / #f6cd60). Opt-in through data-palette="forest" on
    <html>; the default blue-violet palette in tokens.css is untouched. It
    mirrors the default's dark/light handling, so the sun/moon toggle keeps
@@ -9,19 +9,19 @@
 
 /* Dark: emerald field, gold ink accents (also carries the values shared by both modes). */
 :root[data-palette="forest"] {
-  --bg: #012714;
-  --bg-2: #02301a;
-  --surface: #04371e;
-  --surface-2: #0a4527;
-  --surface-3: #11522f;
-  --glass: rgba(4, 55, 30, 0.74);
+  --bg: #0e1912;
+  --bg-2: #121f17;
+  --surface: #1d271c;
+  --surface-2: #252f23;
+  --surface-3: #2e3a2b;
+  --glass: rgba(29, 39, 28, 0.76);
 
-  --ink: #f7f1da;
-  --ink-2: #d9d6b8;
-  --ink-3: #a9bd9f;
-  --line: #115634;
-  --line-2: #1b6e45;
-  --control: #5aa87b;
+  --ink: #f5f0dc;
+  --ink-2: #dcd8bd;
+  --ink-3: #b3bca6;
+  --line: #333e30;
+  --line-2: #46543f;
+  --control: #8aa58a;
 
   --brand-1: #3fcf82;
   --brand-2: #e2ad49;
@@ -30,7 +30,7 @@
   --logo-2: #e2ad49;
   --logo-3: #c38a30;
   --grad-btn: linear-gradient(118deg, #f6cd60 0%, #e2ad49 55%, #c38a30 100%);
-  --on-grad: #012714;
+  --on-grad: #0e1912;
   --glow-1: #e2ad49;
   --glow-2: #3fcf82;
   --key: #f6cd60;
@@ -39,17 +39,17 @@
 
   --accent: #eec765;
   --accent-2: #8fdcae;
-  --accent-soft: #0f4a28;
-  --on-accent: #012714;
+  --accent-soft: #2e3a24;
+  --on-accent: #0e1912;
 
   --btn-bg: #eec765;
-  --btn-ink: #012714;
+  --btn-ink: #0e1912;
   --btn-bg-hover: #f6d98a;
 
   --ok: #5fd68f;
-  --ok-soft: #0a3d22;
+  --ok-soft: #1b3a24;
   --warn: #f6cd60;
-  --warn-soft: #2a2e10;
+  --warn-soft: #34311a;
   --bad: #ffa099;
 
   --st-E: #5fd68f;
@@ -60,7 +60,7 @@
   --st-A: #b4c3ad;
 
   --glow: 0 0 0 1px rgba(246, 205, 96, 0.14), 0 30px 80px -40px rgba(226, 173, 73, 0.4);
-  --dot-grid: radial-gradient(circle at 1px 1px, rgba(247, 241, 218, 0.07) 1px, transparent 1.4px);
+  --dot-grid: radial-gradient(circle at 1px 1px, rgba(245, 240, 220, 0.07) 1px, transparent 1.4px);
 }
 
 /* Light: warm cream paper with emerald ink, gold kept dark enough to read. */
