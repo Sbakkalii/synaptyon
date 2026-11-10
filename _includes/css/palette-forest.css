@@ -1,0 +1,173 @@
+/* ==========================================================================
+   Second palette: green, dark green, gold and dark orange. Opt-in through
+   data-palette="forest" on <html>; the default blue-violet palette in
+   tokens.css is untouched. It mirrors the default's dark/light handling, so
+   the sun/moon toggle keeps working inside this palette.
+   ========================================================================== */
+
+/* Dark forest (also carries the values shared by both modes). */
+:root[data-palette="forest"] {
+  --bg: #07110b;
+  --bg-2: #0a160e;
+  --surface: #0e1d14;
+  --surface-2: #13261a;
+  --surface-3: #1a3323;
+  --glass: rgba(14, 29, 20, 0.72);
+
+  --ink: #eef4e8;
+  --ink-2: #c3d1bd;
+  --ink-3: #8fa58f;
+  --line: #1d3325;
+  --line-2: #2c4a37;
+  --control: #5f8268;
+
+  --brand-1: #3ddc84;
+  --brand-2: #e8b923;
+  --brand-3: #e0701a;
+  --logo-1: #3ddc84;
+  --logo-2: #e8b923;
+  --logo-3: #e0701a;
+  --grad-btn: linear-gradient(118deg, #1c7a46 0%, #8a6508 55%, #b04a0a 100%);
+  --key: #f4c542;
+  --key-soft: rgba(244, 197, 66, 0.1);
+  --violet: #f08a3c;
+
+  --accent: #7be0a0;
+  --accent-2: #e9c46a;
+  --accent-soft: #12301e;
+  --on-accent: #04120a;
+
+  --btn-bg: #f1ecd6;
+  --btn-ink: #07110b;
+  --btn-bg-hover: #ddd6b4;
+
+  --ok: #5fd68f;
+  --ok-soft: #0f2a1a;
+  --warn: #f0a050;
+  --warn-soft: #2c1f0f;
+
+  --st-E: #7bd88f;
+  --st-K: #f0c75e;
+  --st-G: #3fc9b5;
+  --st-V: #ef8a3c;
+  --st-P: #ec8279;
+  --st-A: #a9b8a3;
+
+  --glow: 0 0 0 1px rgba(123, 224, 160, 0.14), 0 30px 80px -40px rgba(61, 220, 132, 0.4);
+  --dot-grid: radial-gradient(circle at 1px 1px, rgba(238, 244, 232, 0.07) 1px, transparent 1.4px);
+}
+
+/* Light forest: cream paper with green tint, white-cream cards. */
+@media (prefers-color-scheme: light) {
+  :root[data-palette="forest"]:not([data-theme="dark"]) {
+    color-scheme: light;
+    --bg: #f1f4e6;
+    --bg-2: #e7ecd8;
+    --surface: #fffef7;
+    --surface-2: #f7f8ec;
+    --surface-3: #ebefdc;
+    --glass: rgba(255, 254, 247, 0.78);
+    --ink: #0c2314;
+    --ink-2: #34503d;
+    --ink-3: #526d5c;
+    --line: #d3dcc0;
+    --line-2: #bac8a4;
+    --control: #75896f;
+    --brand-1: #1f9d55;
+    --brand-2: #b8860b;
+    --brand-3: #b4500f;
+    --logo-1: #1f9d55;
+    --logo-2: #b8860b;
+    --logo-3: #c4570e;
+    --key: #7a5600;
+    --key-soft: rgba(184, 134, 11, 0.1);
+    --violet: #b24a0b;
+    --accent: #0f6a3a;
+    --accent-2: #86600a;
+    --accent-soft: #dcefd7;
+    --on-accent: #ffffff;
+    --btn-bg: #0c2314;
+    --btn-ink: #ffffff;
+    --btn-bg-hover: #26402f;
+    --mark: #ffe08a;
+    --mark-ink: #3d3000;
+    --ok: #13693c;
+    --ok-soft: #dff1e4;
+    --warn: #8a4b00;
+    --warn-soft: #fbeedb;
+    --st-E: #1a7343;
+    --st-K: #856000;
+    --st-G: #0a7368;
+    --st-V: #b24a0b;
+    --st-P: #b8325f;
+    --st-A: #556356;
+    --shadow-1: 0 1px 2px rgba(12, 35, 20, 0.06);
+    --shadow-2: 0 18px 44px -28px rgba(12, 35, 20, 0.28), 0 2px 6px rgba(12, 35, 20, 0.05);
+    --shadow-3: 0 34px 80px -40px rgba(12, 35, 20, 0.32), 0 6px 18px rgba(12, 35, 20, 0.07);
+    --glow: 0 0 0 1px rgba(15, 106, 58, 0.1), 0 30px 70px -44px rgba(15, 106, 58, 0.35);
+    --dot-grid: radial-gradient(circle at 1px 1px, rgba(12, 35, 20, 0.09) 1px, transparent 1.4px);
+  }
+}
+
+/* Explicit light choice from the toggle. Keep in sync with the block above. */
+:root[data-palette="forest"][data-theme="light"] {
+  color-scheme: light;
+  --bg: #f1f4e6;
+  --bg-2: #e7ecd8;
+  --surface: #fffef7;
+  --surface-2: #f7f8ec;
+  --surface-3: #ebefdc;
+  --glass: rgba(255, 254, 247, 0.78);
+  --ink: #0c2314;
+  --ink-2: #34503d;
+  --ink-3: #526d5c;
+  --line: #d3dcc0;
+  --line-2: #bac8a4;
+  --control: #75896f;
+  --brand-1: #1f9d55;
+  --brand-2: #b8860b;
+  --brand-3: #b4500f;
+  --logo-1: #1f9d55;
+  --logo-2: #b8860b;
+  --logo-3: #c4570e;
+  --key: #7a5600;
+  --key-soft: rgba(184, 134, 11, 0.1);
+  --violet: #b24a0b;
+  --accent: #0f6a3a;
+  --accent-2: #86600a;
+  --accent-soft: #dcefd7;
+  --on-accent: #ffffff;
+  --btn-bg: #0c2314;
+  --btn-ink: #ffffff;
+  --btn-bg-hover: #26402f;
+  --mark: #ffe08a;
+  --mark-ink: #3d3000;
+  --ok: #13693c;
+  --ok-soft: #dff1e4;
+  --warn: #8a4b00;
+  --warn-soft: #fbeedb;
+  --st-E: #1a7343;
+  --st-K: #856000;
+  --st-G: #0a7368;
+  --st-V: #b24a0b;
+  --st-P: #b8325f;
+  --st-A: #556356;
+  --shadow-1: 0 1px 2px rgba(12, 35, 20, 0.06);
+  --shadow-2: 0 18px 44px -28px rgba(12, 35, 20, 0.28), 0 2px 6px rgba(12, 35, 20, 0.05);
+  --shadow-3: 0 34px 80px -40px rgba(12, 35, 20, 0.32), 0 6px 18px rgba(12, 35, 20, 0.07);
+  --glow: 0 0 0 1px rgba(15, 106, 58, 0.1), 0 30px 70px -44px rgba(15, 106, 58, 0.35);
+  --dot-grid: radial-gradient(circle at 1px 1px, rgba(12, 35, 20, 0.09) 1px, transparent 1.4px);
+}
+
+/* Hard-coded blue glows in the default styles, re-tinted for this palette. */
+:root[data-palette="forest"] .btn--grad { box-shadow: 0 14px 34px -16px rgba(40, 150, 85, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.18); }
+:root[data-palette="forest"] .btn--grad:hover { box-shadow: 0 18px 40px -16px rgba(200, 120, 30, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.25); }
+:root[data-palette="forest"] .statering__mark { filter: drop-shadow(0 24px 40px rgba(61, 220, 132, 0.38)); }
+:root[data-palette="forest"] .contact__mark { filter: drop-shadow(0 14px 24px rgba(61, 220, 132, 0.34)); }
+:root[data-palette="forest"] .p-hero__emblem { filter: drop-shadow(0 20px 40px rgba(61, 220, 132, 0.3)); }
+
+:root[data-palette="forest"] .chain__stage--remember { box-shadow: 0 0 0 1px color-mix(in srgb, var(--brand-3) 18%, transparent), 0 30px 70px -45px color-mix(in srgb, var(--brand-3) 55%, transparent); }
+
+/* Palette switch icon: two overlapping discs. */
+.palette-btn svg { fill: none; }
+.palette-btn[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); }

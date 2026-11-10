@@ -8,9 +8,9 @@
 <svg class="emblem emblem--{{ include.id }} {{ include.class }}" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
   <defs>
     <linearGradient id="{{ gid }}" x1="10" y1="10" x2="110" y2="110" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#00c8ff"/>
-      <stop offset="0.5" stop-color="#3a6bff"/>
-      <stop offset="1" stop-color="#c040ff"/>
+      <stop offset="0" stop-color="#00c8ff" style="stop-color: var(--logo-1, #00c8ff)"/>
+      <stop offset="0.5" stop-color="#3a6bff" style="stop-color: var(--logo-2, #3a6bff)"/>
+      <stop offset="1" stop-color="#c040ff" style="stop-color: var(--logo-3, #c040ff)"/>
     </linearGradient>
   </defs>
   <g fill="none" stroke="url(#{{ gid }})" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">

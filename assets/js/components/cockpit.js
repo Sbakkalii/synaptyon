@@ -124,7 +124,7 @@ export default function init(root, ctx) {
   chart.append(
     chartTitle,
     s('defs', {}, s('linearGradient', { id: gradId, x1: '0', y1: '0', x2: '1', y2: '0' },
-      s('stop', { offset: '0', 'stop-color': '#00c8ff' }), s('stop', { offset: '.55', 'stop-color': '#2f6bff' }), s('stop', { offset: '1', 'stop-color': '#c040ff' }))),
+      s('stop', { offset: '0', 'stop-color': '#00c8ff', style: 'stop-color: var(--logo-1, #00c8ff)' }), s('stop', { offset: '.55', 'stop-color': '#2f6bff', style: 'stop-color: var(--logo-2, #2f6bff)' }), s('stop', { offset: '1', 'stop-color': '#c040ff', style: 'stop-color: var(--logo-3, #c040ff)' }))),
     gridG, area, lines.cold, lines.ret, lines.warm, marker,
   );
   const legend = h('ul', { class: 'c-cockpit__legend' },

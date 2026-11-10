@@ -25,6 +25,7 @@
     try {
       var t = localStorage.getItem('sy-theme');
       if (t === 'dark' || t === 'light') d.setAttribute('data-theme', t);
+      if (localStorage.getItem('sy-palette') === 'forest') d.setAttribute('data-palette', 'forest');
     } catch (e) {}
   })();
 </script>

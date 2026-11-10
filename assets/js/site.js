@@ -11,6 +11,7 @@ const root = document.documentElement;
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 const lightQuery = window.matchMedia('(prefers-color-scheme: light)');
 const THEME_KEY = 'sy-theme';
+const PALETTE_KEY = 'sy-palette';
 
 /* ---------------------------------------------------------------- theme */
 
@@ -55,6 +56,50 @@ lightQuery.addEventListener('change', () => {
   }
 });
 syncThemeButtons();
+
+/* -------------------------------------------------------------- palette */
+
+// The default blue-violet palette needs no attribute; "forest" (green and
+// gold) is the second choice and is remembered like the theme.
+const THEME_COLORS = {
+  default: { dark: '#070a12', light: '#edf1f8' },
+  forest: { dark: '#07110b', light: '#f1f4e6' },
+};
+
+function currentPalette() {
+  return root.dataset.palette === 'forest' ? 'forest' : 'default';
+}
+
+function syncPalette() {
+  const forest = currentPalette() === 'forest';
+  for (const btn of document.querySelectorAll('[data-palette-toggle]')) {
+    btn.setAttribute('aria-pressed', String(forest));
+    btn.setAttribute('aria-label', forest ? 'Switch to the default palette' : 'Switch to the green and gold palette');
+  }
+  const colors = THEME_COLORS[currentPalette()];
+  for (const meta of document.querySelectorAll('meta[name="theme-color"]')) {
+    meta.setAttribute('content', meta.media.includes('light') ? colors.light : colors.dark);
+  }
+}
+
+function applyPalette(palette, persist) {
+  if (palette === 'forest') root.dataset.palette = 'forest';
+  else delete root.dataset.palette;
+  if (persist) {
+    try {
+      if (palette === 'forest') localStorage.setItem(PALETTE_KEY, 'forest');
+      else localStorage.removeItem(PALETTE_KEY);
+    } catch { /* private mode */ }
+  }
+  syncPalette();
+  for (const cb of themeListeners) cb(currentTheme());
+}
+
+document.addEventListener('click', (event) => {
+  const btn = event.target.closest('[data-palette-toggle]');
+  if (btn) applyPalette(currentPalette() === 'forest' ? 'default' : 'forest', true);
+});
+syncPalette();
 
 /* --------------------------------------------------------------- header */
 

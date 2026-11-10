@@ -19,3 +19,4 @@ layout: null
 {% include css/components/search-demo.css %}
 {% include css/components/stack.css %}
 {% include css/overrides.css %}
+{% include css/palette-forest.css %}
