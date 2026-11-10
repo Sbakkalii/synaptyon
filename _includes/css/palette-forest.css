@@ -9,19 +9,19 @@
 
 /* Dark: emerald field, gold ink accents (also carries the values shared by both modes). */
 :root[data-palette="forest"] {
-  --bg: #0e1912;
-  --bg-2: #121f17;
-  --surface: #2a3428;
-  --surface-2: #343f31;
-  --surface-3: #3f4b3b;
-  --glass: rgba(42, 52, 40, 0.78);
+  --bg: #101411;
+  --bg-2: #141a16;
+  --surface: #272d29;
+  --surface-2: #303732;
+  --surface-3: #3a423c;
+  --glass: rgba(39, 45, 41, 0.78);
 
   --ink: #f5f0dc;
   --ink-2: #e3dfc6;
   --ink-3: #c3cbb6;
-  --line: #4a5844;
-  --line-2: #5d6c56;
-  --control: #a3bca3;
+  --line: #444d46;
+  --line-2: #58635b;
+  --control: #a9baab;
 
   --brand-1: #3fcf82;
   --brand-2: #e2ad49;
@@ -30,7 +30,11 @@
   --logo-2: #e2ad49;
   --logo-3: #c38a30;
   --grad-btn: linear-gradient(118deg, #f6cd60 0%, #e2ad49 55%, #c38a30 100%);
-  --on-grad: #0e1912;
+  --on-grad: #101411;
+  --shot-bg: radial-gradient(60% 80% at 50% 55%, rgba(246, 205, 96, 0.13), transparent 72%), var(--surface-2);
+  --halo-a: rgba(246, 205, 96, 0.2);
+  --halo-b: rgba(246, 205, 96, 0.08);
+  --halo-c: rgba(246, 205, 96, 0.12);
   --glow-1: #e2ad49;
   --glow-2: #3fcf82;
   --key: #f6cd60;
@@ -39,11 +43,11 @@
 
   --accent: #eec765;
   --accent-2: #8fdcae;
-  --accent-soft: #3d4a30;
-  --on-accent: #0e1912;
+  --accent-soft: #3a3f2a;
+  --on-accent: #101411;
 
   --btn-bg: #eec765;
-  --btn-ink: #0e1912;
+  --btn-ink: #101411;
   --btn-bg-hover: #f6d98a;
 
   --ok: #5fd68f;
@@ -88,6 +92,10 @@
     --grad-btn: linear-gradient(118deg, #0f6b3a 0%, #4f7a1c 50%, #8a6508 100%);
     --on-grad: #ffffff;
     --glow-1: #b8860b;
+    --shot-bg: radial-gradient(70% 90% at 50% 60%, color-mix(in srgb, var(--brand-2) 22%, var(--surface-2)), var(--surface-2) 75%);
+    --halo-a: color-mix(in srgb, var(--brand-1) 32%, transparent);
+    --halo-b: color-mix(in srgb, var(--brand-3) 32%, transparent);
+    --halo-c: color-mix(in srgb, var(--brand-2) 35%, transparent);
     --glow-2: #0f7a42;
     --key: #7a5600;
     --key-soft: rgba(184, 134, 11, 0.1);
@@ -144,6 +152,10 @@
   --grad-btn: linear-gradient(118deg, #0f6b3a 0%, #4f7a1c 50%, #8a6508 100%);
   --on-grad: #ffffff;
   --glow-1: #b8860b;
+  --shot-bg: radial-gradient(70% 90% at 50% 60%, color-mix(in srgb, var(--brand-2) 22%, var(--surface-2)), var(--surface-2) 75%);
+  --halo-a: color-mix(in srgb, var(--brand-1) 32%, transparent);
+  --halo-b: color-mix(in srgb, var(--brand-3) 32%, transparent);
+  --halo-c: color-mix(in srgb, var(--brand-2) 35%, transparent);
   --glow-2: #0f7a42;
   --key: #7a5600;
   --key-soft: rgba(184, 134, 11, 0.1);
@@ -186,6 +198,13 @@
 :root[data-palette="forest"] .contact__mark { filter: drop-shadow(0 14px 24px rgba(226, 173, 73, 0.3)); }
 :root[data-palette="forest"] .p-hero__emblem { filter: drop-shadow(0 20px 40px rgba(226, 173, 73, 0.28)); }
 :root[data-palette="forest"] .chain__stage--remember { box-shadow: 0 0 0 1px color-mix(in srgb, var(--brand-3) 18%, transparent), 0 30px 70px -45px color-mix(in srgb, var(--brand-3) 55%, transparent); }
+
+/* Card visuals: one soft gold glow in dark mode instead of a green and gold blotch; light mode keeps its original look. */
+:root[data-palette="forest"] .quad__shot,
+:root[data-palette="forest"] .p-card__shot { background: var(--shot-bg); }
+:root[data-palette="forest"] .quad__halo,
+:root[data-palette="forest"] .p-card__halo { background: conic-gradient(from 0deg, transparent, var(--halo-a), transparent 40%, var(--halo-b), transparent 75%); }
+:root[data-palette="forest"] .p-hero__halo { background: conic-gradient(from 0deg, transparent, var(--halo-a), transparent 35%, var(--halo-b), transparent 70%, var(--halo-c), transparent); }
 
 /* Palette switch icon: two overlapping discs. */
 .palette-btn svg { fill: none; }

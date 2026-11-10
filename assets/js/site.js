@@ -63,7 +63,7 @@ syncThemeButtons();
 // gold) is the second choice and is remembered like the theme.
 const THEME_COLORS = {
   default: { dark: '#070a12', light: '#edf1f8' },
-  forest: { dark: '#0e1912', light: '#f3f0dc' },
+  forest: { dark: '#101411', light: '#f3f0dc' },
 };
 
 function currentPalette() {
