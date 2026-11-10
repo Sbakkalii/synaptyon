@@ -1,0 +1,82 @@
+{%- comment -%}
+  Product illustrations for the four cards: a small before-and-after picture of
+  what the product does, in plain words. Illustrative content only; the values
+  shown are examples, not data. Colors come from the theme variables, so both
+  palettes and both modes use the same drawing.
+  Usage: {% include vis.html id="kleis" %}  (grammata, kleis, sibyl, mnemos)
+{%- endcomment -%}
+<svg class="vis vis--{{ include.id }}" viewBox="0 0 320 160" aria-hidden="true" focusable="false">
+  <defs>
+    <marker id="vis-ah-{{ include.id }}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 9 5 1 9" class="vis__head"/></marker>
+  </defs>
+  {%- case include.id %}
+  {%- when "grammata" %}
+  <g transform="rotate(-2.5 64 70)">
+    <rect class="vis__doc" x="18" y="14" width="92" height="104" rx="6"/>
+    <path class="vis__ink" d="M30 38c5-12 9 12 14 0s9 12 14 0 9 12 14 0 7 6 12 0"/>
+    <path class="vis__ink" d="M30 58c6-11 9 11 15 0s9 11 15 0 9 11 14 0 6 5 9 0"/>
+    <path class="vis__ink" d="M30 78c5-12 10 12 15 0s9 12 14 0 8 9 13 0"/>
+    <path class="vis__ink" d="M30 98c6-10 9 10 14 0s10 10 14 0"/>
+  </g>
+  <path class="vis__arrow" d="M122 66h64" marker-end="url(#vis-ah-{{ include.id }})"/>
+  <text class="vis__tm" x="154" y="58" text-anchor="middle">read</text>
+  <rect class="vis__doc" x="198" y="14" width="104" height="104" rx="6"/>
+  <rect class="vis__bar" x="210" y="26" width="52" height="6" rx="3"/>
+  <path class="vis__ln" d="M210 44h80M210 55h74M210 66h80"/>
+  <g class="vis__grid"><rect x="210" y="78" width="80" height="30" rx="3"/><path d="M236.7 78v30M263.3 78v30M210 88h80M210 98h80"/></g>
+  <text class="vis__t" x="64" y="144" text-anchor="middle">Handwritten scan</text>
+  <text class="vis__t" x="250" y="144" text-anchor="middle">Text and tables</text>
+  {%- when "kleis" %}
+  <rect class="vis__doc" x="18" y="12" width="92" height="116" rx="6"/>
+  <rect class="vis__bar" x="30" y="24" width="40" height="6" rx="3"/>
+  <path class="vis__ln" d="M30 42h68M30 54h60"/>
+  <rect class="vis__hi" x="28" y="62" width="74" height="12" rx="3"/>
+  <path class="vis__ln" d="M30 88h64"/>
+  <rect class="vis__hi" x="28" y="96" width="74" height="12" rx="3"/>
+  <path class="vis__ln" d="M30 120h40"/>
+  <path class="vis__link" d="M102 68C130 68 140 46 168 46M102 102C130 102 140 98 168 98"/>
+  <g class="vis__chips">
+    <rect x="168" y="24" width="134" height="30" rx="6"/><rect x="168" y="60" width="134" height="30" rx="6"/><rect x="168" y="96" width="134" height="30" rx="6"/>
+  </g>
+  <text class="vis__tm" x="178" y="43">Invoice no.</text><text class="vis__v" x="292" y="43" text-anchor="end">INV-0001</text>
+  <text class="vis__tm" x="178" y="79">Date</text><text class="vis__v" x="292" y="79" text-anchor="end">12 Mar</text>
+  <text class="vis__tm" x="178" y="115">Total</text><text class="vis__v vis__v--key" x="292" y="115" text-anchor="end">1,240.00</text>
+  <text class="vis__t" x="64" y="148" text-anchor="middle">Any document</text>
+  <text class="vis__t" x="235" y="148" text-anchor="middle">The fields you need</text>
+  {%- when "sibyl" %}
+  <rect class="vis__bubble" x="18" y="12" width="196" height="30" rx="15"/>
+  <text class="vis__q" x="34" y="31">?</text>
+  <text class="vis__v" x="52" y="31">What is the notice period?</text>
+  <rect class="vis__doc" x="18" y="58" width="82" height="76" rx="6"/>
+  <path class="vis__ln" d="M30 72h58M30 84h50"/>
+  <rect class="vis__hi" x="28" y="92" width="62" height="12" rx="3"/>
+  <path class="vis__ln" d="M30 116h44"/>
+  <path class="vis__link" d="M100 98C124 98 128 92 150 92"/>
+  <rect class="vis__card" x="150" y="56" width="152" height="68" rx="8"/>
+  <text class="vis__a" x="164" y="84">3 months</text>
+  <rect class="vis__src" x="162" y="96" width="128" height="18" rx="9"/>
+  <text class="vis__tm vis__tm--key" x="226" y="108" text-anchor="middle">source: contract, p. 4</text>
+  <text class="vis__t" x="226" y="148" text-anchor="middle">An answer you can check</text>
+  {%- when "mnemos" %}
+  <rect class="vis__doc vis__doc--back" x="14" y="26" width="74" height="92" rx="6"/>
+  <text class="vis__tm" x="24" y="42">Contract</text>
+  <path class="vis__ln" d="M24 54h48M24 64h40"/>
+  <rect class="vis__doc" x="40" y="44" width="74" height="92" rx="6"/>
+  <text class="vis__tm" x="50" y="60">Amendment</text>
+  <path class="vis__ln" d="M50 72h50"/>
+  <rect class="vis__hi" x="48" y="80" width="58" height="12" rx="3"/>
+  <path class="vis__ln" d="M50 104h40"/>
+  <path class="vis__arrow" d="M122 84h30" marker-end="url(#vis-ah-{{ include.id }})"/>
+  <rect class="vis__card" x="160" y="22" width="146" height="112" rx="8"/>
+  <text class="vis__tm" x="172" y="40">WHAT IS TRUE NOW</text>
+  <text class="vis__tm" x="172" y="60">Notice period</text>
+  <text class="vis__old" x="172" y="78">6 months</text>
+  <text class="vis__a vis__a--sm" x="226" y="78">3 months</text>
+  <rect class="vis__src" x="170" y="90" width="126" height="16" rx="8"/>
+  <text class="vis__tm vis__tm--key" x="233" y="101" text-anchor="middle">valid from 1 Mar</text>
+  <rect class="vis__src" x="170" y="112" width="126" height="16" rx="8"/>
+  <text class="vis__tm vis__tm--key" x="233" y="123" text-anchor="middle">source: amendment, p. 2</text>
+  <text class="vis__t" x="64" y="154" text-anchor="middle">Documents in</text>
+  <text class="vis__t" x="233" y="154" text-anchor="middle">What it remembers</text>
+  {%- endcase %}
+</svg>

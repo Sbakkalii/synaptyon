@@ -11,8 +11,7 @@
     <a class="quad__card" href="{% if include.anchors %}#{{ c.id }}{% else %}{{ '/products/' | append: c.slug | append: '/' | relative_url }}{% endif %}" aria-labelledby="q-{{ c.slug }}-n q-{{ c.slug }}-l">
       <div class="quad__shot" aria-hidden="true">
         <span class="quad__step">{{ forloop.index | prepend: "0" }}</span>
-        <span class="quad__halo"></span>
-        {% include emblem.html id=c.slug uid="quad" class="quad__emblem" %}
+        {% include vis.html id=c.slug %}
       </div>
       <div class="quad__body">
         <p class="quad__label" id="q-{{ c.slug }}-l">{{ c.label }}</p>
