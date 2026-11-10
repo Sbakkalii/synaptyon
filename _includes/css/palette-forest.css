@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Second palette: green, dark green, gold and dark orange. Opt-in through
+   Second palette: green, dark green and gold. Opt-in through
    data-palette="forest" on <html>; the default blue-violet palette in
    tokens.css is untouched. It mirrors the default's dark/light handling, so
    the sun/moon toggle keeps working inside this palette.
@@ -23,14 +23,14 @@
 
   --brand-1: #3ddc84;
   --brand-2: #e8b923;
-  --brand-3: #e0701a;
+  --brand-3: #f2cf5a;
   --logo-1: #3ddc84;
   --logo-2: #e8b923;
-  --logo-3: #e0701a;
-  --grad-btn: linear-gradient(118deg, #1c7a46 0%, #8a6508 55%, #b04a0a 100%);
+  --logo-3: #f2cf5a;
+  --grad-btn: linear-gradient(118deg, #1c7a46 0%, #5f7a1c 50%, #8a6508 100%);
   --key: #f4c542;
   --key-soft: rgba(244, 197, 66, 0.1);
-  --violet: #f08a3c;
+  --violet: #e9c46a;
 
   --accent: #7be0a0;
   --accent-2: #e9c46a;
@@ -43,14 +43,14 @@
 
   --ok: #5fd68f;
   --ok-soft: #0f2a1a;
-  --warn: #f0a050;
-  --warn-soft: #2c1f0f;
+  --warn: #f2cf5a;
+  --warn-soft: #2a2410;
 
   --st-E: #7bd88f;
   --st-K: #f0c75e;
   --st-G: #3fc9b5;
-  --st-V: #ef8a3c;
-  --st-P: #ec8279;
+  --st-V: #b8d94d;
+  --st-P: #e8dca0;
   --st-A: #a9b8a3;
 
   --glow: 0 0 0 1px rgba(123, 224, 160, 0.14), 0 30px 80px -40px rgba(61, 220, 132, 0.4);
@@ -75,13 +75,13 @@
     --control: #75896f;
     --brand-1: #1f9d55;
     --brand-2: #b8860b;
-    --brand-3: #b4500f;
+    --brand-3: #8a6d0a;
     --logo-1: #1f9d55;
     --logo-2: #b8860b;
-    --logo-3: #c4570e;
+    --logo-3: #c99a12;
     --key: #7a5600;
     --key-soft: rgba(184, 134, 11, 0.1);
-    --violet: #b24a0b;
+    --violet: #7a5600;
     --accent: #0f6a3a;
     --accent-2: #86600a;
     --accent-soft: #dcefd7;
@@ -93,13 +93,13 @@
     --mark-ink: #3d3000;
     --ok: #13693c;
     --ok-soft: #dff1e4;
-    --warn: #8a4b00;
-    --warn-soft: #fbeedb;
+    --warn: #7a5600;
+    --warn-soft: #f8f0d4;
     --st-E: #1a7343;
     --st-K: #856000;
     --st-G: #0a7368;
-    --st-V: #b24a0b;
-    --st-P: #b8325f;
+    --st-V: #4f6f0c;
+    --st-P: #7a6420;
     --st-A: #556356;
     --shadow-1: 0 1px 2px rgba(12, 35, 20, 0.06);
     --shadow-2: 0 18px 44px -28px rgba(12, 35, 20, 0.28), 0 2px 6px rgba(12, 35, 20, 0.05);
@@ -126,13 +126,13 @@
   --control: #75896f;
   --brand-1: #1f9d55;
   --brand-2: #b8860b;
-  --brand-3: #b4500f;
+  --brand-3: #8a6d0a;
   --logo-1: #1f9d55;
   --logo-2: #b8860b;
-  --logo-3: #c4570e;
+  --logo-3: #c99a12;
   --key: #7a5600;
   --key-soft: rgba(184, 134, 11, 0.1);
-  --violet: #b24a0b;
+  --violet: #7a5600;
   --accent: #0f6a3a;
   --accent-2: #86600a;
   --accent-soft: #dcefd7;
@@ -144,13 +144,13 @@
   --mark-ink: #3d3000;
   --ok: #13693c;
   --ok-soft: #dff1e4;
-  --warn: #8a4b00;
-  --warn-soft: #fbeedb;
+  --warn: #7a5600;
+  --warn-soft: #f8f0d4;
   --st-E: #1a7343;
   --st-K: #856000;
   --st-G: #0a7368;
-  --st-V: #b24a0b;
-  --st-P: #b8325f;
+  --st-V: #4f6f0c;
+  --st-P: #7a6420;
   --st-A: #556356;
   --shadow-1: 0 1px 2px rgba(12, 35, 20, 0.06);
   --shadow-2: 0 18px 44px -28px rgba(12, 35, 20, 0.28), 0 2px 6px rgba(12, 35, 20, 0.05);
@@ -161,7 +161,7 @@
 
 /* Hard-coded blue glows in the default styles, re-tinted for this palette. */
 :root[data-palette="forest"] .btn--grad { box-shadow: 0 14px 34px -16px rgba(40, 150, 85, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.18); }
-:root[data-palette="forest"] .btn--grad:hover { box-shadow: 0 18px 40px -16px rgba(200, 120, 30, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.25); }
+:root[data-palette="forest"] .btn--grad:hover { box-shadow: 0 18px 40px -16px rgba(200, 165, 30, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.25); }
 :root[data-palette="forest"] .statering__mark { filter: drop-shadow(0 24px 40px rgba(61, 220, 132, 0.38)); }
 :root[data-palette="forest"] .contact__mark { filter: drop-shadow(0 14px 24px rgba(61, 220, 132, 0.34)); }
 :root[data-palette="forest"] .p-hero__emblem { filter: drop-shadow(0 20px 40px rgba(61, 220, 132, 0.3)); }
