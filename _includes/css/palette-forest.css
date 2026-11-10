@@ -11,17 +11,17 @@
 :root[data-palette="forest"] {
   --bg: #0e1912;
   --bg-2: #121f17;
-  --surface: #1d271c;
-  --surface-2: #252f23;
-  --surface-3: #2e3a2b;
-  --glass: rgba(29, 39, 28, 0.76);
+  --surface: #2a3428;
+  --surface-2: #343f31;
+  --surface-3: #3f4b3b;
+  --glass: rgba(42, 52, 40, 0.78);
 
   --ink: #f5f0dc;
-  --ink-2: #dcd8bd;
-  --ink-3: #b3bca6;
-  --line: #333e30;
-  --line-2: #46543f;
-  --control: #8aa58a;
+  --ink-2: #e3dfc6;
+  --ink-3: #c3cbb6;
+  --line: #4a5844;
+  --line-2: #5d6c56;
+  --control: #a3bca3;
 
   --brand-1: #3fcf82;
   --brand-2: #e2ad49;
@@ -39,7 +39,7 @@
 
   --accent: #eec765;
   --accent-2: #8fdcae;
-  --accent-soft: #2e3a24;
+  --accent-soft: #3d4a30;
   --on-accent: #0e1912;
 
   --btn-bg: #eec765;
@@ -57,7 +57,7 @@
   --st-G: #4bd1be;
   --st-V: #b8d94d;
   --st-P: #e8dca0;
-  --st-A: #b4c3ad;
+  --st-A: #c4d1bd;
 
   --glow: 0 0 0 1px rgba(246, 205, 96, 0.14), 0 30px 80px -40px rgba(226, 173, 73, 0.4);
   --dot-grid: radial-gradient(circle at 1px 1px, rgba(245, 240, 220, 0.07) 1px, transparent 1.4px);
